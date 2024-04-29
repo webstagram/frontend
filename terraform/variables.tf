@@ -9,11 +9,11 @@ variable "region" {
 }
 
 variable "cors_allowed_origins" {
-  type = list(string)
+  type        = list(string)
   description = "The domains allowed in the CORS configuration."
 }
 
 variable "bucket_name" {
-  type = string
+  type        = string
   description = "Name of the bucket."
 }
