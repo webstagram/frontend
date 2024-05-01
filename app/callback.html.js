@@ -19,4 +19,5 @@ async function fetchResponse() {
   }
   
   // Call the async function
-  fetchResponse();
+ fetchResponse();
+ window.location.href='/index.html'
