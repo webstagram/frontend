@@ -1,5 +1,6 @@
 const queryString = window.location.search;
-const backendURL="http://localhost:5000/";
+import config from './js/configManager.js';
+const backendURL=config.BACKEND_URL;
 
 // Use URLSearchParams to parse the query string
 const urlParams = new URLSearchParams(queryString);
@@ -20,4 +21,4 @@ async function fetchResponse() {
   
   // Call the async function
  fetchResponse();
- window.location.href='/index.html'
+// window.location.href='/index.html'
