@@ -2,10 +2,19 @@
 <html>
   <head>
     <title>My App</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styles.css">
   </head>
   <body>
-    <h1>Hello, world!</h1>
-    <script src="app.js"></script>
+    <div id="root">
+      <header id="main-nav" class="sidebar">
+        <h1> Webstagram </h1>
+      </header>
+      <div id="main-page"></div>
+    </div>
+
+    <script src="js/app.js" type="module" ></script>
+    <script src="js/login.js" type="module"></script>
   </body>
 </html>
