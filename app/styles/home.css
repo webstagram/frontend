@@ -1,16 +1,3 @@
-:root {
-  --aqua: #016767;
-  --blue: #A9D3F2;
-  --soft-gray: #E8E7E8;
-  --white: #FFFFFF;
-}
-
-body {
-  margin: 0 7.5vw;
-  background-color: var(--soft-gray); 
-  font-family: 'Saira Condensed', sans-serif;
-}
-
 .webs {
   display: flex;
   flex-wrap: wrap;
@@ -36,7 +23,7 @@ body {
   font-size: 1em;
 }
 
-@container (width < 500px) {
+@container (width < 30rem) {
   .web-container {
     font-size: 0.65em;
   }
@@ -95,7 +82,7 @@ body {
   border: 0.2em solid var(--blue);
 }
 
-#like-icon {
+.like-icon {
   width: 2.5em;
   justify-self: end;
   grid-row-start: 1;
