@@ -5,6 +5,17 @@ body {
   width: 100%;
 }
 
+@container (width < 30rem) {
+  #main-nav {
+    font-size: 0.65em;
+    background-color: rgb(92, 40, 40);
+  }
+
+  .login-container {
+    justify-content: space-evenly;
+  }
+}
+
 .login-container {
   display: flex;
   flex-direction: column;
