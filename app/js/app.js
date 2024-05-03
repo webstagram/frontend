@@ -34,20 +34,11 @@ const handleLocation = async () => {
   const route = (!!routes[path] && routes[path].template) || routes[404].template;
   const html = await fetch(route).then((data) => data.text());
   document.getElementById('main-page').innerHTML = html;
-  route[path] && routes[path].js(path);
+  !!route[path] && routes[path].js(path);
 };
-
-const addClickEventToNavItems = () => {
-  const mainNav = document.getElementById('main-nav');
-  const children = mainNav.children;
-  for (let i = 0; i < children.length; i++) {
-    children[i].addEventListener('click', route);
-  }
-}
 
 window.onpopstate = handleLocation;
 window.route = route;
 
 handleLocation();
-addClickEventToNavItems();
 closeLoadingScreen();
