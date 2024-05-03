@@ -10,23 +10,23 @@ const route = (event) => {
 
 const routes = {
   404: {
-    'template': '/app/pages/404.html',
+    'template': '/pages/404.html',
     'js': (str) => console.log(str)
   },
   '/': {
-    'template': '/app/pages/login.html',
+    'template': '/pages/login.html',
     'js': login
   },
   '/home': {
-    'template': '/app/pages/home.html',
+    'template': '/pages/home.html',
     'js': home,
   },
   '/about': {
-    'template': '/app/pages/about.html',
+    'template': '/pages/about.html',
     'js': (str) => console.log(str)
   },
-  '/app/index.html' :{
-    'template': '/app/pages/login.html',
+  '/index.html' :{
+    'template': '/pages/login.html',
     'js': login
   }
 };
