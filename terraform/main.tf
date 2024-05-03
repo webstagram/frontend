@@ -35,7 +35,7 @@ resource "aws_s3_bucket_website_configuration" "app" {
   }
 
   error_document {
-    key = "error.html"
+    key = "pages/404.html"
   }
 }
 
