@@ -4,12 +4,14 @@
   --blue: #A9D3F2;
   --soft-gray: #E8E7E8;
   --white: #FFFFFF;
+
+  background-color: var(--soft-gray);
+  font-family: 'Saira Condensed', sans-serif;
 }
 
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Saira Condensed', sans-serif;
   container-type: inline-size;
 }
 
