@@ -1,44 +1,67 @@
 :root {
-  --off-green: #016767;
-	--off-white: #dadada;
-	--white: #fff;
+  --aqua: #016767;
+  --aqua-selected: #004d4d;
+  --blue: #A9D3F2;
+  --soft-gray: #E8E7E8;
+  --white: #FFFFFF;
 }
 
-* {
+body {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Saira Condensed', sans-serif;
+  container-type: size;
 }
 
-button {
-  background-color: var(--off-green);
-  border: none;
-  color: var(--white);
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
-
-header {
-  height: 10vh;
-  background-color: var(--off-green);
-  color: var(--white);
-  
-}
-
-/* .login-container {
-  background-color: var(--white);
-  height: 100vh;
+#main-nav {
   display: flex;
-  justify-content: center;
   align-items: center;
-} */
+  height: 8em;
+  background-color: var(--aqua);
+  color: var(--white);
+  margin: 0;
+  padding: 0 4em;
+}
 
-/* .card {
-  background-color: var(--off-white);
-  height: 100vh;
-  min-width: 600px;
-}  */
+@container (width < 30rem) {
+  #main-nav {
+    font-size: 0.65em;
+  }
+}
+
+#main-titles {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: start;
+  margin-left: 1em;
+}
+
+#title {
+  font-size: 2em;
+  margin: 0;
+}
+
+#username {
+  font-size: 1em;
+  font-weight: 200;
+  margin: 0;
+  line-height: 2em;
+}
+
+#main-profile-image {
+  align-self: center;
+  justify-self: start;
+  border-radius: 50%;
+  width: 4.5em;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border: 0.2em solid var(--blue);
+}
+
+#webstagram-logo {
+  color: var(--white);
+  justify-self: end;
+  margin-left: auto;
+  width: 3.5em;
+}
