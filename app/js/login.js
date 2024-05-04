@@ -1,5 +1,3 @@
-
-
 export function login() {
   const loginBtn = document.getElementById("login-btn");
 
