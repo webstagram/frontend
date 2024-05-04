@@ -10,10 +10,10 @@ async function loadConfig() {
     try {
       const response = await fetch(configFile);
       const configData = await response.json();
-      return configData; // Returns the parsed configuration object
+      return configData; 
     } catch (error) {
       console.error('Error loading config:', error);
-      return {}; // Returns an empty object in case of an error
+      return {};
     }
   }
   const config = await loadConfig();
