@@ -6,7 +6,6 @@ export function add_web() {
 
   add_post_btn.addEventListener('click', () => {
     let posts = posts_container.querySelectorAll('.add-post-container');
-    console.log(posts.length);
     if (posts.length >= max_posts) {
       console.log('Max posts reached');
       return;
@@ -29,7 +28,7 @@ export function add_web() {
       title_input.name = 'title';
       title_input.type = 'text';
       title_input.minLength = 1;
-      title_input.maxLength = 10;
+      title_input.maxLength = 15;
       title_container.appendChild(title_label);
       title_container.appendChild(title_input);
 
