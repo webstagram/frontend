@@ -1,5 +1,6 @@
 import { login } from "./login.js";
 import { home } from "./home.js";
+import { isTokenExpired, decodeJWT } from "./JWTManager.js";
 import { web } from "./web.js";
 
 const route = (event) => {
@@ -37,11 +38,8 @@ const routes = {
 };
 
 const handleLocation = async () => {
-  // const path = window.location.pathname;
   const urlParams = new URLSearchParams(window.location.search);
-
-// Get the parameter value
-  let path = urlParams.get('path'); // Replace 'param' with your parameter name
+  let path = urlParams.get('path');
   if(!path)path='';
   const route = (!!routes[path] && routes[path].template) || routes[404].template;
   const html = await fetch(route).then((data) => data.text());
@@ -60,6 +58,14 @@ const addClickEventToNavItems = () => {
 
 window.onpopstate = handleLocation;
 window.route = route;
+if(!isTokenExpired()){
+  document.getElementById("main-profile-image").src=decodeJWT().userImage;
+  document.getElementById("username").textContent=decodeJWT().userName;
 
+  }
+  else{
+    document.getElementById("main-profile-image").style.display = 'none';
+    document.getElementById("username").style.display = 'none';
+  }
 handleLocation();
 addClickEventToNavItems();
