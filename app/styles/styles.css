@@ -13,29 +13,6 @@ body {
   container-type: size;
 }
 
-#loading-screen {
-  background-color: var(--blue);
-  border: none;
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  opacity: 0.9;
-  z-index: 1;
-  display: grid;
-  place-content: center;
-}
-
-#webstagram-logo-loader {
-  height: 100vh;
-  animation: loading-screen 0.5s infinite;
-}
-
-@keyframes loading-screen {
-  50% {
-    height: 90vw;
-  }
-}
-
 #main-nav {
   display: flex;
   align-items: center;
@@ -49,10 +26,6 @@ body {
 @container (width < 30rem) {
   #main-nav {
     font-size: 0.65em;
-  }
-
-  #webstagram-logo-loader {
-    width: 100vw;
   }
 }
 
