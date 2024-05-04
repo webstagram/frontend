@@ -48,6 +48,7 @@
   padding: 1em;
   background-color: white;
   border-radius: 3em;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 }
 
 #add-web-title-container {
