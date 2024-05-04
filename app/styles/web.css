@@ -1,7 +1,7 @@
 #web-details-header {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -24,7 +24,6 @@
   border-radius: 0.5em;
   text-align: center;
   text-transform: uppercase;
-  margin-left: auto;
   font-size: 1.2em;
   font-weight: 700;
 }

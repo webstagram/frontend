@@ -3,7 +3,7 @@ export function login() {
 
   loginBtn.addEventListener("click", (event) => {
     const a = document.createElement('a');
-    a.href = '/home';
+    a.href = '/web';
     a.onclick = window.route;
     a.click();
   });
