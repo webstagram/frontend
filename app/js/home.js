@@ -1,7 +1,7 @@
 import { fetchWithAuth } from "./authRequest.js";
 
 export async function home() {
-  getWebs();
+  await getWebs();
   let searchBar = document.querySelector('#search-bar');
   searchBar.addEventListener('keyup', updateWebDisplay);
 
