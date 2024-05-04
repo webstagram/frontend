@@ -1,6 +1,8 @@
 import { login } from "./login.js";
 import { home } from "./home.js";
 import { isTokenExpired, decodeJWT } from "./JWTManager.js";
+import { web } from "./web.js";
+
 const route = (event) => {
   event = event || window.event;
   event.preventDefault();
@@ -24,6 +26,10 @@ const routes = {
   '/about': {
     'template': '/pages/about.html',
     'js': (str) => console.log(str)
+  },
+  '/web': {
+    'template': '/pages/web.html',
+    'js': web,
   },
   '/index.html' :{
     'template': '/pages/login.html',
