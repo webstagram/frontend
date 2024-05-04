@@ -1,6 +1,7 @@
 const queryString = window.location.search;
 import config from './js/configManager.js';
 const backendURL=config.BACKEND_URL;
+import {isTokenExpired, fetchWithAuth} from "./js/authRequest.js";
 
 // Use URLSearchParams to parse the query string
 const urlParams = new URLSearchParams(queryString);
@@ -14,11 +15,15 @@ async function fetchResponse() {
       let response = await fetch(`${backendURL}github/callback?code=${paramValue}`);
      response = await response.json(); // Make sure to await the .json() call as well
       console.log(response);
+      localStorage.setItem('jwtToken', response.jwt);
     } catch (error) {
       console.error('Error fetching data: ', error);
     }
   }
   
   // Call the async function
- fetchResponse();
+await fetchResponse();
+ console.log(isTokenExpired());
+fetchWithAuth("helloworld").then(z => console.log(z));
 // window.location.href='/index.html'
+ 
