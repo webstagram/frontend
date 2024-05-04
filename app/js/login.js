@@ -5,7 +5,7 @@ export function login() {
 
   loginBtn.addEventListener("click", (event) => {
     const a = document.createElement('a');
-    a.href = '/web';
+    a.href = '/home';
     a.onclick = window.route;
     a.click();
   });
