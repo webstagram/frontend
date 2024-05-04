@@ -1,11 +1,8 @@
 import config from './configManager.js';
+import {isTokenExpired} from './JWTManager.js';
 const backendURL=config.BACKEND_URL;
 const token=localStorage.getItem('jwtToken');
 
-function isTokenExpired() {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return Date.now() >= (payload.exp * 1000)-30000;
-  }
 
   // Function to add the JWT as a header and make the fetch request
  async function fetchWithAuth(endpoint, options = {}) {
@@ -27,5 +24,5 @@ function isTokenExpired() {
     });
   }
 
-  export { isTokenExpired, fetchWithAuth };
+  export {  fetchWithAuth };
 

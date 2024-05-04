@@ -1,6 +1,6 @@
 import { login } from "./login.js";
 import { home } from "./home.js";
-
+import { isTokenExpired, decodeJWT } from "./JWTManager.js";
 const route = (event) => {
   event = event || window.event;
   event.preventDefault();
@@ -49,6 +49,7 @@ const addClickEventToNavItems = () => {
 
 window.onpopstate = handleLocation;
 window.route = route;
-
+if(!isTokenExpired())
+document.getElementById("main-profile-image").src=decodeJWT().userImage;
 handleLocation();
 addClickEventToNavItems();

@@ -1,7 +1,7 @@
 const queryString = window.location.search;
 import config from './js/configManager.js';
 const backendURL=config.BACKEND_URL;
-import {isTokenExpired, fetchWithAuth} from "./js/authRequest.js";
+import { fetchWithAuth} from "./js/authRequest.js";
 
 // Use URLSearchParams to parse the query string
 const urlParams = new URLSearchParams(queryString);
@@ -23,7 +23,8 @@ async function fetchResponse() {
   
   // Call the async function
 await fetchResponse();
- console.log(isTokenExpired());
+
 fetchWithAuth("helloworld").then(z => console.log(z));
+
 // window.location.href='/index.html'
  
