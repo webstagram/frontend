@@ -112,7 +112,7 @@
   cursor: pointer;
   height: .6em;
   width: .6em;
-  margin: 0 2px;
+  margin: 0 .12em;
   background-color: var(--soft-gray);
   opacity: 0.3;
   border-radius: 50%;
