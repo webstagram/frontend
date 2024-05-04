@@ -15,16 +15,21 @@ async function fetchResponse() {
       let response = await fetch(`${backendURL}github/callback?code=${paramValue}`);
      response = await response.json(); // Make sure to await the .json() call as well
       console.log(response);
-      localStorage.setItem('jwtToken', response.jwt);
+       localStorage.setItem('jwtToken', response.jwt);
     } catch (error) {
       console.error('Error fetching data: ', error);
     }
   }
   
   // Call the async function
-await fetchResponse();
+(async () => {
+  try {
+    await fetchResponse();
 
-fetchWithAuth("helloworld").then(z => console.log(z));
+   window.location.href='/?path=home';
+  
+  } catch (error) {
+  }
+})();
 
-// window.location.href='/index.html'
  
