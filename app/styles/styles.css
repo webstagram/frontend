@@ -9,7 +9,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Saira Condensed', sans-serif;
-  container-type: size;
+  container-type: inline-size;
 }
 
 #main-nav {
@@ -18,13 +18,16 @@ body {
   height: 8em;
   background-color: var(--aqua);
   color: var(--white);
-  margin: 0;
+  margin: 0 0 2em 0;
   padding: 0 4em;
 }
 
 @container (width < 30rem) {
   #main-nav {
-    font-size: 0.65em;
+    font-size: 0.7em;
+  }
+  #main-page {
+    font-size: 0.7em;
   }
 }
 

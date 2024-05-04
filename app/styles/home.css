@@ -4,7 +4,6 @@
   gap: 3em;
   justify-content: space-around;
   align-items: center;
-  container-type: size;
 }
 
 .web-container {
@@ -21,12 +20,6 @@
   min-width: 40%;
   max-width: 80%;
   font-size: 1em;
-}
-
-@container (width < 30rem) {
-  .web-container {
-    font-size: 0.65em;
-  }
 }
 
 .web-titles {

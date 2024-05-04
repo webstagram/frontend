@@ -1,5 +1,6 @@
 import { login } from "./login.js";
 import { home } from "./home.js";
+import { web } from "./web.js";
 
 const route = (event) => {
   event = event || window.event;
@@ -24,6 +25,10 @@ const routes = {
   '/about': {
     'template': '/pages/about.html',
     'js': (str) => console.log(str)
+  },
+  '/web': {
+    'template': '/pages/web.html',
+    'js': web,
   }
 };
 
