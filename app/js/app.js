@@ -26,19 +26,15 @@ const routes = {
   '/about': {
     'template': '/pages/about.html',
     'js': (str) => console.log(str)
-  },
-  '/index.html' :{
-    'template': '/pages/login.html',
-    'js': login
   }
 };
 
 const handleLocation = async () => {
-  const path = window.location.hash.slice(1);
+  const path = window.location.hash.slice(1) || "/";
   const route = (!!routes[path] && routes[path].template) || routes[404].template;
   const html = await fetch(route).then((data) => data.text());
   document.getElementById('main-page').innerHTML = html;
-  !!route[path] && routes[path].js(path);
+  routes[path].js(path);
 };
 
 window.onpopstate = handleLocation;
