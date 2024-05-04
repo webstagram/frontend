@@ -15,7 +15,7 @@ const routes = {
     'js': (str) => console.log(str)
   },
   '/': {
-    'template': 'pages/login.html',
+    'template': '/pages/login.html',
     'js': login
   },
   '/home': {
@@ -29,6 +29,10 @@ const routes = {
   '/web': {
     'template': '/pages/web.html',
     'js': web,
+  },
+  '/index.html' :{
+    'template': '/pages/login.html',
+    'js': login
   }
 };
 
