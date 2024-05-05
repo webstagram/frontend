@@ -1,5 +1,6 @@
 
 import config from './configManager.js';
+
 export function login() {
   const loginBtn = document.getElementById("login-btn");
 

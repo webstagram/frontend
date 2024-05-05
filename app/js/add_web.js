@@ -1,4 +1,5 @@
 import { openPopup, closePopup } from "./popup.js";
+import { routeButton } from "./PathManager.js";
 
 export function add_web() {
   let no_post_msg = document.getElementById('add-web-no-posts-msg');
@@ -140,7 +141,7 @@ export function add_web() {
     
     openPopup('Successfully posted!', () => {
       closePopup();
+      routeButton("add-web-back-btn", "/");
     });
-
   });
 }

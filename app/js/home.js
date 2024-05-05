@@ -1,3 +1,4 @@
+import { routeWithoutRefresh, routeButton } from "./PathManager.js";
 import { fetchWithAuth } from "./authRequest.js";
 
 export async function home() {
@@ -21,10 +22,11 @@ export async function home() {
     result=await result.json();
     
     populateWebs(result);
+  };
 
-  }
   function populateWebs(websData) {
     const container = document.getElementById('webs');
+    container.innerHTML="";
     websData.forEach(web => {
       const webContainer = document.createElement('section');
       webContainer.className = 'web-container';
@@ -33,18 +35,31 @@ export async function home() {
       const profileImage = document.createElement('img');
       profileImage.className = 'profile-image';
       profileImage.src = web.ProfileImageUrl;
-  
+
       const webTitlesDiv = document.createElement('div');
       webTitlesDiv.className = 'web-titles';
-  
+
+      webTitlesDiv.addEventListener('click', function(event){
+        routeWithoutRefresh(`/?path=web&webid=${webContainer.id}`);
+      });
+
       const webTitle = document.createElement('h1');
       webTitle.className = 'web-title';
       webTitle.textContent = web.WebName;
-  
+
       const username = document.createElement('h2');
       username.className = 'username';
       username.textContent = web.UserName;
-  
+      username.addEventListener('click', (event) => {
+        searchBar.value = username.textContent;
+        updateWebDisplay();
+      });
+      profileImage.addEventListener('click', (event) => {
+        searchBar.value = username.textContent;
+        updateWebDisplay();
+      });
+
+
       const likeIcon = document.createElement('img');
       likeIcon.className = 'like-icon';
       likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/like.svg';
@@ -57,6 +72,10 @@ export async function home() {
         const topicElement = document.createElement('h5');
         topicElement.className = 'topic';
         topicElement.textContent = topic;
+        topicElement.addEventListener('click', (event) => {
+          searchBar.value = topicElement.textContent;
+          updateWebDisplay();
+        })
         topicsDiv.appendChild(topicElement);
       });
       webTitlesDiv.appendChild(webTitle);
@@ -75,6 +94,7 @@ export async function home() {
   function updateWebDisplay() {
     let searchText = searchBar.value.toLowerCase().trim();
 
+
     Object.values(webs).forEach(web => {
       let { title, username, topics } = web;
 
@@ -89,4 +109,10 @@ export async function home() {
       }
     });
   }
+  routeButton("add-web-btn", "/?path=create");
+  let clearButton = document.getElementById("search-clear")
+  clearButton.addEventListener('click', (event) => {
+    searchBar.value = "";
+    updateWebDisplay();
+  });
 }
