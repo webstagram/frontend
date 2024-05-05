@@ -5,8 +5,15 @@
   gap: 1em;
 }
 
-#search-bar {
+#search{
+  display: flex;
   min-width: 70%;
+  gap:0.2em;
+  
+}
+
+#search-bar {
+  min-width: 95%;
   border-radius: 2em;
   min-height: 1.5em;
   border: none;
@@ -21,6 +28,22 @@
 }
 
 #add-web-btn {
+  background-color: var(--aqua);
+  color: var(--white);
+  text-decoration: none;
+  border: none;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  font-size: 1.2em;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+#add-web-btn:hover{
+  background-color: var(--aqua-selected);
+}
+
+#search-clear{
   cursor: pointer;
   background-color: var(--aqua);
   color: var(--white);
@@ -32,6 +55,9 @@
   font-weight: 700;
   text-align: center;
   text-transform: uppercase;
+}
+#search-clear:hover{
+  background-color: var(--aqua-selected);
 }
 
 #webs {
@@ -85,6 +111,11 @@
   font-weight: 200;
   margin: 0;
   line-height: 2em;
+  cursor: pointer;
+}
+.username:hover{
+  color:blue;
+  text-decoration: underline;
 }
 
 .topics {
@@ -105,6 +136,11 @@
   padding: 0.1em 0.5em;
   margin: 0;
   text-align: center;
+  cursor: pointer;
+}
+.topic:hover{
+  background-color:black;
+  color: var(--soft-gray);
 }
 
 .profile-image {
@@ -115,6 +151,11 @@
   aspect-ratio: 1/1;
   object-fit: cover;
   border: 0.2em solid var(--blue);
+  cursor: pointer;
+}
+.profile-image:hover{
+  border: 0.2em solid var(--blue-selected);
+
 }
 
 .like-icon {
