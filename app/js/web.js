@@ -7,7 +7,6 @@ async function populateWebPosts(webId){
   return result;
 }
 
-import { routeButton } from "./PathManager.js";
 export async function web() {
   const urlParams = new URLSearchParams(window.location.search);
   let webId = urlParams.get('webid');
