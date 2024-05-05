@@ -28,7 +28,6 @@
 }
 
 #add-web-btn {
-  cursor: pointer;
   background-color: var(--aqua);
   color: var(--white);
   text-decoration: none;
@@ -45,7 +44,6 @@
 }
 
 #search-clear{
-
   cursor: pointer;
   background-color: var(--aqua);
   color: var(--white);
@@ -56,7 +54,6 @@
   font-size: 1.2em;
   font-weight: 700;
   text-align: center;
-
   text-transform: uppercase;
 }
 #search-clear:hover{

@@ -58,15 +58,6 @@ const handleLocation = async () => {
   routes[path].js(path);
 };
 
-
-const addClickEventToNavItems = () => {
-  const mainNav = document.getElementById('main-nav');
-  const children = mainNav.children;
-  for (let i = 0; i < children.length; i++) {
-    children[i].addEventListener('click', route);
-  }
-}
-
 window.onpopstate = handleLocation;
 window.route = route;
 if(!isTokenExpired()){
@@ -83,5 +74,5 @@ if(!isTokenExpired()){
 
   routeButton("webstagram-logo","/?path=about" );
   routeButton("title");
+
 handleLocation();
-addClickEventToNavItems();

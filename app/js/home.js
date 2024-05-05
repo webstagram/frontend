@@ -26,6 +26,7 @@ export async function home() {
   }
   function populateWebs(websData) {
     const container = document.getElementById('webs');
+    container.innerHTML="";
     websData.forEach(web => {
       const webContainer = document.createElement('section');
       webContainer.className = 'web-container';

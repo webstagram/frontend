@@ -50,7 +50,6 @@ body {
 #title {
   font-size: 2em;
   margin: 0;
-  cursor: pointer;
 }
 
 #username {
@@ -77,5 +76,4 @@ body {
   justify-self: end;
   margin-left: auto;
   width: 3.5em;
-  cursor: pointer;
 }

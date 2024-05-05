@@ -6,6 +6,7 @@ export function routeWithoutRefresh(path) {
 }
 export function routeButton(buttonId, path = "/") {
     const button = document.getElementById(buttonId);
+    button.style.cursor='pointer';
     button.addEventListener("click", (event) => {
         routeWithoutRefresh(path);
     });
