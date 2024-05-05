@@ -2,6 +2,7 @@
   --aqua: #016767;
   --aqua-selected: #004d4d;
   --blue: #A9D3F2;
+  --blue-selected: #3172B6;
   --soft-gray: #E8E7E8;
   --white: #FFFFFF;
 
@@ -49,6 +50,7 @@ body {
 #title {
   font-size: 2em;
   margin: 0;
+  cursor: pointer;
 }
 
 #username {
@@ -75,4 +77,5 @@ body {
   justify-self: end;
   margin-left: auto;
   width: 3.5em;
+  cursor: pointer;
 }
