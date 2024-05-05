@@ -3,7 +3,10 @@ import { home } from "./home.js";
 import { isTokenExpired, decodeJWT } from "./JWTManager.js";
 import { web } from "./web.js";
 import { add_web } from "./add_web.js";
+import { closePopup } from "./popup.js";
 import { routeButton } from "./PathManager.js";
+
+
 const route = (event) => {
   event = event || window.event;
   event.preventDefault();
@@ -76,3 +79,4 @@ if(!isTokenExpired()){
   routeButton("title");
 
 handleLocation();
+closePopup();

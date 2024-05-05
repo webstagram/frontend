@@ -103,7 +103,7 @@
 }
 
 .add-post-container {
-  position: relative;
+  /* position: relative; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -161,7 +161,7 @@
 
 .remove-post-button {
   cursor: pointer;
-  position: absolute;
+  /* position: absolute; */
   border-radius: 0.5em;
   text-align: center;
   text-transform: uppercase;
@@ -169,8 +169,8 @@
   background-color: transparent;
   border: none;
   color: red;
-  top: 0.7em;
-  right: 0.7em;
+  width: fit-content;
+  align-self: center;
 }
 
 .add-post-images {

@@ -1,9 +1,42 @@
+import { openPopup, closePopup } from "./popup.js";
 import { routeButton } from "./PathManager.js";
+
 export function add_web() {
   let no_post_msg = document.getElementById('add-web-no-posts-msg');
   let add_post_btn = document.getElementById('add-web-add-post-btn');
   let posts_container = document.getElementById('posts-container');
+  const add_web_save_btn = document.getElementById('add-web-save-btn');
   let max_posts = 5;
+
+  function createSection(className) {
+    if (!className) return
+    const container = document.createElement('section');
+    container.className = 'add-post-title-container';
+    return container;
+  }
+
+  function createLabel(innerText) {
+    const label = document.createElement('label');
+    label.className = 'add-post-title-label';
+    label.innerText = innerText;
+    return label;
+  }
+
+  function createInput(name, type = 'text') {
+    if (!name) return undefined;
+    const input = document.createElement('input');
+    input.className = 'add-post-title-input';
+    input.name = name;
+    input.type = type;
+    return input;
+  }
+
+  function createImg(src) {
+    const img = document.createElement('img');
+    img.width = 200;
+    img.src = src;
+    return img;
+  }
 
   add_post_btn.addEventListener('click', () => {
     let posts = posts_container.querySelectorAll('.add-post-container');
@@ -21,17 +54,19 @@ export function add_web() {
       let title_container = document.createElement('section');
       title_container.className = 'add-post-title-container';
       let title_label = document.createElement('label');
-      title_label.htmlFor = 'title';
       title_label.className = 'add-post-title-label';
       title_label.innerText = 'post topic';
       let title_input = document.createElement('input');
       title_input.className = 'add-post-title-input';
-      title_input.name = 'title';
+      title_input.name = 'postTopic';
       title_input.type = 'text';
       title_input.minLength = 1;
       title_input.maxLength = 15;
       title_container.appendChild(title_label);
       title_container.appendChild(title_input);
+
+      title_container.appendChild(createLabel('Caption'));
+      title_container.appendChild(createInput('postCaption'))
 
       let images_container = document.createElement('section');
       images_container.className = 'add-post-images-container';
@@ -42,6 +77,7 @@ export function add_web() {
       image_select.className = 'add-post-images';
       image_select.type = 'file';
       image_select.accept = 'image/*';
+      image_select.name = 'selected-image';
       image_select.min = 1;
       image_select.max = 5;
       image_select.multiple = true;
@@ -51,11 +87,30 @@ export function add_web() {
       let remove_post_btn = document.createElement('button');
       remove_post_btn.className = 'remove-post-button';
       remove_post_btn.type = 'button';
-      remove_post_btn.innerText = '✗';
+      remove_post_btn.innerText = 'Cancel ✗';
 
       post.appendChild(title_container);
       post.appendChild(images_container);
       post.appendChild(remove_post_btn);
+
+      image_select.addEventListener('change', ({target: {files}}) => {
+        const selectedImages = images_container.querySelectorAll('img').length;
+        if (selectedImages >= 5) return;
+        for (let i = 0; i < 5 - selectedImages; i++) {
+          if (!files || !files[i]) return;
+          
+          const reader = new FileReader();
+
+          reader.onload = ({target: {result}}) => {
+            const img = createImg(result);
+            img.addEventListener('dblclick', () => images_container.removeChild(img))
+            images_container.appendChild(img);
+          };
+          
+          reader.readAsDataURL(files[i]);
+        } 
+        
+      });
 
       remove_post_btn.addEventListener('click', () => {
         posts_container.removeChild(post);
@@ -68,6 +123,34 @@ export function add_web() {
       posts_container.appendChild(post);
     }
   });
-  routeButton("add-web-back-btn", "/");
 
+  add_web_save_btn.addEventListener('click', () => {
+    const posts = document
+      .getElementById('posts-container')
+      .querySelectorAll('.add-post-container');
+
+    const formData = [...posts].map((cur) => {
+      let obj = {'selectedImages': []};
+
+      cur.querySelectorAll('input').forEach((input) => {
+        if (input.type !== 'text') return;
+
+        obj[input.name] = input.value; 
+      });
+
+      cur.querySelectorAll('img').forEach((img) => {
+        obj['selectedImages'].push(img.src);
+      });
+
+      return obj;
+    });  
+
+    console.log(formData);
+    
+    openPopup('Successfully posted!', () => {
+      closePopup();
+    });
+  });
+  
+  routeButton("add-web-back-btn", "/");
 }
