@@ -21,14 +21,18 @@ export async function home() {
     result=await result.json();
     
     populateWebs(result);
+  };
 
-  }
   function populateWebs(websData) {
     const container = document.getElementById('webs');
     websData.forEach(web => {
       const webContainer = document.createElement('section');
       webContainer.className = 'web-container';
       webContainer.id=web.WebId;
+
+      webContainer.onclick = function() {
+        window.location.href=`/?path=web&webid=${webContainer.id}`;
+      };
   
       const profileImage = document.createElement('img');
       profileImage.className = 'profile-image';

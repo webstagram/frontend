@@ -1,4 +1,23 @@
-export function web() {
+import { fetchWithAuth } from "./authRequest.js";
+
+async function getWebPosts(webId){
+  var result=(await fetchWithAuth(`webs/?postsInWeb=${webId}`));
+  result=await result.json();
+  
+  return result;
+};
+
+async function populateWebPosts(webId){
+  var webPosts = await getWebPosts(webId);
+  return webPosts;
+}
+
+export async function web() {
+  const urlParams = new URLSearchParams(window.location.search);
+  let webId = urlParams.get('webid');
+  await populateWebPosts(webId);
+  
+
   let postContainers = document.querySelectorAll('.post-container');
 
   postContainers.forEach(postContainer => {

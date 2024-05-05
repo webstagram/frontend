@@ -59,6 +59,11 @@
   font-size: 1em;
 }
 
+.web-container:hover {
+  cursor: pointer;
+  background-color: rgb(233, 233, 233);
+}
+
 .web-titles {
   display: flex;
   flex-direction: column;
