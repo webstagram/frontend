@@ -10,57 +10,71 @@ export async function web() {
   const urlParams = new URLSearchParams(window.location.search);
   let webId = urlParams.get('webid');
   var webPosts = await populateWebPosts(webId);
-
   // Start populating the post containers:
   // Will have to select the posts element  by id, then add a post container with post info each time.
   let allPostsContainer = document.getElementById('posts');
   webPosts.forEach(post => {
-    var postContainer = allPostsContainer.createElement("section");
-    postContainer.classList.add("post-container");
-
-      var postHeader = postContainer.createElement("section");
-      postHeader.classList.add("post-header");
-        var postTopic = postHeader.createElement("h1");
-        postTopic.classList.add("post-topic")
+    var postContainer = document.createElement("section");
+    postContainer.className = "post-container";
+    postContainer.postId = post.PostId;
+    allPostsContainer.appendChild(postContainer);
+      var postHeader = document.createElement("section");
+      postHeader.className = "post-header";
+      postContainer.appendChild(postHeader);
+        var postTopic = document.createElement("h1");
+        postTopic.className = "post-topic";
         postTopic.textContent = post.Topic;
-        var postDate = postHeader.createElement("time");
-        postDate.classList.add("post-date");
+        postHeader.appendChild(postTopic);
+        var postDate = document.createElement("time");
+        postDate.className = "post-date";
         postDate.setAttribute("datetime", post.TimeCreated);
+        postHeader.appendChild(postDate);
 
-        var postCarouselContainer = postContainer.createElement("section");
-        postCarouselContainer.classList.add("post-carousel-container");
-          var imageCarousel = postCarouselContainer.createElement("div");
+        var postCarouselContainer = document.createElement("section");
+        postCarouselContainer.className = "post-carousel-container";
+        postContainer.appendChild(postCarouselContainer);
+          var imageCarousel = document.createElement("div");
+          imageCarousel.className = "image-carousel";
+          postCarouselContainer.appendChild(imageCarousel);
           var i = 0;
           post.PostImages.forEach(image=>{
-            var currImage = imageCarousel.createElement("img");
-            currImage.setAttribute("src", image.Path);
+            var currImage = document.createElement("img");
+            currImage.src = image.Path;
+            imageCarousel.appendChild(currImage);
             i++;
+            currImage.classList.add("carousel-image");
             if (i==1){
-            currImage.setAttribute("class", "carousel-image visible");
+            currImage.classList.add("visible");
             } else {
-              currImage.setAttribute("class", "carousel-image hidden");
+              currImage.classList.add("hidden");
             }
           });
-          var prevArrow = postCarouselContainer.createElement("a");
-          prevArrow.classList.add("prev arrow");
-          prevArrow.textContent = `&#10094;`;
-          var nextArrow = postCarouselContainer.createElement("a");
-          nextArrow.classList.add("next arrow");
-          nextArrow.textContent = `&#10095;`;
-          var slideNumbers = postCarouselContainer.createElement("div");
-          slideNumbers.classList.add("slide-numbers");
-          for (var k=0;k<i;k++){
-            var newSpan = slideNumbers.createElement("span");
-            if (k==0){
-              newSpan.classList.add("dot active");
-            } else {
-              newSpan.classList.add("dot");
+          var prevArrow = document.createElement("a");
+          prevArrow.classList.add("prev");
+          prevArrow.classList.add("arrow");
+          prevArrow.innerHTML = '&#10094;';
+          postCarouselContainer.appendChild(prevArrow);
+          var nextArrow = document.createElement("a");
+          nextArrow.classList.add("next");
+          nextArrow.classList.add("arrow");
+          nextArrow.innerHTML = '&#10095;';
+          postCarouselContainer.appendChild(nextArrow);
+          var slideNumbers = document.createElement("div");
+          slideNumbers.className = "slide-numbers";
+          postCarouselContainer.appendChild(slideNumbers);
+            for (var k=0;k<i;k++){
+              var newSpan = document.createElement("span");
+              slideNumbers.appendChild(newSpan);
+              newSpan.classList.add("dot")
+              if (k==0){
+                newSpan.classList.add("active");
+              }
             }
-          }
         
-          var postCaption = postContainer.createElement("article");
-          postCaption.classList.add("post-caption");
+          var postCaption = document.createElement("article");
+          postCaption.className = "post-caption";
           postCaption.textContent = post.Caption
+          postContainer.appendChild(postCaption);
   });
 
   let postContainers = document.querySelectorAll('.post-container');
