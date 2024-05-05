@@ -6,6 +6,11 @@ import { add_web } from "./add_web.js";
 import { closePopup } from "./popup.js";
 import { routeButton } from "./PathManager.js";
 
+const logoutBtn = document.getElementById("logout-btn");
+logoutBtn.addEventListener("click", (event) => {
+  localStorage.removeItem("jwtToken");
+  window.location.href = "/";
+});
 
 const route = (event) => {
   event = event || window.event;
