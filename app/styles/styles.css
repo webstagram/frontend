@@ -56,6 +56,7 @@ body {
   font-weight: 200;
   margin: 0;
   line-height: 2em;
+  display: none;
 }
 
 #main-profile-image {
@@ -66,6 +67,7 @@ body {
   aspect-ratio: 1/1;
   object-fit: cover;
   border: 0.2em solid var(--blue);
+  display: none;
 }
 
 #webstagram-logo {

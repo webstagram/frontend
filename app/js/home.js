@@ -1,3 +1,4 @@
+import { routeButton } from "./PathManager.js";
 import { fetchWithAuth } from "./authRequest.js";
 
 export async function home() {
@@ -89,4 +90,5 @@ export async function home() {
       }
     });
   }
+  routeButton("add-web-btn", "/?path=create");
 }
