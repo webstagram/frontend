@@ -3,7 +3,7 @@ import { home } from "./home.js";
 import { isTokenExpired, decodeJWT } from "./JWTManager.js";
 import { web } from "./web.js";
 import { add_web } from "./add_web.js";
-import { routeWithoutRefresh } from "./PathManager.js";
+import { routeButton } from "./PathManager.js";
 const route = (event) => {
   event = event || window.event;
   event.preventDefault();
@@ -58,15 +58,6 @@ const handleLocation = async () => {
   routes[path].js(path);
 };
 
-
-const addClickEventToNavItems = () => {
-  const mainNav = document.getElementById('main-nav');
-  const children = mainNav.children;
-  for (let i = 0; i < children.length; i++) {
-    children[i].addEventListener('click', route);
-  }
-}
-
 window.onpopstate = handleLocation;
 window.route = route;
 if(!isTokenExpired()){
@@ -81,9 +72,7 @@ if(!isTokenExpired()){
     document.getElementById("username").style.display = 'none';
   }
 
-  const webLogo = document.getElementById("webstagram-logo");
-  webLogo.addEventListener("click", (event) => {
-    routeWithoutRefresh("/?Path=about");
-  });  
+  routeButton("webstagram-logo","/?path=about" );
+  routeButton("title");
+
 handleLocation();
-addClickEventToNavItems();
