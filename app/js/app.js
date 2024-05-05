@@ -45,7 +45,8 @@ const routes = {
 const handleLocation = async () => {
   const urlParams = new URLSearchParams(window.location.search);
   let path = urlParams.get('path');
-  if(!path)path='';
+  if(!path) path='';
+  if (isTokenExpired() && path !== '') path = '';
   const route = (!!routes[path] && routes[path].template) || routes[404].template;
   const html = await fetch(route).then((data) => data.text());
   document.getElementById('main-page').innerHTML = html;
@@ -66,11 +67,10 @@ window.route = route;
 if(!isTokenExpired()){
   document.getElementById("main-profile-image").src=decodeJWT().userImage;
   document.getElementById("username").textContent=decodeJWT().userName;
-
-  }
-  else{
-    document.getElementById("main-profile-image").style.display = 'none';
-    document.getElementById("username").style.display = 'none';
-  }
+}
+else{
+  document.getElementById("main-profile-image").style.display = 'none';
+  document.getElementById("username").style.display = 'none';
+}
 handleLocation();
 addClickEventToNavItems();
