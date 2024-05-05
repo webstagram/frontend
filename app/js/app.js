@@ -4,8 +4,14 @@ import { isTokenExpired, decodeJWT } from "./JWTManager.js";
 import { web } from "./web.js";
 import { add_web } from "./add_web.js";
 import { closePopup } from "./popup.js";
+<<<<<<< HEAD
 
 import { routeButton } from "./PathManager.js";
+=======
+import { routeButton } from "./PathManager.js";
+
+
+>>>>>>> 7463ab86fd7e991cf1b1711db5923166171d2d67
 const route = (event) => {
   event = event || window.event;
   event.preventDefault();
@@ -78,5 +84,8 @@ if(!isTokenExpired()){
   routeButton("title");
 
 handleLocation();
+<<<<<<< HEAD
 addClickEventToNavItems();
+=======
+>>>>>>> 7463ab86fd7e991cf1b1711db5923166171d2d67
 closePopup();

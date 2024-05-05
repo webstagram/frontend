@@ -1,6 +1,6 @@
 import { openPopup, closePopup } from "./popup.js";
-
 import { routeButton } from "./PathManager.js";
+
 export function add_web() {
   let no_post_msg = document.getElementById('add-web-no-posts-msg');
   let add_post_btn = document.getElementById('add-web-add-post-btn');
@@ -29,6 +29,13 @@ export function add_web() {
     input.name = name;
     input.type = type;
     return input;
+  }
+
+  function createImg(src) {
+    const img = document.createElement('img');
+    img.width = 200;
+    img.src = src;
+    return img;
   }
 
   add_post_btn.addEventListener('click', () => {
@@ -80,27 +87,29 @@ export function add_web() {
       let remove_post_btn = document.createElement('button');
       remove_post_btn.className = 'remove-post-button';
       remove_post_btn.type = 'button';
-      remove_post_btn.innerText = '✗';
+      remove_post_btn.innerText = 'Cancel ✗';
 
       post.appendChild(title_container);
       post.appendChild(images_container);
       post.appendChild(remove_post_btn);
 
       image_select.addEventListener('change', ({target: {files}}) => {
-        const img = document.createElement('img');
-        img.width = 200;
+        const selectedImages = images_container.querySelectorAll('img').length;
+        if (selectedImages >= 5) return;
+        for (let i = 0; i < 5 - selectedImages; i++) {
+          if (!files || !files[i]) return;
+          
+          const reader = new FileReader();
+
+          reader.onload = ({target: {result}}) => {
+            const img = createImg(result);
+            img.addEventListener('dblclick', () => images_container.removeChild(img))
+            images_container.appendChild(img);
+          };
+          
+          reader.readAsDataURL(files[i]);
+        } 
         
-        if (!files || !files[0]) return;
-        
-        const reader = new FileReader();
-
-        reader.onload = ({target: {result}}) => {
-          img.src = result;
-        };
-
-        reader.readAsDataURL(files[0]);
-
-        images_container.appendChild(img);
       });
 
       remove_post_btn.addEventListener('click', () => {
@@ -121,23 +130,16 @@ export function add_web() {
       .querySelectorAll('.add-post-container');
 
     const formData = [...posts].map((cur) => {
-      let obj = {};
+      let obj = {'selectedImages': []};
 
       cur.querySelectorAll('input').forEach((input) => {
-        if (input.type === 'text') {
-          obj[input.name] = input.value; 
-          return;
-        }
-        
-        if (!input.files || !input.files[0]) return;
-        
-        const reader = new FileReader();
+        if (input.type !== 'text') return;
 
-        reader.onload = ({target: {result}}) => {
-          obj[input.name] = result;
-        };
+        obj[input.name] = input.value; 
+      });
 
-        reader.readAsDataURL(input.files[0]);
+      cur.querySelectorAll('img').forEach((img) => {
+        obj['selectedImages'].push(img.src);
       });
 
       return obj;
@@ -148,9 +150,7 @@ export function add_web() {
     openPopup('Successfully posted!', () => {
       closePopup();
     });
-
   });
   
   routeButton("add-web-back-btn", "/");
-
 }

@@ -86,7 +86,7 @@ body {
   border: none;
   opacity: 0.9;
   border-radius: 3em;
-  display: grid;
+  display: none;
   color: white;
   place-content: center;
   margin-top: 3vh;
