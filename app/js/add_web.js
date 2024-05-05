@@ -5,6 +5,29 @@ export function add_web() {
   const add_web_save_btn = document.getElementById('add-web-save-btn');
   let max_posts = 5;
 
+  function createSection(className) {
+    if (!className) return
+    const container = document.createElement('section');
+    container.className = 'add-post-title-container';
+    return container;
+  }
+
+  function createLabel(innerText) {
+    const label = document.createElement('label');
+    label.className = 'add-post-title-label';
+    label.innerText = innerText;
+    return label;
+  }
+
+  function createInput(name, type = 'text') {
+    if (!name) return undefined;
+    const input = document.createElement('input');
+    input.className = 'add-post-title-input';
+    input.name = name;
+    input.type = type;
+    return input;
+  }
+
   add_post_btn.addEventListener('click', () => {
     let posts = posts_container.querySelectorAll('.add-post-container');
     if (posts.length >= max_posts) {
@@ -21,7 +44,6 @@ export function add_web() {
       let title_container = document.createElement('section');
       title_container.className = 'add-post-title-container';
       let title_label = document.createElement('label');
-      title_label.htmlFor = 'postTopic';
       title_label.className = 'add-post-title-label';
       title_label.innerText = 'post topic';
       let title_input = document.createElement('input');
@@ -33,6 +55,9 @@ export function add_web() {
       title_container.appendChild(title_label);
       title_container.appendChild(title_input);
 
+      title_container.appendChild(createLabel('Caption'));
+      title_container.appendChild(createInput('postCaption'))
+
       let images_container = document.createElement('section');
       images_container.className = 'add-post-images-container';
       let images_label = document.createElement('label');
@@ -42,6 +67,7 @@ export function add_web() {
       image_select.className = 'add-post-images';
       image_select.type = 'file';
       image_select.accept = 'image/*';
+      image_select.name = 'selected-image';
       image_select.min = 1;
       image_select.max = 5;
       image_select.multiple = true;
@@ -74,10 +100,32 @@ export function add_web() {
       .getElementById('posts-container')
       .querySelectorAll('.add-post-container');
 
-    posts.forEach(element => {
-      const inputs = element.querySelectorAll('input'); 
+    const formData = [...posts].map((cur) => {
+      let obj = {};
 
-      console.log(inputs);
-    });
+      cur.querySelectorAll('input').forEach((input) => {
+        const name = input.name || 'no name';
+
+        if (input.type === 'text') {
+          obj[name] = input.value; 
+          return;
+        }
+        
+        if (!input.files || !input.files[0]) return;
+        
+        const reader = new FileReader();
+
+        reader.onload = ({target: {result}}) => {
+          obj[name] = result
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      });
+
+      return obj;
+    });  
+
+    console.log(formData);
+    
   });
 }
