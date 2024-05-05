@@ -1,4 +1,4 @@
-import { routeButton } from "./PathManager.js";
+import { routeWithoutRefresh, routeButton } from "./PathManager.js";
 import { fetchWithAuth } from "./authRequest.js";
 
 export async function home() {
@@ -22,22 +22,26 @@ export async function home() {
     result=await result.json();
     
     populateWebs(result);
+  };
 
-  }
   function populateWebs(websData) {
     const container = document.getElementById('webs');
     container.innerHTML="";
     websData.forEach(web => {
       const webContainer = document.createElement('section');
       webContainer.className = 'web-container';
-      webContainer.id = web.WebId;
-
+      webContainer.id=web.WebId;
+  
       const profileImage = document.createElement('img');
       profileImage.className = 'profile-image';
       profileImage.src = web.ProfileImageUrl;
 
       const webTitlesDiv = document.createElement('div');
       webTitlesDiv.className = 'web-titles';
+
+      webTitlesDiv.addEventListener('click', function(event){
+        routeWithoutRefresh(`/?path=web&webid=${webContainer.id}`);
+      });
 
       const webTitle = document.createElement('h1');
       webTitle.className = 'web-title';
