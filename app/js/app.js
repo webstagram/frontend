@@ -79,5 +79,4 @@ if(!isTokenExpired()){
   routeButton("title");
 
 handleLocation();
-addClickEventToNavItems();
 closePopup();
