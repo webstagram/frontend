@@ -31,6 +31,13 @@ export function add_web() {
     return input;
   }
 
+  function createImg(src) {
+    const img = document.createElement('img');
+    img.width = 200;
+    img.src = src;
+    return img;
+  }
+
   add_post_btn.addEventListener('click', () => {
     let posts = posts_container.querySelectorAll('.add-post-container');
     if (posts.length >= max_posts) {
@@ -87,23 +94,22 @@ export function add_web() {
       post.appendChild(remove_post_btn);
 
       image_select.addEventListener('change', ({target: {files}}) => {
-        if (images_container.querySelectorAll('img').length == 5) return;
-        
-        const img = document.createElement('img');
-        img.width = 200;
-        img.addEventListener('dblclick', () => images_container.removeChild(img))
-        
-        if (!files || !files[0]) return;
-        
-        const reader = new FileReader();
+        const selectedImages = images_container.querySelectorAll('img').length;
+        if (selectedImages >= 5) return;
+        for (let i = 0; i < 5 - selectedImages; i++) {
+          if (!files || !files[i]) return;
+          
+          const reader = new FileReader();
 
-        reader.onload = ({target: {result}}) => {
-          img.src = result;
-        };
-
-        reader.readAsDataURL(files[0]);
-
-        images_container.appendChild(img);
+          reader.onload = ({target: {result}}) => {
+            const img = createImg(result);
+            img.addEventListener('dblclick', () => images_container.removeChild(img))
+            images_container.appendChild(img);
+          };
+          
+          reader.readAsDataURL(files[i]);
+        } 
+        
       });
 
       remove_post_btn.addEventListener('click', () => {
