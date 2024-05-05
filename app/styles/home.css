@@ -88,10 +88,10 @@
   font-size: 1em;
 }
 
-.web-container:hover {
+/* .web-container:hover {
   cursor: pointer;
   background-color: rgb(233, 233, 233);
-}
+} */
 
 .web-titles {
   display: flex;
@@ -107,6 +107,11 @@
   font-weight: bold;
   margin: 0;
   line-height: 1.5;
+  cursor: pointer;
+}
+.web-title:hover{
+  color:blue;
+  text-decoration: underline;
 }
 
 .username {
@@ -166,4 +171,5 @@
   justify-self: end;
   grid-row-start: 1;
   grid-column-start: 3;
+  display: none;
 }
