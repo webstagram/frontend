@@ -1,4 +1,4 @@
-import { routeButton } from "./PathManager.js";
+import { routeWithoutRefresh, routeButton } from "./PathManager.js";
 import { fetchWithAuth } from "./authRequest.js";
 
 export async function home() {
@@ -31,10 +31,6 @@ export async function home() {
       const webContainer = document.createElement('section');
       webContainer.className = 'web-container';
       webContainer.id=web.WebId;
-
-      webContainer.onclick = function() {
-        window.location.href=`/?path=web&webid=${webContainer.id}`;
-      };
   
       const profileImage = document.createElement('img');
       profileImage.className = 'profile-image';
@@ -42,6 +38,10 @@ export async function home() {
 
       const webTitlesDiv = document.createElement('div');
       webTitlesDiv.className = 'web-titles';
+
+      webTitlesDiv.addEventListener('click', function(event){
+        routeWithoutRefresh(`/?path=web&webid=${webContainer.id}`);
+      });
 
       const webTitle = document.createElement('h1');
       webTitle.className = 'web-title';
