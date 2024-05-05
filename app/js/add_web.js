@@ -1,3 +1,5 @@
+import { openPopup, closePopup } from "./popup.js";
+
 export function add_web() {
   let no_post_msg = document.getElementById('add-web-no-posts-msg');
   let add_post_btn = document.getElementById('add-web-add-post-btn');
@@ -83,6 +85,23 @@ export function add_web() {
       post.appendChild(images_container);
       post.appendChild(remove_post_btn);
 
+      image_select.addEventListener('change', ({target: {files}}) => {
+        const img = document.createElement('img');
+        img.width = 200;
+        
+        if (!files || !files[0]) return;
+        
+        const reader = new FileReader();
+
+        reader.onload = ({target: {result}}) => {
+          img.src = result;
+        };
+
+        reader.readAsDataURL(files[0]);
+
+        images_container.appendChild(img);
+      });
+
       remove_post_btn.addEventListener('click', () => {
         posts_container.removeChild(post);
         if (posts.length === 0) {
@@ -104,10 +123,8 @@ export function add_web() {
       let obj = {};
 
       cur.querySelectorAll('input').forEach((input) => {
-        const name = input.name || 'no name';
-
         if (input.type === 'text') {
-          obj[name] = input.value; 
+          obj[input.name] = input.value; 
           return;
         }
         
@@ -116,7 +133,7 @@ export function add_web() {
         const reader = new FileReader();
 
         reader.onload = ({target: {result}}) => {
-          obj[name] = result
+          obj[input.name] = result;
         };
 
         reader.readAsDataURL(input.files[0]);
@@ -127,5 +144,9 @@ export function add_web() {
 
     console.log(formData);
     
+    openPopup('Successfully posted!', () => {
+      closePopup();
+    });
+
   });
 }
