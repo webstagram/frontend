@@ -3,6 +3,7 @@ import { home } from "./home.js";
 import { isTokenExpired, decodeJWT } from "./JWTManager.js";
 import { web } from "./web.js";
 import { add_web } from "./add_web.js";
+import { closePopup } from "./popup.js";
 
 const route = (event) => {
   event = event || window.event;
@@ -74,3 +75,4 @@ if(!isTokenExpired()){
   }
 handleLocation();
 addClickEventToNavItems();
+closePopup();
