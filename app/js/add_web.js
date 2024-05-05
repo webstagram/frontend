@@ -79,7 +79,7 @@ export function add_web() {
       let remove_post_btn = document.createElement('button');
       remove_post_btn.className = 'remove-post-button';
       remove_post_btn.type = 'button';
-      remove_post_btn.innerText = '✗';
+      remove_post_btn.innerText = 'Cancel ✗';
 
       post.appendChild(title_container);
       post.appendChild(images_container);
@@ -88,6 +88,7 @@ export function add_web() {
       image_select.addEventListener('change', ({target: {files}}) => {
         const img = document.createElement('img');
         img.width = 200;
+        img.addEventListener('dblclick', () => images_container.removeChild(img))
         
         if (!files || !files[0]) return;
         
@@ -120,23 +121,16 @@ export function add_web() {
       .querySelectorAll('.add-post-container');
 
     const formData = [...posts].map((cur) => {
-      let obj = {};
+      let obj = {'selectedImages': []};
 
       cur.querySelectorAll('input').forEach((input) => {
-        if (input.type === 'text') {
-          obj[input.name] = input.value; 
-          return;
-        }
-        
-        if (!input.files || !input.files[0]) return;
-        
-        const reader = new FileReader();
+        if (input.type !== 'text') return;
 
-        reader.onload = ({target: {result}}) => {
-          obj[input.name] = result;
-        };
+        obj[input.name] = input.value; 
+      });
 
-        reader.readAsDataURL(input.files[0]);
+      cur.querySelectorAll('img').forEach((img) => {
+        obj['selectedImages'].push(img.src);
       });
 
       return obj;
