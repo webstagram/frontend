@@ -2,6 +2,7 @@ import { login } from "./login.js";
 import { home } from "./home.js";
 import { isTokenExpired, decodeJWT } from "./JWTManager.js";
 import { web } from "./web.js";
+import { add_web } from "./add_web.js";
 
 const route = (event) => {
   event = event || window.event;
@@ -30,6 +31,10 @@ const routes = {
   'web': {
     'template': '/pages/web.html',
     'js': web,
+  },
+  'create': {
+    'template': '/pages/add_web.html',
+    'js': add_web,
   },
   'index.html' :{
     'template': '/pages/login.html',

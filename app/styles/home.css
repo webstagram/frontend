@@ -24,6 +24,7 @@
   cursor: pointer;
   background-color: var(--aqua);
   color: var(--white);
+  text-decoration: none;
   border: none;
   border-radius: 0.5em;
   padding: 0.5em 1em;
