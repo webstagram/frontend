@@ -50,19 +50,20 @@ export async function web() {
               currImage.classList.add("hidden");
             }
           });
-          var prevArrow = document.createElement("a");
-          prevArrow.classList.add("prev");
-          prevArrow.classList.add("arrow");
-          prevArrow.innerHTML = '&#10094;';
-          postCarouselContainer.appendChild(prevArrow);
-          var nextArrow = document.createElement("a");
-          nextArrow.classList.add("next");
-          nextArrow.classList.add("arrow");
-          nextArrow.innerHTML = '&#10095;';
-          postCarouselContainer.appendChild(nextArrow);
-          var slideNumbers = document.createElement("div");
-          slideNumbers.className = "slide-numbers";
-          postCarouselContainer.appendChild(slideNumbers);
+          if (post.PostImages.length > 1){
+            var prevArrow = document.createElement("a");
+            prevArrow.classList.add("prev");
+            prevArrow.classList.add("arrow");
+            prevArrow.innerHTML = '&#10094;';
+            postCarouselContainer.appendChild(prevArrow);
+            var nextArrow = document.createElement("a");
+            nextArrow.classList.add("next");
+            nextArrow.classList.add("arrow");
+            nextArrow.innerHTML = '&#10095;';
+            postCarouselContainer.appendChild(nextArrow);
+            var slideNumbers = document.createElement("div");
+            slideNumbers.className = "slide-numbers";
+            postCarouselContainer.appendChild(slideNumbers);
             for (var k=0;k<i;k++){
               var newSpan = document.createElement("span");
               slideNumbers.appendChild(newSpan);
@@ -71,7 +72,8 @@ export async function web() {
                 newSpan.classList.add("active");
               }
             }
-        
+          }
+
           var postCaption = document.createElement("article");
           postCaption.className = "post-caption";
           postCaption.textContent = post.Caption
@@ -90,14 +92,16 @@ export async function web() {
     let touchStartX = 0;
     let touchEndX = 0;
 
-    next.addEventListener('click', nextImg);
-    prev.addEventListener('click', prevImg);
-    dots.forEach((dot, dotPosition) => {
-      dot.addEventListener("click", () => {
-        imgPosition = dotPosition;
-        updatePosition();
+    if (prev != null && next != null && dots != null) {
+      next.addEventListener('click', nextImg);
+      prev.addEventListener('click', prevImg);
+      dots.forEach((dot, dotPosition) => {
+        dot.addEventListener("click", () => {
+          imgPosition = dotPosition;
+          updatePosition();
+        });
       });
-    });
+    }
 
     postContainer.addEventListener('touchstart', handleTouchStart);
     postContainer.addEventListener('touchmove', handleTouchMove);
