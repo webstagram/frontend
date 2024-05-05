@@ -2,6 +2,7 @@
   --aqua: #016767;
   --aqua-selected: #004d4d;
   --blue: #A9D3F2;
+  --blue-selected: #3172B6;
   --soft-gray: #E8E7E8;
   --white: #FFFFFF;
   --gray: #727272;
@@ -57,6 +58,7 @@ body {
   font-weight: 200;
   margin: 0;
   line-height: 2em;
+  display: none;
 }
 
 #main-profile-image {
@@ -67,6 +69,7 @@ body {
   aspect-ratio: 1/1;
   object-fit: cover;
   border: 0.2em solid var(--blue);
+  display: none;
 }
 
 #webstagram-logo {

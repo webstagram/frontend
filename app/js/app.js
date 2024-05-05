@@ -5,6 +5,7 @@ import { web } from "./web.js";
 import { add_web } from "./add_web.js";
 import { closePopup } from "./popup.js";
 
+import { routeButton } from "./PathManager.js";
 const route = (event) => {
   event = event || window.event;
   event.preventDefault();
@@ -47,32 +48,35 @@ const handleLocation = async () => {
   const urlParams = new URLSearchParams(window.location.search);
   let path = urlParams.get('path');
   if(!path)path='';
+  if(!isTokenExpired() && path===''){
+    path='home';
+  }
+  else if( isTokenExpired()&& !(path==='about')){
+    path='';
+  }
   const route = (!!routes[path] && routes[path].template) || routes[404].template;
   const html = await fetch(route).then((data) => data.text());
   document.getElementById('main-page').innerHTML = html;
   routes[path].js(path);
 };
 
-
-const addClickEventToNavItems = () => {
-  const mainNav = document.getElementById('main-nav');
-  const children = mainNav.children;
-  for (let i = 0; i < children.length; i++) {
-    children[i].addEventListener('click', route);
-  }
-}
-
 window.onpopstate = handleLocation;
 window.route = route;
 if(!isTokenExpired()){
   document.getElementById("main-profile-image").src=decodeJWT().userImage;
   document.getElementById("username").textContent=decodeJWT().userName;
+  document.getElementById("main-profile-image").style.display = 'grid';
+  document.getElementById("username").style.display = 'grid';
 
   }
   else{
     document.getElementById("main-profile-image").style.display = 'none';
     document.getElementById("username").style.display = 'none';
   }
+
+  routeButton("webstagram-logo","/?path=about" );
+  routeButton("title");
+
 handleLocation();
 addClickEventToNavItems();
 closePopup();

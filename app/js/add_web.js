@@ -1,5 +1,6 @@
 import { openPopup, closePopup } from "./popup.js";
 
+import { routeButton } from "./PathManager.js";
 export function add_web() {
   let no_post_msg = document.getElementById('add-web-no-posts-msg');
   let add_post_btn = document.getElementById('add-web-add-post-btn');
@@ -149,4 +150,7 @@ export function add_web() {
     });
 
   });
+  
+  routeButton("add-web-back-btn", "/");
+
 }

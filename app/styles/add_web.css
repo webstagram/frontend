@@ -75,7 +75,7 @@
   font-size: 1.2em;
 }
 
-#add-web-input:focus {
+#add-web-title-input:focus {
   outline: .1em solid var(--blue);
 }
 
