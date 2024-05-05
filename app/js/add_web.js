@@ -2,6 +2,7 @@ export function add_web() {
   let no_post_msg = document.getElementById('add-web-no-posts-msg');
   let add_post_btn = document.getElementById('add-web-add-post-btn');
   let posts_container = document.getElementById('posts-container');
+  const add_web_save_btn = document.getElementById('add-web-save-btn');
   let max_posts = 5;
 
   add_post_btn.addEventListener('click', () => {
@@ -20,12 +21,12 @@ export function add_web() {
       let title_container = document.createElement('section');
       title_container.className = 'add-post-title-container';
       let title_label = document.createElement('label');
-      title_label.htmlFor = 'title';
+      title_label.htmlFor = 'postTopic';
       title_label.className = 'add-post-title-label';
       title_label.innerText = 'post topic';
       let title_input = document.createElement('input');
       title_input.className = 'add-post-title-input';
-      title_input.name = 'title';
+      title_input.name = 'postTopic';
       title_input.type = 'text';
       title_input.minLength = 1;
       title_input.maxLength = 15;
@@ -66,5 +67,17 @@ export function add_web() {
 
       posts_container.appendChild(post);
     }
+  });
+
+  add_web_save_btn.addEventListener('click', () => {
+    const posts = document
+      .getElementById('posts-container')
+      .querySelectorAll('.add-post-container');
+
+    posts.forEach(element => {
+      const inputs = element.querySelectorAll('input'); 
+
+      console.log(inputs);
+    });
   });
 }
