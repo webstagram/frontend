@@ -87,6 +87,8 @@ export function add_web() {
       post.appendChild(remove_post_btn);
 
       image_select.addEventListener('change', ({target: {files}}) => {
+        if (images_container.querySelectorAll('img').length == 5) return;
+        
         const img = document.createElement('img');
         img.width = 200;
         img.addEventListener('dblclick', () => images_container.removeChild(img))
@@ -141,7 +143,8 @@ export function add_web() {
     
     openPopup('Successfully posted!', () => {
       closePopup();
-      routeButton("add-web-back-btn", "/");
     });
   });
+  
+  routeButton("add-web-back-btn", "/");
 }
