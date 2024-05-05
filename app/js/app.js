@@ -6,7 +6,7 @@ import { add_web } from "./add_web.js";
 import { closePopup } from "./popup.js";
 import { routeButton } from "./PathManager.js";
 
-const logoutBtn = document.getElementById("logout-btn");
+let logoutBtn = document.getElementById("logout-btn");
 logoutBtn.addEventListener("click", (event) => {
   localStorage.removeItem("jwtToken");
   window.location.href = "/";
@@ -57,8 +57,11 @@ const handleLocation = async () => {
   if(!isTokenExpired() && path===''){
     path='home';
   }
-  else if( isTokenExpired()&& !(path==='about')){
+  else if(isTokenExpired()&& !(path==='about')){
     path='';
+  }
+  if(!isTokenExpired() && document.getElementById("logout-btn").classList.contains("hidden")){
+    document.getElementById("logout-btn").classList.remove("hidden");
   }
   const route = (!!routes[path] && routes[path].template) || routes[404].template;
   const html = await fetch(route).then((data) => data.text());
@@ -74,14 +77,14 @@ if(!isTokenExpired()){
   document.getElementById("main-profile-image").style.display = 'grid';
   document.getElementById("username").style.display = 'grid';
 
-  }
-  else{
-    document.getElementById("main-profile-image").style.display = 'none';
-    document.getElementById("username").style.display = 'none';
-  }
+}
+else{
+  document.getElementById("main-profile-image").style.display = 'none';
+  document.getElementById("username").style.display = 'none';
+}
 
-  routeButton("webstagram-logo","/?path=about" );
-  routeButton("title");
+routeButton("title");
+routeButton("about-btn", "/?path=about");
 
 handleLocation();
 closePopup();

@@ -70,7 +70,6 @@ body {
 .dropdown-content button {
   color: black;
   padding: .8em 1em;
-  display: block;
   width: 100%;
   text-align: left;
   border: none;
@@ -85,6 +84,14 @@ body {
 
 .dropdown-content button:hover {
   background-color: var(--soft-gray);
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
 }
 
 #main-titles {
