@@ -3,7 +3,7 @@ import { home } from "./home.js";
 import { isTokenExpired, decodeJWT } from "./JWTManager.js";
 import { web } from "./web.js";
 import { add_web } from "./add_web.js";
-
+import { routeWithoutRefresh } from "./PathManager.js";
 const route = (event) => {
   event = event || window.event;
   event.preventDefault();
@@ -80,13 +80,10 @@ if(!isTokenExpired()){
     document.getElementById("main-profile-image").style.display = 'none';
     document.getElementById("username").style.display = 'none';
   }
-  const webLogo = document.getElementById("webstagram-logo");
 
+  const webLogo = document.getElementById("webstagram-logo");
   webLogo.addEventListener("click", (event) => {
-    const a = document.createElement('a');
-    a.href = '/?path=about';
-    a.onclick = window.route;
-    a.click();
+    routeWithoutRefresh("/?Path=about");
   });  
 handleLocation();
 addClickEventToNavItems();

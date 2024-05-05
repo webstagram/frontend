@@ -1,3 +1,4 @@
+import { routeButton } from "./PathManager.js";
 export function web() {
   let postContainers = document.querySelectorAll('.post-container');
 
@@ -61,4 +62,5 @@ export function web() {
       }
     }
   });
+  routeButton("web-back-btn");
 }
