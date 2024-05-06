@@ -31,6 +31,9 @@ export async function home() {
       const webContainer = document.createElement('section');
       webContainer.className = 'web-container';
       webContainer.id=web.WebId;
+      webContainer.addEventListener('click', function(event){
+        routeWithoutRefresh(`/?path=web&webid=${webContainer.id}`);
+      });
   
       const profileImage = document.createElement('img');
       profileImage.className = 'profile-image';
@@ -38,10 +41,6 @@ export async function home() {
 
       const webTitlesDiv = document.createElement('div');
       webTitlesDiv.className = 'web-titles';
-
-      webTitlesDiv.addEventListener('click', function(event){
-        routeWithoutRefresh(`/?path=web&webid=${webContainer.id}`);
-      });
 
       const webTitle = document.createElement('h1');
       webTitle.className = 'web-title';
@@ -51,10 +50,12 @@ export async function home() {
       username.className = 'username';
       username.textContent = web.UserName;
       username.addEventListener('click', (event) => {
+        event.stopImmediatePropagation();
         searchBar.value = username.textContent;
         updateWebDisplay();
       });
       profileImage.addEventListener('click', (event) => {
+        event.stopImmediatePropagation();
         searchBar.value = username.textContent;
         updateWebDisplay();
       });
@@ -73,6 +74,7 @@ export async function home() {
         topicElement.className = 'topic';
         topicElement.textContent = topic;
         topicElement.addEventListener('click', (event) => {
+          event.stopImmediatePropagation();
           searchBar.value = topicElement.textContent;
           updateWebDisplay();
         })
