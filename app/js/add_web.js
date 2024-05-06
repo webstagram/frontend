@@ -117,7 +117,7 @@ export function add_web() {
         if (posts.length === 0) {
           no_post_msg.style.display = 'block';
         }
-        add_post_btn.style.display = 'block';
+        add_post_btn.style.display = 'flex';
       });
 
       posts_container.appendChild(post);
