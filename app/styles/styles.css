@@ -17,6 +17,15 @@ body {
   container-type: inline-size;
 }
 
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+
 #main-page {
   padding: 0 4em;
 }

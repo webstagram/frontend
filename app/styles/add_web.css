@@ -20,7 +20,6 @@
   color: var(--white);
   padding: 1em;
   border-radius: 0.5em;
-  text-align: center;
   text-transform: uppercase;
   font-size: 1.2em;
   font-weight: 700;
@@ -70,11 +69,9 @@
 }
 
 #add-web-add-post-btn {
-  cursor: pointer;
   background-color: var(--aqua);
   color: var(--white);
   border-radius: 50%;
-  text-align: center;
   text-transform: uppercase;
   font-size: 1.5em;
   font-weight: 700;
@@ -93,7 +90,6 @@
 }
 
 .add-post-container {
-  /* position: relative; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -150,10 +146,7 @@
 }
 
 .remove-post-button {
-  cursor: pointer;
-  /* position: absolute; */
   border-radius: 0.5em;
-  text-align: center;
   text-transform: uppercase;
   font-weight: 700;
   background-color: transparent;
