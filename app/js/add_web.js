@@ -1,5 +1,6 @@
 import { openPopup, closePopup } from "./popup.js";
 import { routeButton } from "./PathManager.js";
+import { fetchWithAuth } from "./authRequest.js";
 
 export function add_web() {
   let no_post_msg = document.getElementById('add-web-no-posts-msg');
@@ -58,7 +59,7 @@ export function add_web() {
       title_label.innerText = 'post topic';
       let title_input = document.createElement('input');
       title_input.className = 'add-post-title-input';
-      title_input.name = 'postTopic';
+      title_input.name = 'Topic';
       title_input.type = 'text';
       title_input.minLength = 1;
       title_input.maxLength = 15;
@@ -66,7 +67,7 @@ export function add_web() {
       title_container.appendChild(title_input);
 
       title_container.appendChild(createLabel('Caption'));
-      title_container.appendChild(createInput('postCaption'))
+      title_container.appendChild(createInput('Caption'))
 
       let images_container = document.createElement('section');
       images_container.className = 'add-post-images-container';
@@ -94,9 +95,9 @@ export function add_web() {
       post.appendChild(remove_post_btn);
 
       image_select.addEventListener('change', ({target: {files}}) => {
-        const selectedImages = images_container.querySelectorAll('img').length;
-        if (selectedImages >= 5) return;
-        for (let i = 0; i < 5 - selectedImages; i++) {
+        const Images = images_container.querySelectorAll('img').length;
+        if (Images >= 5) return;
+        for (let i = 0; i < 5 - Images; i++) {
           if (!files || !files[i]) return;
           
           const reader = new FileReader();
@@ -124,13 +125,13 @@ export function add_web() {
     }
   });
 
-  add_web_save_btn.addEventListener('click', () => {
+  add_web_save_btn.addEventListener('click', async () => {
     const posts = document
       .getElementById('posts-container')
       .querySelectorAll('.add-post-container');
 
     const formData = [...posts].map((cur) => {
-      let obj = {'selectedImages': []};
+      let obj = {'Images': []};
 
       cur.querySelectorAll('input').forEach((input) => {
         if (input.type !== 'text') return;
@@ -139,13 +140,35 @@ export function add_web() {
       });
 
       cur.querySelectorAll('img').forEach((img) => {
-        obj['selectedImages'].push(img.src);
+        var fullImg = img.src;
+        var part1 = fullImg.substring(0, fullImg.indexOf(","));
+        fullImg = fullImg.substring(fullImg.indexOf(",")+1);
+        var contentType = part1.substring(part1.indexOf(":")+1, part1.indexOf(";"));
+        var extension = contentType.substring(contentType.indexOf("/")+1);
+        var bodyObj = {
+          'FileContent': fullImg,
+          'ContentType': contentType,
+          "Extension": "."+extension
+        }
+        obj['Images'].push(bodyObj);
       });
 
       return obj;
     });  
+    var webTitle = document.getElementById("webTitle").value;
+    debugger;
+    var sendMeToBackend = {};
+    sendMeToBackend.WebName = webTitle;
+    sendMeToBackend.Posts = formData;
+    var authRequestObject = {
+      "method": "POST",
+      "Body": sendMeToBackend
+    };
+    var endpoint = "uploadPosts";
+    var result = await fetchWithAuth(endpoint,authRequestObject);
 
-    console.log(formData);
+    console.log(sendMeToBackend);
+    console.log(result);
     
     openPopup('Successfully posted!', () => {
       closePopup();
