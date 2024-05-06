@@ -165,7 +165,7 @@ body {
 
 #loader {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   opacity: 0.9;
   background-color: var(--blue);
   display: none;
