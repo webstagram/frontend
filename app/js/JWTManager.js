@@ -29,7 +29,6 @@ async function isTokenExpired() {
         headers.append('Authorization', `${refresh}`);
         let url = backendURL + "refresh";
         let result = await fetch(url, {
-
             headers
         });
         if (!result.ok) return true;
