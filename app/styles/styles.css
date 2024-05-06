@@ -159,6 +159,28 @@ body {
   min-width: 250px;
   display: none;
   place-content: center;
-  color: white;
+  color: var(--white);
   margin-top: 4vh;
+}
+
+#loader {
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.9;
+  background-color: var(--blue);
+  display: none;
+  place-content: center;
+}
+
+#loader-logo {
+  height: 100vh;
+  width: 100vw;
+  animation: logo 2s infinite
+}
+
+@keyframes logo {
+  50% {
+    height: 80vh;
+    width: 80vw;
+  }
 }

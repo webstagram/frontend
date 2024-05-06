@@ -1,6 +1,7 @@
 import { openPopup, closePopup } from "./popup.js";
 import { routeButton } from "./PathManager.js";
 import { openAlert } from "./alert.js";
+import { closeLoader, openLoader } from "./loader.js";
 
 export function add_web() {
   let no_post_msg = document.getElementById('add-web-no-posts-msg');
@@ -159,12 +160,19 @@ export function add_web() {
       || webTitle.length === 0
     ) return openAlert('Please create a post and fill out all the fields');
 
+    openLoader();
+  
+    // make request
     console.log({
       webTitle,
       'posts': formData,
     });
+
+    setTimeout(() => {
+      closeLoader()
+      openPopup('Successfully posted!', () => closePopup());
+    } , 2000);
     
-    openPopup('Successfully posted!', () => closePopup());
   });
   
   routeButton("add-web-back-btn", "/");
