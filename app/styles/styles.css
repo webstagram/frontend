@@ -131,19 +131,6 @@ body {
   cursor: pointer;
 }
 
-#popup {
-  background-color: var(--gray);
-  height: 90vh;
-  width: 90vw;
-  border: none;
-  opacity: 0.9;
-  border-radius: 3em;
-  display: none;
-  color: white;
-  place-content: center;
-  margin-top: 3vh;
-}
-
 #popup-button {
   background-color: var(--aqua);
   border: none;
@@ -151,6 +138,19 @@ body {
   color: var(--white);
   padding: 1em 2em;
   text-transform: uppercase;
+  opacity: 1;
+}
+
+#popup {
+  background:rgba(125, 125, 125, 0.9);
+  height: 90vh;
+  width: 90vw;
+  border: none;
+  border-radius: 3em;
+  display: none;
+  color: white;
+  place-content: center;
+  margin-top: 3vh;
 }
 
 #alert{
@@ -173,14 +173,14 @@ body {
 }
 
 #loader-logo {
-  height: 100vh;
-  width: 100vw;
+  height: 10vh;
+  width: 10vw;
   animation: logo 2s infinite
 }
 
 @keyframes logo {
   50% {
-    height: 80vh;
-    width: 80vw;
+    height: 50vh;
+    width: 50vw;
   }
 }
