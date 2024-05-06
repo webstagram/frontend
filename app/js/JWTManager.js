@@ -1,5 +1,12 @@
 import config from './configManager.js';
 const backendURL = config.BACKEND_URL;
+import { routeWithoutRefresh } from './PathManager.js';
+
+function logout() {
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("refreshToken");
+    routeWithoutRefresh('/');
+}
 
 function decodeJWT(token = localStorage.getItem('jwtToken')) {
     try {
@@ -28,7 +35,6 @@ async function isTokenExpired() {
         if (!result.ok) return true;
         result = await result.json();
         localStorage.setItem('jwtToken', result.jwt);
-
         return false;
     }
     return true;
@@ -54,4 +60,4 @@ function base64UrlDecode(input) { //required as atob only works with ASCII chara
 }
 
 
-export { isTokenExpired, decodeJWT }
+export { isTokenExpired, decodeJWT, logout }
