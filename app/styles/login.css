@@ -24,6 +24,7 @@
   text-align: center;
   text-decoration: none;
   display: inline-flex;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
