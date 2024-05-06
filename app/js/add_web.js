@@ -114,6 +114,7 @@ export function add_web() {
 
       remove_post_btn.addEventListener('click', () => {
         posts_container.removeChild(post);
+        let posts = posts_container.querySelectorAll('.add-post-container');
         if (posts.length === 0) {
           no_post_msg.style.display = 'block';
         }
