@@ -10,6 +10,7 @@ async function fetchResponse() {
     response = await response.json();
     console.log(response);
     localStorage.setItem('jwtToken', response.jwt);
+    localStorage.setItem('refreshToken',response.refresh);
   } catch (error) {
     console.error('Error fetching data: ', error);
   }

@@ -1,6 +1,6 @@
 import { login } from "./login.js";
 import { home } from "./home.js";
-import { isTokenExpired, decodeJWT } from "./JWTManager.js";
+import { isTokenExpired, decodeJWT, logout } from "./JWTManager.js";
 import { web } from "./web.js";
 import { add_web } from "./add_web.js";
 import { closePopup } from "./popup.js";
@@ -8,8 +8,8 @@ import { routeButton } from "./PathManager.js";
 
 let logoutBtn = document.getElementById("logout-btn");
 logoutBtn.addEventListener("click", (event) => {
-  localStorage.removeItem("jwtToken");
-  window.location.href = "/";
+      logout();
+      logoutBtn.style.display="none";
 });
 
 const dropdownBtn = document.getElementById("webstagram-logo");
@@ -75,13 +75,15 @@ const handleLocation = async () => {
   const urlParams = new URLSearchParams(window.location.search);
   let path = urlParams.get('path');
   if(!path)path='';
-  if(!isTokenExpired() && path===''){
+  const tokenExpired=await isTokenExpired();
+  if(!tokenExpired && path===''){
     path='home';
   }
-  else if(isTokenExpired()&& !(path==='about')){
+  else if(tokenExpired&& !(path==='about')){
+    populateNavBar();
     path='';
   }
-  if(!isTokenExpired() && document.getElementById("logout-btn").classList.contains("hidden")){
+  if(!tokenExpired && document.getElementById("logout-btn").classList.contains("hidden")){
     document.getElementById("logout-btn").classList.remove("hidden");
   }
   const route = (!!routes[path] && routes[path].template) || routes[404].template;
@@ -92,24 +94,29 @@ const handleLocation = async () => {
 
 window.onpopstate = handleLocation;
 window.route = route;
-const userName=document.getElementById("username");
-const userProfile=document.getElementById("main-profile-image");
-if(!isTokenExpired()){
-  const JWTJSON=decodeJWT()
-  userProfile.src=JWTJSON.userImage;
-  userName.textContent=JWTJSON.userName;
-  userProfile.style.display = 'grid';
-  userName.style.display = 'grid';
-  routeButton("username", `/?search=${JWTJSON.userName}`);
-  routeButton("main-profile-image", `/?search=${JWTJSON.userName}`);
-}
-else{
-  userProfile.style.display = 'none';
-  userName.style.display = 'none';
+
+const populateNavBar = async () => {
+  const userName = document.getElementById("username");
+  const userProfile = document.getElementById("main-profile-image");
+  const tokenExpired = await isTokenExpired();
+  if (!tokenExpired) {
+    const JWTJSON = decodeJWT();
+    userProfile.src = JWTJSON.userImage;
+    userName.textContent = JWTJSON.userName;
+    userProfile.style.display = 'grid';
+    userName.style.display = 'grid';
+    routeButton("username", `/?search=${JWTJSON.userName}`);
+    routeButton("main-profile-image", `/?search=${JWTJSON.userName}`);
+  }
+  else {
+    userProfile.style.display = 'none';
+    userName.style.display = 'none';
+  }
+
 }
 
 routeButton("title");
 routeButton("about-btn", "/?path=about");
-
+populateNavBar();
 handleLocation();
 closePopup();
