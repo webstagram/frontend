@@ -71,16 +71,20 @@ const handleLocation = async () => {
 
 window.onpopstate = handleLocation;
 window.route = route;
+const userName=document.getElementById("username");
+const userProfile=document.getElementById("main-profile-image");
 if(!isTokenExpired()){
-  document.getElementById("main-profile-image").src=decodeJWT().userImage;
-  document.getElementById("username").textContent=decodeJWT().userName;
-  document.getElementById("main-profile-image").style.display = 'grid';
-  document.getElementById("username").style.display = 'grid';
-
+  const JWTJSON=decodeJWT()
+  userProfile.src=JWTJSON.userImage;
+  userName.textContent=JWTJSON.userName;
+  userProfile.style.display = 'grid';
+  userName.style.display = 'grid';
+  routeButton("username", `/?search=${JWTJSON.userName}`);
+  routeButton("main-profile-image", `/?search=${JWTJSON.userName}`);
 }
 else{
-  document.getElementById("main-profile-image").style.display = 'none';
-  document.getElementById("username").style.display = 'none';
+  userProfile.style.display = 'none';
+  userName.style.display = 'none';
 }
 
 routeButton("title");
