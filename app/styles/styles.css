@@ -55,7 +55,7 @@ body {
 }
 
 .dropdown-content {
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: start;
@@ -74,12 +74,8 @@ body {
   text-align: left;
   border: none;
   background-color: transparent;
-  cursor: pointer;
   font-size: 1em;
-}
-
-.dropdown:hover .dropdown-content {
-  display: flex;
+  cursor: pointer;
 }
 
 .dropdown-content button:hover {
@@ -131,6 +127,7 @@ body {
   justify-self: end;
   margin-left: auto;
   width: 3.5em;
+  cursor: pointer;
 }
 
 #popup {
