@@ -20,11 +20,11 @@ function decodeJWT(token = localStorage.getItem('jwtToken')) {
 
 }
 async function isTokenExpired() {
-    const refresh = localStorage.getItem('refreshToken')
     let jwt = localStorage.getItem('jwtToken');
     const jwtvalid = isTokenValid(jwt);
     if (jwtvalid) return false;
-    else if (!jwtvalid && isTokenValid(refresh)) {
+    const refresh = localStorage.getItem('refreshToken');
+    if (!jwtvalid && isTokenValid(refresh)) {
         const headers = new Headers({});
         headers.append('Authorization', `${refresh}`);
         let url = backendURL + "refresh";
