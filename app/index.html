@@ -17,12 +17,20 @@
       <button id="popup-button">continue</button>
     </dialog>
     <nav id="main-nav">
-      <img id="main-profile-image" src="" />
+      <img id="main-profile-image" src="" alt="User profile photo" />
       <section id="main-titles">
         <h1 id="title"> Webstagram </h1>
         <h2 id="username"> LOG_IN </h2>
       </section>
-      <img id="webstagram-logo" src="https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/web_white.svg"/>
+      <section class="dropdown">
+        <button class="dropbtn">
+          <img id="webstagram-logo" src="https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/web_white.svg" alt="Spider web logo"/>
+        </button>
+        <section id="nav-dropdown-content" class="dropdown-content hidden">
+          <button id="about-btn">About</button>
+          <button id="logout-btn" class="hidden">Logout</button>
+        </section>
+      </section> 
     </nav>
     <div id="main-page"></div>
 

@@ -1,6 +1,6 @@
 import { login } from "./login.js";
 import { home } from "./home.js";
-import { isTokenExpired, decodeJWT } from "./JWTManager.js";
+import { isTokenExpired, decodeJWT, logout } from "./JWTManager.js";
 import { web } from "./web.js";
 import { add_web } from "./add_web.js";
 import { closePopup } from "./popup.js";
@@ -10,6 +10,32 @@ import { routeButton } from "./PathManager.js";
 =======
 import { routeButton } from "./PathManager.js";
 
+let logoutBtn = document.getElementById("logout-btn");
+logoutBtn.addEventListener("click", (event) => {
+      logout();
+      logoutBtn.style.display="none";
+});
+
+const dropdownBtn = document.getElementById("webstagram-logo");
+const dropdownContent = document.getElementById("nav-dropdown-content");
+
+dropdownBtn.addEventListener("click", (event) => {
+  if (dropdownContent.classList.contains("hidden")) {
+    dropdownContent.classList.remove("hidden");
+  } else {
+    dropdownContent.classList.add("hidden");
+  }
+});
+
+document.addEventListener("click", (event) => {
+  if (!dropdownContent.contains(event.target) && event.target !== dropdownBtn) {
+    dropdownContent.classList.add("hidden");
+  }
+});
+
+dropdownContent.addEventListener("click", (event) => {
+  dropdownContent.classList.add("hidden");
+});
 
 >>>>>>> 7463ab86fd7e991cf1b1711db5923166171d2d67
 const route = (event) => {
@@ -54,11 +80,16 @@ const handleLocation = async () => {
   const urlParams = new URLSearchParams(window.location.search);
   let path = urlParams.get('path');
   if(!path)path='';
-  if(!isTokenExpired() && path===''){
+  const tokenExpired=await isTokenExpired();
+  if(!tokenExpired && path===''){
     path='home';
   }
-  else if( isTokenExpired()&& !(path==='about')){
+  else if(tokenExpired&& !(path==='about')){
+    populateNavBar();
     path='';
+  }
+  if(!tokenExpired && document.getElementById("logout-btn").classList.contains("hidden")){
+    document.getElementById("logout-btn").classList.remove("hidden");
   }
   const route = (!!routes[path] && routes[path].template) || routes[404].template;
   const html = await fetch(route).then((data) => data.text());
@@ -68,21 +99,30 @@ const handleLocation = async () => {
 
 window.onpopstate = handleLocation;
 window.route = route;
-if(!isTokenExpired()){
-  document.getElementById("main-profile-image").src=decodeJWT().userImage;
-  document.getElementById("username").textContent=decodeJWT().userName;
-  document.getElementById("main-profile-image").style.display = 'grid';
-  document.getElementById("username").style.display = 'grid';
 
+const populateNavBar = async () => {
+  const userName = document.getElementById("username");
+  const userProfile = document.getElementById("main-profile-image");
+  const tokenExpired = await isTokenExpired();
+  if (!tokenExpired) {
+    const JWTJSON = decodeJWT();
+    userProfile.src = JWTJSON.userImage;
+    userName.textContent = JWTJSON.userName;
+    userProfile.style.display = 'grid';
+    userName.style.display = 'grid';
+    routeButton("username", `/?search=${JWTJSON.userName}`);
+    routeButton("main-profile-image", `/?search=${JWTJSON.userName}`);
   }
-  else{
-    document.getElementById("main-profile-image").style.display = 'none';
-    document.getElementById("username").style.display = 'none';
+  else {
+    userProfile.style.display = 'none';
+    userName.style.display = 'none';
   }
 
-  routeButton("webstagram-logo","/?path=about" );
-  routeButton("title");
+}
 
+routeButton("title");
+routeButton("about-btn", "/?path=about");
+populateNavBar();
 handleLocation();
 <<<<<<< HEAD
 addClickEventToNavItems();

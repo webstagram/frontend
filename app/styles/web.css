@@ -45,8 +45,7 @@
   justify-content: center;
   background-color: var(--aqua);
   border-radius: 1em;
-  min-width: 15em;
-  max-width: 35em;
+  width: 35.5em;
   padding: 0 0.5em;
   color: var(--white);
   overflow: hidden;
@@ -95,14 +94,6 @@
 .carousel-image {
   height: 100%;
   object-fit: cover;
-}
-
-.hidden {
-  display: none;
-}
-
-.visible {
-  display: block;
 }
 
 .arrow {

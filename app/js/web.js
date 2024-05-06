@@ -93,10 +93,17 @@ export async function web() {
     let touchEndX = 0;
 
     if (prev != null && next != null && dots != null) {
-      next.addEventListener('click', nextImg);
-      prev.addEventListener('click', prevImg);
+      next.addEventListener('click', (event) => {
+        event.stopImmediatePropagation();
+        nextImg();
+      });
+      prev.addEventListener('click', (event) => {
+        event.stopImmediatePropagation();
+        prevImg();
+      });
       dots.forEach((dot, dotPosition) => {
-        dot.addEventListener("click", () => {
+        dot.addEventListener("click", (event) => {
+          event.stopImmediatePropagation();
           imgPosition = dotPosition;
           updatePosition();
         });
@@ -129,10 +136,12 @@ export async function web() {
     }
 
     function handleTouchStart(event) {
+      if (event.target === prev || event.target === next) return;
       touchStartX = event.touches[0].clientX;
     }
 
     function handleTouchMove(event) {
+      if (event.target === prev || event.target === next) return;
       touchEndX = event.touches[0].clientX;
     }
 
@@ -142,6 +151,8 @@ export async function web() {
       } else if (touchEndX - touchStartX > 50) {
         prevImg();
       }
+      touchStartX = 0;
+      touchEndX = 0;
     }
   });
   routeButton("web-back-btn");
