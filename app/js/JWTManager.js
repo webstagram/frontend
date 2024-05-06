@@ -1,5 +1,7 @@
-const token = localStorage.getItem('jwtToken');
-function decodeJWT() {
+import config from './configManager.js';
+const backendURL = config.BACKEND_URL;
+
+function decodeJWT(token = localStorage.getItem('jwtToken')) {
     try {
         const data = token.split('.')[1];
         const stringify = (base64UrlDecode(data));
@@ -10,10 +12,31 @@ function decodeJWT() {
     }
 
 }
-function isTokenExpired() {
-    if (!token) return true;
-    const payload = decodeJWT();
-    return !payload || Date.now() >= (payload.exp * 1000) - 30000;
+async function isTokenExpired() {
+    const refresh = localStorage.getItem('refreshToken')
+    let jwt = localStorage.getItem('jwtToken');
+    const jwtvalid = isTokenValid(jwt);
+    if (jwtvalid) return false;
+    else if (!jwtvalid && isTokenValid(refresh)) {
+        const headers = new Headers({});
+        headers.append('Authorization', `${refresh}`);
+        let url = backendURL + "refresh";
+        let result = await fetch(url, {
+
+            headers
+        });
+        if (!result.ok) return true;
+        result = await result.json();
+        localStorage.setItem('jwtToken', result.jwt);
+
+        return false;
+    }
+    return true;
+}
+function isTokenValid(token) {
+    if (!token) return false;
+    const payload = decodeJWT(token);
+    return !(!payload || Date.now() >= (payload.exp * 1000) - 30000);
 }
 function base64UrlDecode(input) { //required as atob only works with ASCII characters
     let base64String = input.replace(/-/g, '+').replace(/_/g, '/');

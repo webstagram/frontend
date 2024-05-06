@@ -9,6 +9,7 @@ import { routeButton } from "./PathManager.js";
 let logoutBtn = document.getElementById("logout-btn");
 logoutBtn.addEventListener("click", (event) => {
   localStorage.removeItem("jwtToken");
+  localStorage.removeItem("refreshToken");
   window.location.href = "/";
 });
 
@@ -54,13 +55,14 @@ const handleLocation = async () => {
   const urlParams = new URLSearchParams(window.location.search);
   let path = urlParams.get('path');
   if(!path)path='';
-  if(!isTokenExpired() && path===''){
+  const tokenExpired=await isTokenExpired();
+  if(!tokenExpired && path===''){
     path='home';
   }
-  else if(isTokenExpired()&& !(path==='about')){
+  else if(tokenExpired&& !(path==='about')){
     path='';
   }
-  if(!isTokenExpired() && document.getElementById("logout-btn").classList.contains("hidden")){
+  if(!tokenExpired && document.getElementById("logout-btn").classList.contains("hidden")){
     document.getElementById("logout-btn").classList.remove("hidden");
   }
   const route = (!!routes[path] && routes[path].template) || routes[404].template;
@@ -73,8 +75,9 @@ window.onpopstate = handleLocation;
 window.route = route;
 const userName=document.getElementById("username");
 const userProfile=document.getElementById("main-profile-image");
-if(!isTokenExpired()){
-  const JWTJSON=decodeJWT()
+const tokenExpired=await isTokenExpired();
+if( !tokenExpired){
+  const JWTJSON=decodeJWT();
   userProfile.src=JWTJSON.userImage;
   userName.textContent=JWTJSON.userName;
   userProfile.style.display = 'grid';

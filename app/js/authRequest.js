@@ -1,13 +1,14 @@
 import config from './configManager.js';
 import {isTokenExpired} from './JWTManager.js';
 const backendURL=config.BACKEND_URL;
-const token=localStorage.getItem('jwtToken');
+
 
 
   // Function to add the JWT as a header and make the fetch request
  async function fetchWithAuth(endpoint, options = {}) {
+  const token=localStorage.getItem('jwtToken');
     // Check if the token is expired
-    if (isTokenExpired()) {
+    if (await isTokenExpired()) {
       console.error('Token is expired');
       // Handle token expiration, e.g., refresh the token or redirect to login
       return Promise.reject('Token is expired');
