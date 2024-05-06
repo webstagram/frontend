@@ -13,6 +13,27 @@ logoutBtn.addEventListener("click", (event) => {
   window.location.href = "/";
 });
 
+const dropdownBtn = document.getElementById("webstagram-logo");
+const dropdownContent = document.getElementById("nav-dropdown-content");
+
+dropdownBtn.addEventListener("click", (event) => {
+  if (dropdownContent.classList.contains("hidden")) {
+    dropdownContent.classList.remove("hidden");
+  } else {
+    dropdownContent.classList.add("hidden");
+  }
+});
+
+document.addEventListener("click", (event) => {
+  if (!dropdownContent.contains(event.target) && event.target !== dropdownBtn) {
+    dropdownContent.classList.add("hidden");
+  }
+});
+
+dropdownContent.addEventListener("click", (event) => {
+  dropdownContent.classList.add("hidden");
+});
+
 const route = (event) => {
   event = event || window.event;
   event.preventDefault();
