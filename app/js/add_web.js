@@ -1,7 +1,5 @@
 import { openPopup, closePopup } from "./popup.js";
 import { routeButton } from "./PathManager.js";
-import { openAlert } from "./alert.js";
-import { closeLoader, openLoader } from "./loader.js";
 
 export function add_web() {
   let no_post_msg = document.getElementById('add-web-no-posts-msg');
@@ -132,48 +130,27 @@ export function add_web() {
       .getElementById('posts-container')
       .querySelectorAll('.add-post-container');
 
-    let isValid = false;
     const formData = [...posts].map((cur) => {
       let obj = {'selectedImages': []};
 
       cur.querySelectorAll('input').forEach((input) => {
         if (input.type !== 'text') return;
 
-        isValid = isValid || input.value.length == 0;
         obj[input.name] = input.value; 
       });
 
-      const imgs = cur.querySelectorAll('img')
-      isValid = isValid || imgs.length == 0;
-      
-      imgs.forEach((img) => {
+      cur.querySelectorAll('img').forEach((img) => {
         obj['selectedImages'].push(img.src);
       });
 
       return obj;
     });  
 
-    const webTitle = document.getElementById('webTitle').value;
+    console.log(formData);
     
-    if (
-      isValid 
-      || formData.length === 0 
-      || webTitle.length === 0
-    ) return openAlert('Please create a post and fill out all the fields');
-
-    openLoader();
-  
-    // make request
-    console.log({
-      webTitle,
-      'posts': formData,
+    openPopup('Successfully posted!', () => {
+      closePopup();
     });
-
-    setTimeout(() => {
-      closeLoader()
-      openPopup('Successfully posted!', () => closePopup());
-    } , 2000);
-    
   });
   
   routeButton("add-web-back-btn", "/");
