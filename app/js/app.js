@@ -4,10 +4,6 @@ import { isTokenExpired, decodeJWT, logout } from "./JWTManager.js";
 import { web } from "./web.js";
 import { add_web } from "./add_web.js";
 import { closePopup } from "./popup.js";
-<<<<<<< HEAD
-
-import { routeButton } from "./PathManager.js";
-=======
 import { routeButton } from "./PathManager.js";
 
 let logoutBtn = document.getElementById("logout-btn");
@@ -37,7 +33,6 @@ dropdownContent.addEventListener("click", (event) => {
   dropdownContent.classList.add("hidden");
 });
 
->>>>>>> 7463ab86fd7e991cf1b1711db5923166171d2d67
 const route = (event) => {
   event = event || window.event;
   event.preventDefault();
@@ -124,8 +119,4 @@ routeButton("title");
 routeButton("about-btn", "/?path=about");
 populateNavBar();
 handleLocation();
-<<<<<<< HEAD
-addClickEventToNavItems();
-=======
->>>>>>> 7463ab86fd7e991cf1b1711db5923166171d2d67
 closePopup();
