@@ -162,9 +162,9 @@ export function add_web() {
     sendMeToBackend.Posts = formData;
     var authRequestObject = {
       "method": "POST",
-      "Body": sendMeToBackend
+      "body": JSON.stringify(sendMeToBackend)
     };
-    var endpoint = "uploadPosts";
+    var endpoint = "uploadposts";
     var result = await fetchWithAuth(endpoint,authRequestObject);
 
     console.log(sendMeToBackend);

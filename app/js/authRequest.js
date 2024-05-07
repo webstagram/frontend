@@ -7,6 +7,7 @@ const token=localStorage.getItem('jwtToken');
   // Function to add the JWT as a header and make the fetch request
  async function fetchWithAuth(endpoint, options = {}) {
     // Check if the token is expired
+    debugger;
     if (isTokenExpired()) {
       console.error('Token is expired');
       // Handle token expiration, e.g., refresh the token or redirect to login
@@ -25,4 +26,3 @@ const token=localStorage.getItem('jwtToken');
   }
 
   export {  fetchWithAuth };
-
