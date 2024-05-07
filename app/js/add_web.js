@@ -129,7 +129,6 @@ export function add_web() {
   });
 
   add_web_save_btn.addEventListener('click', async () => {
-    openLoader();
     
     const posts = document
       .getElementById('posts-container')
@@ -168,6 +167,7 @@ export function add_web() {
       || formData.length === 0 
       || webTitle.length === 0
     ) return openAlert('Please create a post and fill out all the fields');
+    openLoader();
 
     var sendMeToBackend = {};
     sendMeToBackend.WebName = webTitle;
