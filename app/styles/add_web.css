@@ -134,6 +134,7 @@
   border-radius: 1em;
   border: none;
   background-color: var(--soft-gray);
+  resize: none;
 }
 
 .add-post-images-container {
