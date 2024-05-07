@@ -71,7 +71,6 @@
 
 .carousel-image {
   height: 100%;
-  /* width: 0; */
   opacity: 0;
   object-fit: cover;
   transition: transform 0.5s ease, opacity 0.8s ease, width 0.5s ease;
