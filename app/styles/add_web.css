@@ -129,6 +129,13 @@
   font-size: 1.2em;
 }
 
+.add-post-caption-input{
+  padding: 1em;
+  border-radius: 1em;
+  border: none;
+  background-color: var(--soft-gray);
+}
+
 .add-post-images-container {
   display: flex;
   width: 100%;
