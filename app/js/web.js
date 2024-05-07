@@ -1,5 +1,6 @@
 import { fetchWithAuth } from "./authRequest.js";
 import { routeButton } from "./PathManager.js";
+import { openLoader, closeLoader } from "./loader.js";
 
 async function populateWebPosts(webId){
   var result=(await fetchWithAuth(`webs/postsInWeb?webId=${webId}`));
@@ -10,6 +11,7 @@ async function populateWebPosts(webId){
 export async function web() {
   const urlParams = new URLSearchParams(window.location.search);
   let webId = urlParams.get('webid');
+  openLoader();
   var webPosts = await populateWebPosts(webId);
   // Start populating the post containers:
   // Will have to select the posts element  by id, then add a post container with post info each time.
@@ -170,4 +172,5 @@ export async function web() {
     }
   });
   routeButton("web-back-btn");
+  closeLoader();
 }
