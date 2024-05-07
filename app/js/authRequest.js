@@ -27,4 +27,3 @@ const backendURL=config.BACKEND_URL;
   }
 
   export {  fetchWithAuth };
-
