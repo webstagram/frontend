@@ -36,7 +36,7 @@ export function add_web() {
 
   function createTextArea(name) {
     const textArea = document.createElement('textarea');
-    textArea.cols = 30;
+    textArea.cols = 34;
     textArea.rows = 5;
     textArea.className = 'add-post-caption-input';
     textArea.name = name;
@@ -100,6 +100,7 @@ export function add_web() {
       const maxTotalSize = 10 * 1024 * 1024;
       let currSize=0;
       image_select.addEventListener('change', ({target: {files}}) => {
+        openAlert('Double click to remove an image', 'info'); 
         const existingImages = images_container.querySelectorAll('img');
         const numImages = existingImages.length;
         if (numImages >= 5) return;      
@@ -118,6 +119,7 @@ export function add_web() {
           const reader = new FileReader();
 
           reader.onload = ({target: {result}}) => {
+            debugger;
             const img = createImg(result);
             img.addEventListener('dblclick', () => images_container.removeChild(img))
             images_container.appendChild(img);
@@ -125,7 +127,6 @@ export function add_web() {
           
           reader.readAsDataURL(files[i]);
         } 
-        
       });
 
       remove_post_btn.addEventListener('click', () => {
