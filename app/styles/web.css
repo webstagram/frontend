@@ -79,7 +79,6 @@
 .ease-in {
   opacity: 1;
   width: 100%;
-  display: block;
 }
 
 .ease-out {
