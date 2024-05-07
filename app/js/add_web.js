@@ -161,7 +161,12 @@ export function add_web() {
       return obj;
     });  
     var webTitle = document.getElementById("webTitle").value;
-    debugger;
+    if (
+      isValid 
+      || formData.length === 0 
+      || webTitle.length === 0
+    ) return openAlert('Please create a post and fill out all the fields');
+
     var sendMeToBackend = {};
     sendMeToBackend.WebName = webTitle;
     sendMeToBackend.Posts = formData;
@@ -171,13 +176,7 @@ export function add_web() {
       "body": JSON.stringify(sendMeToBackend)
     };
     var endpoint = "uploadposts";
-    var result = await fetchWithAuth(endpoint,authRequestObject);
-    
-    if (
-      isValid 
-      || formData.length === 0 
-      || webTitle.length === 0
-    ) return openAlert('Please create a post and fill out all the fields');
+    var result = await fetchWithAuth(endpoint, authRequestObject);
 
     openLoader();
   
