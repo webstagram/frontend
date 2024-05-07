@@ -129,6 +129,8 @@ export function add_web() {
   });
 
   add_web_save_btn.addEventListener('click', async () => {
+    openLoader();
+    
     const posts = document
       .getElementById('posts-container')
       .querySelectorAll('.add-post-container');
@@ -177,14 +179,6 @@ export function add_web() {
     };
     var endpoint = "uploadposts";
     var result = await fetchWithAuth(endpoint, authRequestObject);
-
-    openLoader();
-  
-    // make request
-    console.log({
-      webTitle,
-      'posts': formData,
-    });
 
     setTimeout(() => {
       closeLoader()
