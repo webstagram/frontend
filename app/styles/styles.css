@@ -7,6 +7,7 @@
   --white: #FFFFFF;
   --gray: #727272;
 
+
   background-color: var(--soft-gray);
   font-family: 'Saira Condensed', sans-serif;
 }
@@ -15,6 +16,15 @@ body {
   padding: 0;
   margin: 0;
   container-type: inline-size;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-wrap: wrap;
+  cursor: pointer;
 }
 
 #main-page {
@@ -55,7 +65,7 @@ body {
 }
 
 .dropdown-content {
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: start;
@@ -65,6 +75,18 @@ body {
   right: 3em;
   box-shadow: 0 .5em 1em 0 rgba(0,0,0,0.2);
   z-index: 1;
+  animation: slide-down 0.3s ease;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-1em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dropdown-content button {
@@ -72,14 +94,11 @@ body {
   padding: .8em 1em;
   width: 100%;
   text-align: left;
+  justify-content: start;
   border: none;
   background-color: transparent;
-  cursor: pointer;
   font-size: 1em;
-}
-
-.dropdown:hover .dropdown-content {
-  display: flex;
+  cursor: pointer;
 }
 
 .dropdown-content button:hover {
@@ -131,19 +150,7 @@ body {
   justify-self: end;
   margin-left: auto;
   width: 3.5em;
-}
-
-#popup {
-  background-color: var(--gray);
-  height: 90vh;
-  width: 90vw;
-  border: none;
-  opacity: 0.9;
-  border-radius: 3em;
-  display: none;
-  color: white;
-  place-content: center;
-  margin-top: 3vh;
+  cursor: pointer;
 }
 
 #popup-button {
@@ -153,4 +160,74 @@ body {
   color: var(--white);
   padding: 1em 2em;
   text-transform: uppercase;
+  opacity: 1;
+}
+
+#popup {
+  background:rgba(125, 125, 125, 0.9);
+  height: 90vh;
+  width: 90vw;
+  border: none;
+  border-radius: 3em;
+  display: none;
+  color: white;
+  place-content: center;
+  margin-top: 3vh;
+}
+
+#alert{
+  border: none;
+  border-radius: 1em;
+  min-width: 250px;
+  display: none;
+  place-content: center;
+  color: var(--white);
+  margin-top: 4vh;
+}
+
+#loader {
+  width: 100vw;
+  height: 100%;
+  opacity: 0.9;
+  background-color: var(--blue);
+  display: none;
+  place-content: center;
+}
+
+#loader-logo {
+  height: 10vh;
+  width: 10vw;
+  animation: logo 2s infinite
+}
+
+@keyframes logo {
+  50% {
+    transform: rotate(360deg) scale(4);
+  }
+}
+ 
+.back-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 3em;
+  font-weight: 900;
+  margin: 0;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+
+.back-btn {
+  min-height: .8em;
+}
+
+.rotate {
+  transition: transform 0.3s ease;
+}
+
+.rotate:hover {
+  transform: rotate(180deg);
 }

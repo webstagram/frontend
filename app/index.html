@@ -10,8 +10,19 @@
     <link rel="stylesheet" href="styles/web.css">
     <link rel="stylesheet" href="styles/add_web.css">
     <link rel="stylesheet" href="styles/login.css">
+    <link rel="stylesheet" href="styles/about.css">
   </head>
   <body>
+    <dialog id="loader" open>
+      <img 
+        id="loader-logo" 
+        src="https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/web_white.svg" 
+        alt="Spider web logo"
+      />
+    </dialog>
+    <dialog id="alert">
+      <h2 id="alert-content"> Oops something went wrong!!! </h2>
+    </dialog>
     <dialog id="popup">
       <h1 id="popup-content">lol</h1>
       <button id="popup-button">continue</button>
@@ -24,9 +35,9 @@
       </section>
       <section class="dropdown">
         <button class="dropbtn">
-          <img id="webstagram-logo" src="https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/web_white.svg" alt="Spider web logo"/>
+          <img id="webstagram-logo" class="rotate" src="https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/web_white.svg" alt="Spider web logo"/>
         </button>
-        <section class="dropdown-content">
+        <section id="nav-dropdown-content" class="dropdown-content hidden">
           <button id="about-btn">About</button>
           <button id="logout-btn" class="hidden">Logout</button>
         </section>

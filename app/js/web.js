@@ -45,9 +45,10 @@ export async function web() {
             i++;
             currImage.classList.add("carousel-image");
             if (i==1){
-            currImage.classList.add("visible");
+              currImage.classList.add("ease-in");
             } else {
-              currImage.classList.add("hidden");
+              currImage.classList.add("ease-out");
+              currImage.classList.add("slide-right");
             }
           });
           if (post.PostImages.length > 1){
@@ -93,12 +94,24 @@ export async function web() {
     let touchEndX = 0;
 
     if (prev != null && next != null && dots != null) {
-      next.addEventListener('click', nextImg);
-      prev.addEventListener('click', prevImg);
+      next.addEventListener('click', (event) => {
+        event.stopImmediatePropagation();
+        nextImg();
+      });
+      prev.addEventListener('click', (event) => {
+        event.stopImmediatePropagation();
+        prevImg();
+      });
       dots.forEach((dot, dotPosition) => {
-        dot.addEventListener("click", () => {
-          imgPosition = dotPosition;
-          updatePosition();
+        dot.addEventListener("click", (event) => {
+          event.stopImmediatePropagation();
+          while(imgPosition !== dotPosition){
+            if (dotPosition > imgPosition){
+              nextImg();
+            } else {
+              prevImg();
+            }
+          }
         });
       });
     }
@@ -108,31 +121,41 @@ export async function web() {
     postContainer.addEventListener('touchend', handleTouchEnd);
     // End populating post containers
     function updatePosition() {
-      imgs.forEach(img => {img.classList.add('hidden'); img.classList.remove('visible')});
-      imgs[imgPosition].classList.remove('hidden');
-      imgs[imgPosition].classList.add('visible');
-
       for (let dot of dots) {
-        dot.className = dot.className.replace(" active", "");
+        dot.className = dot.className.replace("active", "");
       }
       dots[imgPosition].classList.add('active');
     }
 
     function nextImg() {
+      if (imgPosition >= totalImgs - 1) { return }
+      imgs[imgPosition].classList.add('slide-left');
+      imgs[imgPosition].classList.add('ease-out');
+      imgs[imgPosition].classList.remove('ease-in');
       imgPosition = (imgPosition + 1) % totalImgs;
+      imgs[imgPosition].classList.remove('slide-left', 'slide-right', 'ease-out');
+      imgs[imgPosition].classList.add('ease-in');
       updatePosition();
     }
 
     function prevImg() {
+      if (imgPosition <= 0) { return }
+      imgs[imgPosition].classList.add('slide-right');
+      imgs[imgPosition].classList.add('ease-out');
+      imgs[imgPosition].classList.remove('ease-in');
       imgPosition = (imgPosition - 1 + totalImgs) % totalImgs;
+      imgs[imgPosition].classList.remove('slide-left', 'slide-right', 'ease-out');
+      imgs[imgPosition].classList.add('ease-in');
       updatePosition();
     }
 
     function handleTouchStart(event) {
+      if (event.target === prev || event.target === next) return;
       touchStartX = event.touches[0].clientX;
     }
 
     function handleTouchMove(event) {
+      if (event.target === prev || event.target === next) return;
       touchEndX = event.touches[0].clientX;
     }
 
@@ -142,6 +165,8 @@ export async function web() {
       } else if (touchEndX - touchStartX > 50) {
         prevImg();
       }
+      touchStartX = 0;
+      touchEndX = 0;
     }
   });
   routeButton("web-back-btn");

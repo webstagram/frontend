@@ -1,6 +1,8 @@
 import { openPopup, closePopup } from "./popup.js";
 import { routeButton } from "./PathManager.js";
 import { fetchWithAuth } from "./authRequest.js";
+import { openAlert } from "./alert.js";
+import { closeLoader, openLoader } from "./loader.js";
 
 export function add_web() {
   let no_post_msg = document.getElementById('add-web-no-posts-msg');
@@ -115,10 +117,11 @@ export function add_web() {
 
       remove_post_btn.addEventListener('click', () => {
         posts_container.removeChild(post);
+        let posts = posts_container.querySelectorAll('.add-post-container');
         if (posts.length === 0) {
           no_post_msg.style.display = 'block';
         }
-        add_post_btn.style.display = 'block';
+        add_post_btn.style.display = 'flex';
       });
 
       posts_container.appendChild(post);
@@ -130,12 +133,14 @@ export function add_web() {
       .getElementById('posts-container')
       .querySelectorAll('.add-post-container');
 
+    let isValid = false;
     const formData = [...posts].map((cur) => {
       let obj = {'Images': []};
 
       cur.querySelectorAll('input').forEach((input) => {
         if (input.type !== 'text') return;
 
+        isValid = isValid || input.value.length == 0;
         obj[input.name] = input.value; 
       });
 
@@ -168,12 +173,27 @@ export function add_web() {
     var endpoint = "uploadposts";
     var result = await fetchWithAuth(endpoint,authRequestObject);
 
-    console.log(sendMeToBackend);
-    console.log(result);
+    const webTitle = document.getElementById('webTitle').value;
     
-    openPopup('Successfully posted!', () => {
-      closePopup();
+    if (
+      isValid 
+      || formData.length === 0 
+      || webTitle.length === 0
+    ) return openAlert('Please create a post and fill out all the fields');
+
+    openLoader();
+  
+    // make request
+    console.log({
+      webTitle,
+      'posts': formData,
     });
+
+    setTimeout(() => {
+      closeLoader()
+      openPopup('Successfully posted!', () => closePopup());
+    } , 2000);
+    
   });
   
   routeButton("add-web-back-btn", "/");
