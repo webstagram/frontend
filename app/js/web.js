@@ -45,9 +45,10 @@ export async function web() {
             i++;
             currImage.classList.add("carousel-image");
             if (i==1){
-            currImage.classList.add("visible");
+              currImage.classList.add("ease-in");
             } else {
-              currImage.classList.add("hidden");
+              currImage.classList.add("ease-out");
+              currImage.classList.add("slide-right");
             }
           });
           if (post.PostImages.length > 1){
@@ -104,8 +105,13 @@ export async function web() {
       dots.forEach((dot, dotPosition) => {
         dot.addEventListener("click", (event) => {
           event.stopImmediatePropagation();
-          imgPosition = dotPosition;
-          updatePosition();
+          while(imgPosition !== dotPosition){
+            if (dotPosition > imgPosition){
+              nextImg();
+            } else {
+              prevImg();
+            }
+          }
         });
       });
     }
@@ -115,23 +121,31 @@ export async function web() {
     postContainer.addEventListener('touchend', handleTouchEnd);
     // End populating post containers
     function updatePosition() {
-      imgs.forEach(img => {img.classList.add('hidden'); img.classList.remove('visible')});
-      imgs[imgPosition].classList.remove('hidden');
-      imgs[imgPosition].classList.add('visible');
-
       for (let dot of dots) {
-        dot.className = dot.className.replace(" active", "");
+        dot.className = dot.className.replace("active", "");
       }
       dots[imgPosition].classList.add('active');
     }
 
     function nextImg() {
+      if (imgPosition >= totalImgs - 1) { return }
+      imgs[imgPosition].classList.add('slide-left');
+      imgs[imgPosition].classList.add('ease-out');
+      imgs[imgPosition].classList.remove('ease-in');
       imgPosition = (imgPosition + 1) % totalImgs;
+      imgs[imgPosition].classList.remove('slide-left', 'slide-right', 'ease-out');
+      imgs[imgPosition].classList.add('ease-in');
       updatePosition();
     }
 
     function prevImg() {
+      if (imgPosition <= 0) { return }
+      imgs[imgPosition].classList.add('slide-right');
+      imgs[imgPosition].classList.add('ease-out');
+      imgs[imgPosition].classList.remove('ease-in');
       imgPosition = (imgPosition - 1 + totalImgs) % totalImgs;
+      imgs[imgPosition].classList.remove('slide-left', 'slide-right', 'ease-out');
+      imgs[imgPosition].classList.add('ease-in');
       updatePosition();
     }
 
