@@ -1,5 +1,5 @@
 import { openPopup, closePopup } from "./popup.js";
-import { routeButton } from "./PathManager.js";
+import { routeButton, routeWithoutRefresh } from "./PathManager.js";
 import { fetchWithAuth } from "./authRequest.js";
 import { openAlert } from "./alert.js";
 import { closeLoader, openLoader } from "./loader.js";
@@ -180,11 +180,18 @@ export function add_web() {
     var endpoint = "uploadposts";
     var result = await fetchWithAuth(endpoint, authRequestObject);
 
-    setTimeout(() => {
-      closeLoader()
-      openPopup('Successfully posted!', () => closePopup());
-    } , 2000);
-    
+    closeLoader()
+    if (result.status !== 200) {
+      openPopup('Failed to post web! Please try again.', () => {
+        closePopup();
+      });
+      return;
+    } else {
+      openPopup('Successfully posted!', () => {
+        closePopup();
+        routeWithoutRefresh("/");
+      });
+    }
   });
   
   routeButton("add-web-back-btn", "/");
