@@ -8,7 +8,7 @@ export function add_web() {
   let no_post_msg = document.getElementById('add-web-no-posts-msg');
   let add_post_btn = document.getElementById('add-web-add-post-btn');
   let posts_container = document.getElementById('posts-container');
-  const add_web_save_btn = document.getElementById('add-web-save-btn');
+  let add_web_save_btn = document.getElementById('add-web-save-btn');
   let max_posts = 5;
 
   function createSection(className) {
@@ -187,6 +187,7 @@ export function add_web() {
       });
       return;
     } else {
+      add_web_save_btn.disabled = true;
       openPopup('Successfully posted!', () => {
         closePopup();
         routeWithoutRefresh("/");
