@@ -161,6 +161,7 @@ export function add_web() {
     sendMeToBackend.WebName = webTitle;
     sendMeToBackend.Posts = formData;
     var authRequestObject = {
+      "headers": {"Content-Type": "application/json"},
       "method": "POST",
       "body": JSON.stringify(sendMeToBackend)
     };
