@@ -95,11 +95,22 @@ export function add_web() {
       post.appendChild(title_container);
       post.appendChild(images_container);
       post.appendChild(remove_post_btn);
-
+      const maxTotalSize = 10 * 1024 * 1024;
+      let currSize=0;
       image_select.addEventListener('change', ({target: {files}}) => {
-        const Images = images_container.querySelectorAll('img').length;
-        if (Images >= 5) return;
-        for (let i = 0; i < 5 - Images; i++) {
+        const existingImages = images_container.querySelectorAll('img');
+        const numImages = existingImages.length;
+        if (numImages >= 5) return;      
+        // Add the size of the newly selected files
+        const newSize=Array.from(files).reduce((size, file) => size + file.size, 0);
+        currSize += Array.from(files).reduce((size, file) => size + file.size, 0);
+        if (currSize>maxTotalSize){
+          image_select.value="";
+          currSize-=newSize;
+          openAlert("Total file size cannot exceed 10MB per post")
+          return;
+        }
+        for (let i = 0; i < 5 - numImages; i++) {
           if (!files || !files[i]) return;
           
           const reader = new FileReader();
