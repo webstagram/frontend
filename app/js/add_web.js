@@ -140,7 +140,7 @@ export function add_web() {
   });
 
   add_web_save_btn.addEventListener('click', async () => {
-    
+    add_web_save_btn.disabled = true;
     const posts = document
       .getElementById('posts-container')
       .querySelectorAll('.add-post-container');
@@ -173,11 +173,10 @@ export function add_web() {
       return obj;
     });  
     var webTitle = document.getElementById("webTitle").value;
-    if (
-      isValid 
-      || formData.length === 0 
-      || webTitle.length === 0
-    ) return openAlert('Please create a post and fill out all the fields');
+    if (isValid || formData.length === 0 || webTitle.length === 0){
+      add_web_save_btn.disabled = false;
+      return openAlert('Please create a post and fill out all the fields');
+    } 
     openLoader();
 
     var sendMeToBackend = {};
@@ -193,6 +192,7 @@ export function add_web() {
 
     closeLoader()
     if (result.status !== 200) {
+      add_web_save_btn.disabled = false;
       let message="Failed to post web! Please try again.";
       if(result.status==409) message="Web with this name already exists.";
       openPopup(message, () => {
@@ -200,7 +200,6 @@ export function add_web() {
       });
       return;
     } else {
-      add_web_save_btn.disabled = true;
       openPopup('Successfully posted!', () => {
         closePopup();
         routeWithoutRefresh("/");
