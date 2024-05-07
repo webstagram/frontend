@@ -172,8 +172,6 @@ export function add_web() {
     };
     var endpoint = "uploadposts";
     var result = await fetchWithAuth(endpoint,authRequestObject);
-
-    const webTitle = document.getElementById('webTitle').value;
     
     if (
       isValid 
