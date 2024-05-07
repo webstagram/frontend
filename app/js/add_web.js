@@ -193,7 +193,9 @@ export function add_web() {
 
     closeLoader()
     if (result.status !== 200) {
-      openPopup('Failed to post web! Please try again.', () => {
+      let message="Failed to post web! Please try again.";
+      if(result.status==409) message="Web with this name already exists.";
+      openPopup(message, () => {
         closePopup();
       });
       return;

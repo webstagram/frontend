@@ -40,7 +40,7 @@ export async function web() {
           var i = 0;
           post.PostImages.forEach(image=>{
             var currImage = document.createElement("img");
-            currImage.src = image.Path;
+            currImage.src = image.Path.replace("+","%2B");
             imageCarousel.appendChild(currImage);
             i++;
             currImage.classList.add("carousel-image");
