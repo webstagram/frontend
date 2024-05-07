@@ -75,6 +75,18 @@ button {
   right: 3em;
   box-shadow: 0 .5em 1em 0 rgba(0,0,0,0.2);
   z-index: 1;
+  animation: slide-down 0.3s ease;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-1em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dropdown-content button {
@@ -82,6 +94,7 @@ button {
   padding: .8em 1em;
   width: 100%;
   text-align: left;
+  justify-content: start;
   border: none;
   background-color: transparent;
   font-size: 1em;
@@ -189,8 +202,7 @@ button {
 
 @keyframes logo {
   50% {
-    height: 50vh;
-    width: 50vw;
+    transform: rotate(360deg) scale(4);
   }
 }
  
