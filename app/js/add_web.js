@@ -1,5 +1,5 @@
 import { openPopup, closePopup } from "./popup.js";
-import { routeButton } from "./PathManager.js";
+import { routeButton, routeWithoutRefresh } from "./PathManager.js";
 import { fetchWithAuth } from "./authRequest.js";
 import { openAlert } from "./alert.js";
 import { closeLoader, openLoader } from "./loader.js";
@@ -8,7 +8,7 @@ export function add_web() {
   let no_post_msg = document.getElementById('add-web-no-posts-msg');
   let add_post_btn = document.getElementById('add-web-add-post-btn');
   let posts_container = document.getElementById('posts-container');
-  const add_web_save_btn = document.getElementById('add-web-save-btn');
+  let add_web_save_btn = document.getElementById('add-web-save-btn');
   let max_posts = 5;
 
   function createSection(className) {
@@ -140,6 +140,7 @@ export function add_web() {
   });
 
   add_web_save_btn.addEventListener('click', async () => {
+    
     const posts = document
       .getElementById('posts-container')
       .querySelectorAll('.add-post-container');
@@ -172,7 +173,13 @@ export function add_web() {
       return obj;
     });  
     var webTitle = document.getElementById("webTitle").value;
-    debugger;
+    if (
+      isValid 
+      || formData.length === 0 
+      || webTitle.length === 0
+    ) return openAlert('Please create a post and fill out all the fields');
+    openLoader();
+
     var sendMeToBackend = {};
     sendMeToBackend.WebName = webTitle;
     sendMeToBackend.Posts = formData;
@@ -182,27 +189,21 @@ export function add_web() {
       "body": JSON.stringify(sendMeToBackend)
     };
     var endpoint = "uploadposts";
-    var result = await fetchWithAuth(endpoint,authRequestObject);
-    
-    if (
-      isValid 
-      || formData.length === 0 
-      || webTitle.length === 0
-    ) return openAlert('Please create a post and fill out all the fields');
+    var result = await fetchWithAuth(endpoint, authRequestObject);
 
-    openLoader();
-  
-    // make request
-    console.log({
-      webTitle,
-      'posts': formData,
-    });
-
-    setTimeout(() => {
-      closeLoader()
-      openPopup('Successfully posted!', () => closePopup());
-    } , 2000);
-    
+    closeLoader()
+    if (result.status !== 200) {
+      openPopup('Failed to post web! Please try again.', () => {
+        closePopup();
+      });
+      return;
+    } else {
+      add_web_save_btn.disabled = true;
+      openPopup('Successfully posted!', () => {
+        closePopup();
+        routeWithoutRefresh("/");
+      });
+    }
   });
   
   routeButton("add-web-back-btn", "/");
