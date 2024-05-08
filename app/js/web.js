@@ -1,5 +1,6 @@
 import { fetchWithAuth } from "./authRequest.js";
 import { routeButton } from "./PathManager.js";
+import { openLoader, closeLoader } from "./loader.js";
 
 async function fetchWebPosts(webId){
   let result=(await fetchWithAuth(`webs/postsInWeb?webId=${webId}`));
@@ -10,6 +11,7 @@ async function fetchWebPosts(webId){
 export async function web() {
   const urlParams = new URLSearchParams(window.location.search);
   let webId = urlParams.get('webid');
+  openLoader();
   let data = await fetchWebPosts(webId);
   let webTitle = data.webTitle;
   let webBackBtn = document.getElementById('web-back-btn');
@@ -177,4 +179,5 @@ export async function web() {
     }
   });
   routeButton("web-back-btn");
+  closeLoader();
 }

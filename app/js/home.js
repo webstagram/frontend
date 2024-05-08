@@ -1,11 +1,11 @@
 import { routeWithoutRefresh, routeButton } from "./PathManager.js";
 import { fetchWithAuth } from "./authRequest.js";
+import { openLoader, closeLoader } from "./loader.js";
 
 export async function home() {
   await getWebs();
   let searchBar = document.querySelector('#search-bar');
   searchBar.addEventListener('keyup', updateWebDisplay);
-
 
   let webs = {};
   let webContainers = document.querySelectorAll('.web-container');
@@ -26,10 +26,12 @@ export async function home() {
 
 
   async function getWebs(){
+    openLoader();
     var result=await fetchWithAuth('webs');
     result=await result.json();
     
     populateWebs(result);
+    closeLoader();
   };
 
   function populateWebs(websData) {

@@ -163,16 +163,33 @@ button {
   opacity: 1;
 }
 
-#popup {
-  background:rgba(125, 125, 125, 0.9);
-  height: 90vh;
-  width: 90vw;
-  border: none;
-  border-radius: 3em;
+#popup-container {
   display: none;
-  color: white;
-  place-content: center;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  background:rgba(125, 125, 125, 0.9);
+  z-index: 50;
+}
+
+#popup {
+  height: 50vh;
+  width: 50vw;
+  border: none;
+  border-radius: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  background-color: var(--soft-gray);
   margin-top: 3vh;
+}
+
+.disable-scrolling {
+  overflow: hidden;
 }
 
 #alert{
@@ -187,11 +204,13 @@ button {
 
 #loader {
   width: 100vw;
-  height: 100%;
-  opacity: 0.9;
+  height: 100vh;
+  opacity: 0.7;
   background-color: var(--blue);
   display: none;
-  place-content: center;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
 }
 
 #loader-logo {

@@ -1,16 +1,19 @@
-const popup = document.getElementById('popup');
+const popup = document.getElementById('popup-container');
 const popupContent = document.getElementById('popup-content');
 const popupButton = document.getElementById('popup-button')
+const rootElement = document.documentElement;
 
 
 function closePopup() {
   popup.style.display = 'none';
+  rootElement.classList.remove('disable-scrolling');
 }
 
 function openPopup(content, callbackFunc = undefined) {
   if (!content) return;
 
-  popupContent.innerText = content
+  rootElement.classList.add('disable-scrolling');
+  popupContent.innerText = content;
 
   if (callbackFunc !== undefined) {
     popupButton.addEventListener('click', callbackFunc);
@@ -18,7 +21,7 @@ function openPopup(content, callbackFunc = undefined) {
     setTimeout(closePopup, 2000);
   }
 
-  popup.style.display = 'grid';
+  popup.style.display = 'flex';
 }
 
 export {
