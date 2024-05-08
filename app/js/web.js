@@ -4,7 +4,6 @@ import { routeButton } from "./PathManager.js";
 async function fetchWebPosts(webId){
   let result=(await fetchWithAuth(`webs/postsInWeb?webId=${webId}`));
   result=await result.json();
-  console.log(result);
   return result;
 }
 
