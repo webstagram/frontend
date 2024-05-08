@@ -11,13 +11,6 @@ export function add_web() {
   let add_web_save_btn = document.getElementById('add-web-save-btn');
   let max_posts = 5;
 
-  function createSection(className) {
-    if (!className) return
-    const container = document.createElement('section');
-    container.className = 'add-post-title-container';
-    return container;
-  }
-
   function createLabel(innerText) {
     const label = document.createElement('label');
     label.className = 'add-post-title-label';
@@ -39,6 +32,15 @@ export function add_web() {
     img.width = 200;
     img.src = src;
     return img;
+  }
+
+  function createTextArea(name) {
+    const textArea = document.createElement('textarea');
+    textArea.cols = 34;
+    textArea.rows = 5;
+    textArea.className = 'add-post-caption-input';
+    textArea.name = name;
+    return textArea;
   }
 
   add_post_btn.addEventListener('click', () => {
@@ -69,7 +71,7 @@ export function add_web() {
       title_container.appendChild(title_input);
 
       title_container.appendChild(createLabel('Caption'));
-      title_container.appendChild(createInput('Caption'))
+      title_container.appendChild(createTextArea('Caption'));
 
       let images_container = document.createElement('section');
       images_container.className = 'add-post-images-container';
@@ -98,6 +100,7 @@ export function add_web() {
       const maxTotalSize = 10 * 1024 * 1024;
       let currSize=0;
       image_select.addEventListener('change', ({target: {files}}) => {
+        openAlert('Double click to remove an image', 'info'); 
         const existingImages = images_container.querySelectorAll('img');
         const numImages = existingImages.length;
         if (numImages >= 5) return;      
@@ -116,6 +119,7 @@ export function add_web() {
           const reader = new FileReader();
 
           reader.onload = ({target: {result}}) => {
+            debugger;
             const img = createImg(result);
             img.addEventListener('dblclick', () => images_container.removeChild(img))
             images_container.appendChild(img);
@@ -123,7 +127,6 @@ export function add_web() {
           
           reader.readAsDataURL(files[i]);
         } 
-        
       });
 
       remove_post_btn.addEventListener('click', () => {
@@ -152,6 +155,11 @@ export function add_web() {
       cur.querySelectorAll('input').forEach((input) => {
         if (input.type !== 'text') return;
 
+        isValid = isValid || input.value.length == 0;
+        obj[input.name] = input.value; 
+      });
+      
+      cur.querySelectorAll('textarea').forEach((input) => {
         isValid = isValid || input.value.length == 0;
         obj[input.name] = input.value; 
       });

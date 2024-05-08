@@ -2,8 +2,8 @@ import { fetchWithAuth } from "./authRequest.js";
 import { routeButton } from "./PathManager.js";
 import { openLoader, closeLoader } from "./loader.js";
 
-async function populateWebPosts(webId){
-  var result=(await fetchWithAuth(`webs/postsInWeb?webId=${webId}`));
+async function fetchWebPosts(webId){
+  let result=(await fetchWithAuth(`webs/postsInWeb?webId=${webId}`));
   result=await result.json();
   return result;
 }
@@ -12,36 +12,43 @@ export async function web() {
   const urlParams = new URLSearchParams(window.location.search);
   let webId = urlParams.get('webid');
   openLoader();
-  var webPosts = await populateWebPosts(webId);
+  let data = await fetchWebPosts(webId);
+  let webTitle = data.webTitle;
+  let webBackBtn = document.getElementById('web-back-btn');
+  webBackBtn.innerHTML = `
+  <img class="back-btn" src="https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/back.svg" alt="Back icon"/>
+  ${webTitle}
+  `
+  let webPosts = data.webPosts;
   // Start populating the post containers:
   // Will have to select the posts element  by id, then add a post container with post info each time.
   let allPostsContainer = document.getElementById('posts');
   webPosts.forEach(post => {
-    var postContainer = document.createElement("section");
+    let postContainer = document.createElement("section");
     postContainer.className = "post-container";
     postContainer.postId = post.PostId;
     allPostsContainer.appendChild(postContainer);
-      var postHeader = document.createElement("section");
+      let postHeader = document.createElement("section");
       postHeader.className = "post-header";
       postContainer.appendChild(postHeader);
-        var postTopic = document.createElement("h1");
+        let postTopic = document.createElement("h1");
         postTopic.className = "post-topic";
         postTopic.textContent = post.Topic;
         postHeader.appendChild(postTopic);
-        var postDate = document.createElement("time");
+        let postDate = document.createElement("time");
         postDate.className = "post-date";
         postDate.setAttribute("datetime", post.TimeCreated);
         postHeader.appendChild(postDate);
 
-        var postCarouselContainer = document.createElement("section");
+        let postCarouselContainer = document.createElement("section");
         postCarouselContainer.className = "post-carousel-container";
         postContainer.appendChild(postCarouselContainer);
-          var imageCarousel = document.createElement("div");
+          let imageCarousel = document.createElement("div");
           imageCarousel.className = "image-carousel";
           postCarouselContainer.appendChild(imageCarousel);
-          var i = 0;
+          let i = 0;
           post.PostImages.forEach(image=>{
-            var currImage = document.createElement("img");
+            let currImage = document.createElement("img");
             currImage.src = image.Path.replace("+","%2B");
             imageCarousel.appendChild(currImage);
             i++;
@@ -54,21 +61,21 @@ export async function web() {
             }
           });
           if (post.PostImages.length > 1){
-            var prevArrow = document.createElement("a");
+            let prevArrow = document.createElement("a");
             prevArrow.classList.add("prev");
             prevArrow.classList.add("arrow");
             prevArrow.innerHTML = '&#10094;';
             postCarouselContainer.appendChild(prevArrow);
-            var nextArrow = document.createElement("a");
+            let nextArrow = document.createElement("a");
             nextArrow.classList.add("next");
             nextArrow.classList.add("arrow");
             nextArrow.innerHTML = '&#10095;';
             postCarouselContainer.appendChild(nextArrow);
-            var slideNumbers = document.createElement("div");
+            let slideNumbers = document.createElement("div");
             slideNumbers.className = "slide-numbers";
             postCarouselContainer.appendChild(slideNumbers);
-            for (var k=0;k<i;k++){
-              var newSpan = document.createElement("span");
+            for (let k=0;k<i;k++){
+              let newSpan = document.createElement("span");
               slideNumbers.appendChild(newSpan);
               newSpan.classList.add("dot")
               if (k==0){
@@ -77,7 +84,7 @@ export async function web() {
             }
           }
 
-          var postCaption = document.createElement("article");
+          let postCaption = document.createElement("article");
           postCaption.className = "post-caption";
           postCaption.textContent = post.Caption
           postContainer.appendChild(postCaption);
