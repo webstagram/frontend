@@ -119,7 +119,6 @@ export function add_web() {
           const reader = new FileReader();
 
           reader.onload = ({target: {result}}) => {
-            debugger;
             const img = createImg(result);
             img.addEventListener('dblclick', () => images_container.removeChild(img))
             images_container.appendChild(img);
