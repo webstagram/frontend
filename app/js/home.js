@@ -113,20 +113,20 @@ export async function home() {
       const likeIcon = document.createElement('img');
       likeIcon.className = 'like-icon';
       if (webLikeStatus > 0){
-        likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/liked.svg';
+        likeIcon.src = 'icons/liked.svg';
       } else {
-        likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/unliked.svg';
+        likeIcon.src = 'icons/unliked.svg';
       }
       likeIcon.addEventListener('click', async (event) => {
         event.stopImmediatePropagation();
         if (webLikeStatus > 0){
-          likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/unliked.svg';
+          likeIcon.src = 'icons/unliked.svg';
           likeCount.textContent = webLikeCount - 1;
           webLikeCount -= 1;
           webLikeStatus = 0;
           await unlikeWeb(web.WebId);
         } else {
-          likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/liked.svg';
+          likeIcon.src = 'icons/liked.svg';
           likeCount.textContent = webLikeCount + 1;
           webLikeCount += 1;
           webLikeStatus = 1;
