@@ -75,6 +75,7 @@ export async function home() {
       webContainer.className = 'web-container';
       webContainer.id=web.WebId;
       webContainer.addEventListener('click', function(event){
+        webContainer.disabled = true;
         routeWithoutRefresh(`/?path=web&webid=${webContainer.id}`);
       });
   
