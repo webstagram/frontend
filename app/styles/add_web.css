@@ -2,11 +2,21 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  container-type: inline-size;
   width: 100%;
   align-items: center;
   margin-top: 9em;
   background-color: var();
 }
+@container (width <30rem) {
+  #add-web-title-container{
+    flex-direction: column;
+  }
+  .topic{
+    font-size: 1.4em;
+  }
+}
+
 
 #add-web-save-btn {
   margin-left: auto;

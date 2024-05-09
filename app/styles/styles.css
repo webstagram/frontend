@@ -213,6 +213,10 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
 }
 
+.dark-mode #webstagram-logo {
+  filter: invert(100%);
+}
+
 #popup-button {
   background-color: var(--aqua);
   border: none;

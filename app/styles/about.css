@@ -1,3 +1,34 @@
 .about-wrapper {
   margin-top: 5em;
 }
+
+
+.web-container:hover{
+  background-color: var(--white);
+  display: grid;
+  grid-template-columns: 8.5em 4fr 1fr;
+  grid-template-rows: 2fr 1.2fr;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 3rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  min-width: 40%;
+  max-width: 80%;
+  font-size: 1em;
+}
+
+.about-image {
+  align-self: center;
+  justify-self: start;
+  border-radius: 50%;
+  width: 7em;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border: 0.2em solid var(--blue);
+  cursor: pointer;
+}
+.dark-mode .about-image {
+  filter: invert(100%);
+}
