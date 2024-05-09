@@ -5,6 +5,7 @@ import { openLoader, closeLoader } from "./loader.js";
 
 export async function home() {
   const urlParams = new URLSearchParams(window.location.search);
+  changeSearchText();
   let badWeb = urlParams.get('badWeb');
   if (badWeb){
     openAlert("Web does not exist!");
@@ -30,7 +31,8 @@ export async function home() {
     searchBar.value = searchParams;
     updateWebDisplay();
   }
-  window.addEventListener('resize', function() {
+  window.addEventListener('resize', changeSearchText);
+  function changeSearchText(){
     var searchBar = document.getElementById('search-bar');
     var smallScreenPlaceholder = "Search your interests...";
     var largeScreenPlaceholder = "Search for people, topics or webs you are interested in...";
@@ -40,7 +42,7 @@ export async function home() {
     } else {
         searchBar.setAttribute('placeholder', largeScreenPlaceholder);
     }
-});
+  }
 
   async function getWebs(){
     openLoader();
