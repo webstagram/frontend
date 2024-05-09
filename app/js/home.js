@@ -1,8 +1,15 @@
 import { routeWithoutRefresh, routeButton } from "./PathManager.js";
+import { openAlert } from "./alert.js";
 import { fetchWithAuth } from "./authRequest.js";
 import { openLoader, closeLoader } from "./loader.js";
 
 export async function home() {
+  const urlParams = new URLSearchParams(window.location.search);
+  let badWeb = urlParams.get('badWeb');
+  if (badWeb){
+    openAlert("Web does not exist!");
+  }
+
   await getWebs();
   let searchBar = document.querySelector('#search-bar');
   searchBar.addEventListener('keyup', updateWebDisplay);
@@ -17,7 +24,7 @@ export async function home() {
       style: webContainer.style
     };
   });
-  const urlParams = new URLSearchParams(window.location.search);
+  // const urlParams = new URLSearchParams(window.location.search);
   let searchParams = urlParams.get('search');
   if(search){
     searchBar.value = searchParams;
