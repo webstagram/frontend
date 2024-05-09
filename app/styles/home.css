@@ -176,6 +176,7 @@
   grid-row-start: 1;
   grid-column-start: 3;
   cursor: pointer;
+  padding: 0.5em;
 }
 .dark-mode .like-icon {
   filter: invert(100%);
