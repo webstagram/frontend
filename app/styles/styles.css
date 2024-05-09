@@ -228,14 +228,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #popup-container {
-  /* display: none;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  position: absolute;
-  background:rgba(125, 125, 125, 0.9);
-  z-index: 50; */
   position: fixed;
   top: 0;
   width: 100vw;
