@@ -214,6 +214,10 @@ button, a {
   cursor: pointer;
 }
 
+.dark-mode #webstagram-logo {
+  filter: invert(100%);
+}
+
 #popup-button {
   background-color: var(--aqua);
   border: none;
