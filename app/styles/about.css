@@ -2,9 +2,6 @@
   margin-top: 5em;
 }
 
-.dark-mode .profile-image {
-  filter: invert(100%);
-}
 
 .web-container:hover{
   background-color: var(--white);
@@ -20,4 +17,18 @@
   min-width: 40%;
   max-width: 80%;
   font-size: 1em;
+}
+
+.about-image {
+  align-self: center;
+  justify-self: start;
+  border-radius: 50%;
+  width: 7em;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border: 0.2em solid var(--blue);
+  cursor: pointer;
+}
+.dark-mode .about-image {
+  filter: invert(100%);
 }

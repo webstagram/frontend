@@ -150,9 +150,6 @@
 .profile-image:hover{
   border: 0.2em solid var(--blue-selected);
 }
-.dark-mode .profile-image {
-  filter: invert(0%);
-}
 
 .like-container{
   display: flex;
