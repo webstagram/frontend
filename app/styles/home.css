@@ -80,7 +80,6 @@
 .web-container:hover {
   cursor: pointer;
   background-color: var(--hoverwhite);
-  font-size: 0.7em;
 }
 
 .web-titles {
