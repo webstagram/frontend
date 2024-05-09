@@ -98,12 +98,6 @@ button, a {
   #main-profile-image {
     font-size: 0.7em;
   }
-  #main-titles {
-    font-size: 0.7em;
-  }
-  .dropdown {
-    font-size: 0.7em;
-  }
 }
 
 .dropdown {
@@ -129,8 +123,9 @@ button, a {
   align-items: start;
   position: absolute;
   background-color: var(--white);
+  font-size: 1.5em;
   min-width: 10em;
-  right: 6em;
+  right: 3em;
   box-shadow: 0 .5em 1em 0 rgba(0,0,0,0.2);
   z-index: 1;
   animation: slide-down 0.3s ease;
