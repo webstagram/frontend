@@ -1,24 +1,3 @@
-#about-container {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
-  text-align: left;
-  margin-top: 3em;
-}
-
-#about-title {
-    font-size: 3em;
-    font-weight: 900;
-    margin-top: 0;
-    margin-bottom: .5em;
-}
-
-#about-subtitle {
-  font-size: 1.5em;
-  font-weight: 700;
-}
-
-#about-content {
-  font-size: 1.2em;
+.about-wrapper {
+  margin-top: 5em;
 }
