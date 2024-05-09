@@ -18,6 +18,7 @@
   font-size: 1em;
   background-color: transparent;
   overflow: ellipsis;
+  color: var(--black);
 }
 #search-bar:focus {
   outline: none;
