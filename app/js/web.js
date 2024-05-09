@@ -19,7 +19,6 @@ export async function web() {
   let title = data.webTitle;
   let webBackBtn = document.getElementById('web-back-btn');
   const webTitle = document.createElement('h1');
-  webTitle.className = 'title';
   webTitle.textContent = title;
   webBackBtn.appendChild(webTitle);
 

@@ -104,6 +104,7 @@ const handleLocation = async () => {
   const html = await fetch(route).then((data) => data.text());
   document.getElementById('main-page').innerHTML = html;
   routes[path].js(path);
+  window.scrollTo(0, 0);
 };
 
 window.onpopstate = handleLocation;
