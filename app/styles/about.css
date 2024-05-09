@@ -2,8 +2,7 @@
   margin-top: 5em;
 }
 
-
-.web-container:hover{
+#about-web-container:hover{
   background-color: var(--white);
   display: grid;
   grid-template-columns: 8.5em 4fr 1fr;

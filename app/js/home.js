@@ -53,18 +53,6 @@ export async function home() {
     closeLoader();
   };
 
-  async function getWebLikeCount(webId){
-    let result=await fetchWithAuth(`weblikecount?webId=${webId}`);
-    result=await result.json();
-    return result;
-  }
-
-  async function getWebLikeStatus(webId){
-    let result=await fetchWithAuth(`likestatus?webId=${webId}`);
-    result=await result.json();
-    return result;
-  }
-
   async function likeWeb(webId){
     let authRequestObject = {
       "headers": {"Content-Type": "application/json"},
