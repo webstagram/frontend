@@ -199,7 +199,7 @@ button {
   display: none;
   place-content: center;
   color: var(--white);
-  margin-top: 4vh;
+  margin-top: 2vh;
 }
 
 #loader {

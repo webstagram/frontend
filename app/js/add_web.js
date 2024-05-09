@@ -40,6 +40,11 @@ export function add_web() {
     textArea.rows = 5;
     textArea.className = 'add-post-caption-input';
     textArea.name = name;
+    textArea.addEventListener('input', function() {
+      if (this.value.length > 255) {
+        this.value = this.value.slice(0, 255);
+      }
+    });
     return textArea;
   }
 
