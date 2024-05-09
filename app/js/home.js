@@ -103,33 +103,35 @@ export async function home() {
         updateWebDisplay();
       });
 
-      const webLikeCount = await getWebLikeCount(web.WebId);
-      const webLikeStatus = await getWebLikeStatus(web.WebId);
+      console.log(web);
+
+      let webLikeCount = web.LikeCount;
+      let webLikeStatus = web.LikeStatus;
       const likeContainer = document.createElement('div');
       likeContainer.className = 'like-container';
       const likeCount = document.createElement('h3');
       likeCount.className = 'like-count';
-      likeCount.textContent = webLikeCount.likeCount;
+      likeCount.textContent = webLikeCount;
       const likeIcon = document.createElement('img');
       likeIcon.className = 'like-icon';
-      if (webLikeStatus.likeStatus > 0){
+      if (webLikeStatus > 0){
         likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/liked.svg';
       } else {
         likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/unliked.svg';
       }
       likeIcon.addEventListener('click', async (event) => {
         event.stopImmediatePropagation();
-        if (webLikeStatus.likeStatus > 0){
+        if (webLikeStatus > 0){
           likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/unliked.svg';
-          likeCount.textContent = webLikeCount.likeCount - 1;
-          webLikeCount.likeCount -= 1;
-          webLikeStatus.likeStatus = 0;
+          likeCount.textContent = webLikeCount - 1;
+          webLikeCount -= 1;
+          webLikeStatus = 0;
           await unlikeWeb(web.WebId);
         } else {
           likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/liked.svg';
-          likeCount.textContent = webLikeCount.likeCount + 1;
-          webLikeCount.likeCount += 1;
-          webLikeStatus.likeStatus = 1;
+          likeCount.textContent = webLikeCount + 1;
+          webLikeCount += 1;
+          webLikeStatus = 1;
           await likeWeb(web.WebId);
         }
       });
