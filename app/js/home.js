@@ -103,8 +103,6 @@ export async function home() {
         updateWebDisplay();
       });
 
-      console.log(web);
-
       let webLikeCount = web.LikeCount;
       let webLikeStatus = web.LikeStatus;
       const likeContainer = document.createElement('div');

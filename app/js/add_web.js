@@ -46,7 +46,7 @@ export function add_web() {
   add_post_btn.addEventListener('click', () => {
     let posts = posts_container.querySelectorAll('.add-post-container');
     if (posts.length >= max_posts) {
-      console.log('Max posts reached');
+      openAlert("Max posts reached")
       return;
     } else {
       if (posts.length === max_posts - 1){
@@ -164,12 +164,12 @@ export function add_web() {
       });
 
       cur.querySelectorAll('img').forEach((img) => {
-        var fullImg = img.src;
-        var part1 = fullImg.substring(0, fullImg.indexOf(","));
+        let fullImg = img.src;
+        let part1 = fullImg.substring(0, fullImg.indexOf(","));
         fullImg = fullImg.substring(fullImg.indexOf(",")+1);
-        var contentType = part1.substring(part1.indexOf(":")+1, part1.indexOf(";"));
-        var extension = contentType.substring(contentType.indexOf("/")+1);
-        var bodyObj = {
+        let contentType = part1.substring(part1.indexOf(":")+1, part1.indexOf(";"));
+        let extension = contentType.substring(contentType.indexOf("/")+1);
+        let bodyObj = {
           'FileContent': fullImg,
           'ContentType': contentType,
           "Extension": "."+extension
@@ -180,8 +180,8 @@ export function add_web() {
       return obj;
     });  
     
-    var validImages = true;
-    for (var post of formData){
+    let validImages = true;
+    for (let post of formData){
       if (post.Images.length<1){
         validImages=false;
         break;
@@ -191,24 +191,23 @@ export function add_web() {
       add_web_save_btn.disabled = false;
       return openAlert('Please ensure all posts have an image');
     }
-    console.log(formData);
-    var webTitle = document.getElementById("webTitle").value;
+    let webTitle = document.getElementById("webTitle").value;
     if (isValid || formData.length === 0 || webTitle.length === 0){
       add_web_save_btn.disabled = false;
       return openAlert('Please create a post and fill out all the fields');
     } 
     openLoader();
 
-    var sendMeToBackend = {};
+    let sendMeToBackend = {};
     sendMeToBackend.WebName = webTitle;
     sendMeToBackend.Posts = formData;
-    var authRequestObject = {
+    let authRequestObject = {
       "headers": {"Content-Type": "application/json"},
       "method": "POST",
       "body": JSON.stringify(sendMeToBackend)
     };
-    var endpoint = "uploadposts";
-    var result = await fetchWithAuth(endpoint, authRequestObject);
+    let endpoint = "uploadposts";
+    let result = await fetchWithAuth(endpoint, authRequestObject);
 
     closeLoader()
     if (result.status !== 200) {
