@@ -1,19 +1,9 @@
-#web-details-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
 #posts {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
   gap: 3em;
-  margin: 2em 0;
 }
 
 .post-container {
