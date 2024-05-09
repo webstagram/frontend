@@ -24,20 +24,55 @@ export async function home() {
     updateWebDisplay();
   }
 
-
   async function getWebs(){
     openLoader();
-    var result=await fetchWithAuth('webs');
+    let result=await fetchWithAuth('webs');
     result=await result.json();
     
-    populateWebs(result);
+    await populateWebs(result);
     closeLoader();
   };
 
-  function populateWebs(websData) {
+  async function getWebLikeCount(webId){
+    let result=await fetchWithAuth(`weblikecount?webId=${webId}`);
+    result=await result.json();
+    return result;
+  }
+
+  async function getWebLikeStatus(webId){
+    let result=await fetchWithAuth(`likestatus?webId=${webId}`);
+    result=await result.json();
+    return result;
+  }
+
+  async function likeWeb(webId){
+    console.log("liking web");
+    let authRequestObject = {
+      "headers": {"Content-Type": "application/json"},
+      "method": "POST",
+      "body": JSON.stringify({"webId":webId})
+    };
+    let response = await fetchWithAuth(`like`, authRequestObject);
+    let result = response.status === 200;
+    return result;
+  }
+
+  async function unlikeWeb(webId){
+    console.log("unliking web");
+    let authRequestObject = {
+      "headers": {"Content-Type": "application/json"},
+      "method": "POST",
+      "body": JSON.stringify({"webId":webId})
+    };
+    let response = await fetchWithAuth(`unlike`, authRequestObject);
+    let result = response.status === 200;
+    return result;
+  }
+
+  async function populateWebs(websData) {
     const container = document.getElementById('webs');
     container.innerHTML="";
-    websData.forEach(web => {
+    websData.forEach(async (web) => {
       const webContainer = document.createElement('section');
       webContainer.className = 'web-container';
       webContainer.id=web.WebId;
@@ -70,11 +105,39 @@ export async function home() {
         updateWebDisplay();
       });
 
-
+      const webLikeCount = await getWebLikeCount(web.WebId);
+      const webLikeStatus = await getWebLikeStatus(web.WebId);
+      const likeContainer = document.createElement('div');
+      likeContainer.className = 'like-container';
+      const likeCount = document.createElement('h3');
+      likeCount.className = 'like-count';
+      likeCount.textContent = webLikeCount.likeCount;
       const likeIcon = document.createElement('img');
       likeIcon.className = 'like-icon';
-      likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/like.svg';
-  
+      if (webLikeStatus.likeStatus > 0){
+        likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/liked.svg';
+      } else {
+        likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/unliked.svg';
+      }
+      likeIcon.addEventListener('click', async (event) => {
+        event.stopImmediatePropagation();
+        if (webLikeStatus.likeStatus > 0){
+          likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/unliked.svg';
+          likeCount.textContent = webLikeCount.likeCount - 1;
+          webLikeCount.likeCount -= 1;
+          webLikeStatus.likeStatus = 0;
+          await unlikeWeb(web.WebId);
+        } else {
+          likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/liked.svg';
+          likeCount.textContent = webLikeCount.likeCount + 1;
+          webLikeCount.likeCount += 1;
+          webLikeStatus.likeStatus = 1;
+          await likeWeb(web.WebId);
+        }
+      });
+      likeContainer.appendChild(likeCount);
+      likeContainer.appendChild(likeIcon);
+
       const topicsDiv = document.createElement('div');
       topicsDiv.className = 'topics';
   
@@ -95,7 +158,7 @@ export async function home() {
   
       webContainer.appendChild(profileImage);
       webContainer.appendChild(webTitlesDiv);
-      webContainer.appendChild(likeIcon);
+      webContainer.appendChild(likeContainer);
       webContainer.appendChild(topicsDiv);
   
       container.appendChild(webContainer);

@@ -162,9 +162,25 @@
 
 }
 
+.like-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.5em;
+}
+
+.like-count {
+  font-size: 1.5em;
+  font-weight: 200;
+  margin: 0;
+  line-height: 1.5;
+}
+
 .like-icon {
   width: 2.5em;
   justify-self: end;
   grid-row-start: 1;
   grid-column-start: 3;
+  cursor: pointer;
 }
