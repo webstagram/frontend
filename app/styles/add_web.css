@@ -8,14 +8,6 @@
   background-color: var();
 }
 
-#add-web-header {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
 #add-web-save-btn {
   margin-left: auto;
 }

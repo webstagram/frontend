@@ -328,7 +328,7 @@ button, a {
   min-height: .8em;
 }
 .dark-mode .back-btn {
-  filter: invert(100%); /* Invert colors to appear lighter in dark mode */
+  filter: invert(100%); 
 }
 
 .rotate {
