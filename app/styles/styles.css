@@ -8,18 +8,21 @@
   --gray: #727272;
 
   --nav-height: 8em;
+  --main-width: 90%;
 
   background-color: var(--soft-gray);
   font-family: 'Saira Condensed', sans-serif;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 0;
   margin: 0;
-  container-type: inline-size;
 }
 
-button {
+button, a {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,23 +32,36 @@ button {
 }
 
 #main-page {
-  padding: 2em 4em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 5em;
+  margin-top: var(--nav-height);
+  width: var(--main-width);
 }
 
 #main-nav {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  width: var(--main-width);
   display: flex;
   align-items: center;
   height: var(--nav-height);
   background-color: var(--aqua);
   color: var(--white);
-  padding: 0 4em;
+  padding: 0 5em;
+  container-type: inline-size;
 }
 
 @container (width < 30rem) {
-  #main-nav {
+  #main-profile-image {
     font-size: 0.7em;
   }
-  #main-page {
+  #main-titles {
+    font-size: 0.7em;
+  }
+  .dropdown {
     font-size: 0.7em;
   }
 }
@@ -62,6 +78,8 @@ button {
   padding: 14px 16px;
   background-color: transparent;
   margin: 0;
+  padding: 0;
+  margin-bottom: 0.5em;
 }
 
 .dropdown-content {
@@ -206,12 +224,14 @@ button {
   position: fixed;
   width: 100vw;
   height: calc(100vh - var(--nav-height));
+  margin-top: var(--nav-height);
   opacity: 0.7;
   background-color: var(--blue);
   display: none;
   justify-content: center;
   align-items: center;
   z-index: 100;
+  border: none;
 }
 
 #loader-logo {
@@ -225,14 +245,35 @@ button {
     transform: rotate(360deg) scale(4);
   }
 }
+
+.header {
+  position: fixed;
+  transform: translateY(0);
+  width: var(--main-width);
+  display: flex;
+  flex-wrap: nowrap;
+  z-index: 5;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  background: linear-gradient(var(--soft-gray) 50%, transparent 100%);
+  padding: 3em 5em;
+}
+
+.content {
+  width: 100%;
+  margin: 9em 0;
+}
  
 .back-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+  flex-wrap: nowrap;
   cursor: pointer;
   text-transform: uppercase;
   font-size: 3em;
+  line-height: 1em;
   font-weight: 900;
   margin: 0;
   text-decoration: none;
@@ -250,4 +291,35 @@ button {
 
 .rotate:hover {
   transform: rotate(180deg);
+}
+
+.primary-btn {
+  background-color: var(--aqua);
+  color: var(--white);
+  text-decoration: none;
+  border: none;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  font-size: 1.2em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.primary-btn:hover {
+  background-color: var(--aqua-selected);
+}
+
+.circular-btn {
+  background-color: var(--aqua);
+  color: var(--white);
+  border-radius: 50%;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.5em;
+  width: 2em;
+  height: 2em;
+}
+
+.circular-btn:hover {
+  background-color: var(--aqua-selected);
 }
