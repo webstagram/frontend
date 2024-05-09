@@ -17,13 +17,13 @@ export async function web() {
   openLoader();
   let data = await fetchWebPosts(webId);
   let webTitle = data.webTitle.webName;
-  const userName = data.webTitle.userData.Name;
-  const userImage = data.webTitle.userData.ProfileImageUrl;
-  console.log(userName);
-  console.log(userImage);
+ // const userName = data.webTitle.userData.Name;
+ // const userImage = data.webTitle.userData.ProfileImageUrl;
+  //console.log(userName);
+ // console.log(userImage);
   let webBackBtn = document.getElementById('web-back-btn');
   webBackBtn.innerHTML = `
-  <img class="back-btn" src="https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/back.svg" alt="Back icon"/>
+  <img class="back-btn" src="icons/back.svg" alt="Back icon"/>
   ${webTitle}
   `
   let webPosts = data.webPosts;
@@ -57,6 +57,7 @@ export async function web() {
           post.PostImages.forEach(image=>{
             let currImage = document.createElement("img");
             currImage.src = image.Path.replace("+","%2B");
+            currImage.style.objectFit='contain';
             imageCarousel.appendChild(currImage);
             i++;
             currImage.classList.add("carousel-image");
