@@ -7,6 +7,7 @@
   --white: #FFFFFF;
   --gray: #727272;
 
+  --nav-height: 8em;
 
   background-color: var(--soft-gray);
   font-family: 'Saira Condensed', sans-serif;
@@ -28,16 +29,15 @@ button {
 }
 
 #main-page {
-  padding: 0 4em;
+  padding: 2em 4em;
 }
 
 #main-nav {
   display: flex;
   align-items: center;
-  height: 8em;
+  height: var(--nav-height);
   background-color: var(--aqua);
   color: var(--white);
-  margin: 0 0 2em 0;
   padding: 0 4em;
 }
 
@@ -203,8 +203,9 @@ button {
 }
 
 #loader {
+  position: fixed;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - var(--nav-height));
   opacity: 0.7;
   background-color: var(--blue);
   display: none;
