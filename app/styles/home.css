@@ -1,8 +1,14 @@
 #search-header {
+  position: fixed;
+  transform: translateY(0);
+  width: var(--main-width);
   display: flex;
+  flex-wrap: nowrap;
+  z-index: 5;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 1em;
+  background: linear-gradient(var(--soft-gray) 0%, transparent 100%);
+  padding: 3em 5em;
 }
 
 #search{
@@ -50,10 +56,12 @@
 #webs {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
   gap: 3em;
   justify-content: space-around;
   align-items: center;
-  margin: 3em 0;
+  margin: 9em 0;
+  container-type: inline-size;
 }
 
 .web-container {
@@ -70,6 +78,12 @@
   min-width: 40%;
   max-width: 80%;
   font-size: 1em;
+}
+
+@container (width < 30rem) {
+  .web-container {
+    font-size: 0.7em;
+  }
 }
 
 .web-container:hover {
@@ -148,6 +162,7 @@
 
 .like-container{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;

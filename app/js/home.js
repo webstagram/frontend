@@ -135,8 +135,8 @@ export async function home() {
           await likeWeb(web.WebId);
         }
       });
-      likeContainer.appendChild(likeCount);
       likeContainer.appendChild(likeIcon);
+      likeContainer.appendChild(likeCount);
 
       const topicsDiv = document.createElement('div');
       topicsDiv.className = 'topics';
