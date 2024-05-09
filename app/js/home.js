@@ -46,6 +46,7 @@ export async function home() {
   }
 
   async function likeWeb(webId){
+    console.log("liking web");
     let authRequestObject = {
       "headers": {"Content-Type": "application/json"},
       "method": "POST",
@@ -57,6 +58,7 @@ export async function home() {
   }
 
   async function unlikeWeb(webId){
+    console.log("unliking web");
     let authRequestObject = {
       "headers": {"Content-Type": "application/json"},
       "method": "POST",
@@ -70,7 +72,7 @@ export async function home() {
   async function populateWebs(websData) {
     const container = document.getElementById('webs');
     container.innerHTML="";
-    for (let web of websData){
+    websData.forEach(async (web) => {
       const webContainer = document.createElement('section');
       webContainer.className = 'web-container';
       webContainer.id=web.WebId;
@@ -113,20 +115,20 @@ export async function home() {
       const likeIcon = document.createElement('img');
       likeIcon.className = 'like-icon';
       if (webLikeStatus.likeStatus > 0){
-        likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/liked.svg';
+        likeIcon.src = 'icons/liked.svg';
       } else {
-        likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/unliked.svg';
+        likeIcon.src = 'icons/unliked.svg';
       }
       likeIcon.addEventListener('click', async (event) => {
         event.stopImmediatePropagation();
         if (webLikeStatus.likeStatus > 0){
-          likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/unliked.svg';
+          likeIcon.src = 'icons/unliked.svg';
           likeCount.textContent = webLikeCount.likeCount - 1;
           webLikeCount.likeCount -= 1;
           webLikeStatus.likeStatus = 0;
           await unlikeWeb(web.WebId);
         } else {
-          likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/liked.svg';
+          likeIcon.src = 'icons/liked.svg';
           likeCount.textContent = webLikeCount.likeCount + 1;
           webLikeCount.likeCount += 1;
           webLikeStatus.likeStatus = 1;
@@ -160,7 +162,7 @@ export async function home() {
       webContainer.appendChild(topicsDiv);
   
       container.appendChild(webContainer);
-    };
+    });
   }
   
 
