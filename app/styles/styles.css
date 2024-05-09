@@ -179,7 +179,7 @@ button, a {
   margin-left: 1em;
 }
 
-#title {
+.title {
   font-size: 2em;
   margin: 0;
   cursor: pointer;
