@@ -201,7 +201,7 @@ button, a {
   width: 50vw;
   border: none;
   border-radius: 2em;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
