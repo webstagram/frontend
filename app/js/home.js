@@ -30,6 +30,17 @@ export async function home() {
     searchBar.value = searchParams;
     updateWebDisplay();
   }
+  window.addEventListener('resize', function() {
+    var searchBar = document.getElementById('search-bar');
+    var smallScreenPlaceholder = "Search your interests...";
+    var largeScreenPlaceholder = "Search for people, topics or webs you are interested in...";
+    
+    if (window.innerWidth <= 600) {
+        searchBar.setAttribute('placeholder', smallScreenPlaceholder);
+    } else {
+        searchBar.setAttribute('placeholder', largeScreenPlaceholder);
+    }
+});
 
   async function getWebs(){
     openLoader();
