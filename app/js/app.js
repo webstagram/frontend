@@ -43,7 +43,7 @@ const route = (event) => {
 const routes = {
   404: {
     'template': '/pages/404.html',
-    'js': (str) => console.log(str)
+    'js': () => {}
   },
   '': {
     'template': '/pages/login.html',
@@ -55,7 +55,7 @@ const routes = {
   },
   'about': {
     'template': '/pages/about.html',
-    'js': (str) => console.log(str)
+    'js': () => {}
   },
   'web': {
     'template': '/pages/web.html',
