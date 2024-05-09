@@ -91,7 +91,7 @@ button, a {
   position: absolute;
   background-color: var(--white);
   min-width: 10em;
-  right: 3em;
+  right: 6em;
   box-shadow: 0 .5em 1em 0 rgba(0,0,0,0.2);
   z-index: 1;
   animation: slide-down 0.3s ease;
