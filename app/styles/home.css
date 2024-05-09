@@ -73,7 +73,7 @@
 
 .web-container:hover {
   cursor: pointer;
-  background-color: rgb(233, 233, 233);
+  background-color: var(--hoverwhite);
 }
 
 .web-titles {
@@ -104,7 +104,7 @@
   cursor: pointer;
 }
 .username:hover{
-  color:blue;
+  color:var(--hovername);
   text-decoration: underline;
 }
 
@@ -129,7 +129,7 @@
   cursor: pointer;
 }
 .topic:hover{
-  background-color:black;
+  background-color: var(--black);
   color: var(--soft-gray);
 }
 
@@ -170,4 +170,7 @@
   grid-row-start: 1;
   grid-column-start: 3;
   cursor: pointer;
+}
+.dark-mode .like-icon {
+  filter: invert(100%); /* Invert colors to appear lighter in dark mode */
 }

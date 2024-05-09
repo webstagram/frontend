@@ -5,7 +5,21 @@
   --blue-selected: #3172B6;
   --soft-gray: #E8E7E8;
   --white: #FFFFFF;
+  --hoverwhite: #E9E9E9;
   --gray: #727272;
+  --hovername: #0000ff;
+  --black: #000000;
+
+  --aqua-dark: #01a5a5;
+  --aqua-selected-dark: #008383;
+  --blue-dark: #1f5087;
+  --blue-selected-dark: #75aadb;
+  --soft-gray-dark: #444444;
+  --white-dark: #222222;
+  --hoverwhite-dark: #333333;
+  --gray-dark: #aaaaaa;
+  --hovername-dark: #3172B6;
+  --black-dark: #AAAAAA;
 
   --nav-height: 6em;
   --main-width: 90vw;
@@ -13,6 +27,20 @@
   background-color: var(--soft-gray);
   font-family: 'Saira Condensed', sans-serif;
 }
+
+.dark-mode {
+  --aqua: var(--aqua-dark);
+  --aqua-selected: var(--aqua-selected-dark);
+  --blue: var(--blue-dark);
+  --blue-selected: var(--blue-selected-dark);
+  --soft-gray: var(--soft-gray-dark);
+  --white: var(--white-dark);
+  --hoverwhite: var(--hoverwhite-dark);
+  --gray: var(--gray-dark);
+  --hovername: var(--hovername-dark);
+  --black: var(--black-dark);
+}
+
 
 body {
   display: flex;
@@ -22,6 +50,16 @@ body {
   flex-wrap: nowrap;
   padding: 0;
   margin: 0;
+}
+
+:root.dark-mode{
+  background-color: var(--soft-gray-dark);
+  color: #c0c0c0;
+}
+
+body.dark-mode {
+  background-color: var(--soft-gray-dark);
+  color: #c0c0c0;
 }
 
 button, a {
@@ -39,6 +77,7 @@ button, a {
   align-items: center;
   margin-top: var(--nav-height);
   width: var(--main-width);
+  min-height: 100vh;
 }
 
 #main-nav {
@@ -109,7 +148,7 @@ button, a {
 }
 
 .dropdown-content button {
-  color: black;
+  color: var(--black);
   padding: .8em 1em;
   width: 100%;
   text-align: left;
@@ -281,12 +320,15 @@ button, a {
   font-weight: 900;
   margin: 0;
   text-decoration: none;
-  color: black;
+  color: var(--black);
   text-align: center;
 }
 
 .back-btn {
   min-height: .8em;
+}
+.dark-mode .back-btn {
+  filter: invert(100%); /* Invert colors to appear lighter in dark mode */
 }
 
 .rotate {
