@@ -16,16 +16,27 @@ export async function web() {
   let webId = urlParams.get('webid');
   openLoader();
   let data = await fetchWebPosts(webId);
-  let webTitle = data.webTitle.webName;
- // const userName = data.webTitle.userData.Name;
- // const userImage = data.webTitle.userData.ProfileImageUrl;
+  let title = data.webTitle.webName;
+ 
+  const userName = data.webTitle.userData.Name;
+  const userImage = data.webTitle.userData.ProfileImageUrl;
   //console.log(userName);
  // console.log(userImage);
   let webBackBtn = document.getElementById('web-back-btn');
-  webBackBtn.innerHTML = `
-  <img class="back-btn" src="icons/back.svg" alt="Back icon"/>
-  ${webTitle}
-  `
+
+
+  const webTitle = document.createElement('h1');
+  webTitle.className = 'title';
+  webTitle.textContent = title;
+  webBackBtn.appendChild(webTitle);
+  const user = document.createElement('h2');
+  user.className = 'username';
+  user.textContent = `\t by title`;
+  user.style.marginLeft='auto';
+  webBackBtn.appendChild(user);
+
+
+
   let webPosts = data.webPosts;
   // Start populating the post containers:
   // Will have to select the posts element  by id, then add a post container with post info each time.
@@ -42,10 +53,8 @@ export async function web() {
         postTopic.className = "post-topic";
         postTopic.textContent = post.Topic;
         postHeader.appendChild(postTopic);
-        let postDate = document.createElement("time");
-        postDate.className = "post-date";
-        postDate.setAttribute("datetime", post.TimeCreated);
-        postHeader.appendChild(postDate);
+
+
 
         let postCarouselContainer = document.createElement("section");
         postCarouselContainer.className = "post-carousel-container";
@@ -57,7 +66,6 @@ export async function web() {
           post.PostImages.forEach(image=>{
             let currImage = document.createElement("img");
             currImage.src = image.Path.replace("+","%2B");
-            currImage.style.objectFit='contain';
             imageCarousel.appendChild(currImage);
             i++;
             currImage.classList.add("carousel-image");
