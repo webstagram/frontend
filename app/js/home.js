@@ -159,7 +159,10 @@ export async function home() {
       topicsDiv.className = 'topics';
   
       // Split the topics string into an array and create an element for each topic
-      web.Topics.split(', ').forEach(topic => {
+      let webTopicsTemp = web.Topics.split(', ');
+      let distinctWebTopics = [...new Set(webTopicsTemp)];
+
+      distinctWebTopics.forEach(topic => {
         const topicElement = document.createElement('h5');
         topicElement.className = 'topic';
         topicElement.textContent = topic;
