@@ -30,22 +30,6 @@
   outline: none;
 }
 
-#add-web-btn {
-  background-color: var(--aqua);
-  color: var(--white);
-  text-decoration: none;
-  border: none;
-  border-radius: 0.5em;
-  padding: 0.5em 1em;
-  font-size: 1.2em;
-  font-weight: 700;
-  text-align: center;
-  text-transform: uppercase;
-}
-#add-web-btn:hover{
-  background-color: var(--aqua-selected);
-}
-
 #search-clear{
   cursor: pointer;
   background-color: transparent;
