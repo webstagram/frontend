@@ -179,6 +179,19 @@ export function add_web() {
 
       return obj;
     });  
+    
+    var validImages = true;
+    for (var post of formData){
+      if (post.Images.length<1){
+        validImages=false;
+        break;
+      }
+    }
+    if (!validImages){
+      add_web_save_btn.disabled = false;
+      return openAlert('Please ensure all posts have an image');
+    }
+    console.log(formData);
     var webTitle = document.getElementById("webTitle").value;
     if (isValid || formData.length === 0 || webTitle.length === 0){
       add_web_save_btn.disabled = false;
