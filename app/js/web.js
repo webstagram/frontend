@@ -4,6 +4,9 @@ import { openLoader, closeLoader } from "./loader.js";
 
 async function fetchWebPosts(webId){
   let result=(await fetchWithAuth(`webs/postsInWeb?webId=${webId}`));
+  if (!result.ok){
+    window.location.href='/?path=home&badWeb=true';
+  }
   result=await result.json();
   return result;
 }

@@ -2,6 +2,8 @@
 import config from './configManager.js';
 
 export function login() {
+  // let retried = urlParams.get('error');
+
   const loginBtn = document.getElementById("login-btn");
 
   loginBtn.addEventListener("click", (event) => {

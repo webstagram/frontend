@@ -1,8 +1,15 @@
 import { routeWithoutRefresh, routeButton } from "./PathManager.js";
+import { openAlert } from "./alert.js";
 import { fetchWithAuth } from "./authRequest.js";
 import { openLoader, closeLoader } from "./loader.js";
 
 export async function home() {
+  const urlParams = new URLSearchParams(window.location.search);
+  let badWeb = urlParams.get('badWeb');
+  if (badWeb){
+    openAlert("Web does not exist!");
+  }
+
   await getWebs();
   let searchBar = document.querySelector('#search-bar');
   searchBar.addEventListener('keyup', updateWebDisplay);
@@ -17,12 +24,23 @@ export async function home() {
       style: webContainer.style
     };
   });
-  const urlParams = new URLSearchParams(window.location.search);
+  // const urlParams = new URLSearchParams(window.location.search);
   let searchParams = urlParams.get('search');
   if(search){
     searchBar.value = searchParams;
     updateWebDisplay();
   }
+  window.addEventListener('resize', function() {
+    var searchBar = document.getElementById('search-bar');
+    var smallScreenPlaceholder = "Search your interests...";
+    var largeScreenPlaceholder = "Search for people, topics or webs you are interested in...";
+    
+    if (window.innerWidth <= 600) {
+        searchBar.setAttribute('placeholder', smallScreenPlaceholder);
+    } else {
+        searchBar.setAttribute('placeholder', largeScreenPlaceholder);
+    }
+});
 
   async function getWebs(){
     openLoader();
@@ -46,7 +64,6 @@ export async function home() {
   }
 
   async function likeWeb(webId){
-    console.log("liking web");
     let authRequestObject = {
       "headers": {"Content-Type": "application/json"},
       "method": "POST",
@@ -58,7 +75,6 @@ export async function home() {
   }
 
   async function unlikeWeb(webId){
-    console.log("unliking web");
     let authRequestObject = {
       "headers": {"Content-Type": "application/json"},
       "method": "POST",
@@ -77,6 +93,7 @@ export async function home() {
       webContainer.className = 'web-container';
       webContainer.id=web.WebId;
       webContainer.addEventListener('click', function(event){
+        webContainer.disabled = true;
         routeWithoutRefresh(`/?path=web&webid=${webContainer.id}`);
       });
   
@@ -105,33 +122,33 @@ export async function home() {
         updateWebDisplay();
       });
 
-      const webLikeCount = await getWebLikeCount(web.WebId);
-      const webLikeStatus = await getWebLikeStatus(web.WebId);
+      let webLikeCount = web.LikeCount;
+      let webLikeStatus = web.LikeStatus;
       const likeContainer = document.createElement('div');
       likeContainer.className = 'like-container';
       const likeCount = document.createElement('h3');
       likeCount.className = 'like-count';
-      likeCount.textContent = webLikeCount.likeCount;
+      likeCount.textContent = webLikeCount;
       const likeIcon = document.createElement('img');
       likeIcon.className = 'like-icon';
-      if (webLikeStatus.likeStatus > 0){
-        likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/liked.svg';
+      if (webLikeStatus > 0){
+        likeIcon.src = 'icons/liked.svg';
       } else {
-        likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/unliked.svg';
+        likeIcon.src = 'icons/unliked.svg';
       }
       likeIcon.addEventListener('click', async (event) => {
         event.stopImmediatePropagation();
-        if (webLikeStatus.likeStatus > 0){
-          likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/unliked.svg';
-          likeCount.textContent = webLikeCount.likeCount - 1;
-          webLikeCount.likeCount -= 1;
-          webLikeStatus.likeStatus = 0;
+        if (webLikeStatus > 0){
+          likeIcon.src = 'icons/unliked.svg';
+          likeCount.textContent = webLikeCount - 1;
+          webLikeCount -= 1;
+          webLikeStatus = 0;
           await unlikeWeb(web.WebId);
         } else {
-          likeIcon.src = 'https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/liked.svg';
-          likeCount.textContent = webLikeCount.likeCount + 1;
-          webLikeCount.likeCount += 1;
-          webLikeStatus.likeStatus = 1;
+          likeIcon.src = 'icons/liked.svg';
+          likeCount.textContent = webLikeCount + 1;
+          webLikeCount += 1;
+          webLikeStatus = 1;
           await likeWeb(web.WebId);
         }
       });
@@ -142,7 +159,10 @@ export async function home() {
       topicsDiv.className = 'topics';
   
       // Split the topics string into an array and create an element for each topic
-      web.Topics.split(', ').forEach(topic => {
+      let webTopicsTemp = web.Topics.split(', ');
+      let distinctWebTopics = [...new Set(webTopicsTemp)];
+
+      distinctWebTopics.forEach(topic => {
         const topicElement = document.createElement('h5');
         topicElement.className = 'topic';
         topicElement.textContent = topic;
