@@ -16,26 +16,12 @@ export async function web() {
   let webId = urlParams.get('webid');
   openLoader();
   let data = await fetchWebPosts(webId);
-  let title = data.webTitle.webName;
- 
-  const userName = data.webTitle.userData.Name;
-  const userImage = data.webTitle.userData.ProfileImageUrl;
-  //console.log(userName);
- // console.log(userImage);
+  let title = data.webTitle;
   let webBackBtn = document.getElementById('web-back-btn');
-
-
   const webTitle = document.createElement('h1');
   webTitle.className = 'title';
   webTitle.textContent = title;
   webBackBtn.appendChild(webTitle);
-  const user = document.createElement('h2');
-  user.className = 'username';
-  user.textContent = `\t by title`;
-  user.style.marginLeft='auto';
-  webBackBtn.appendChild(user);
-
-
 
   let webPosts = data.webPosts;
   // Start populating the post containers:
