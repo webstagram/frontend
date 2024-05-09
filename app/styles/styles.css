@@ -224,12 +224,14 @@ button, a {
   position: fixed;
   width: 100vw;
   height: calc(100vh - var(--nav-height));
+  margin-top: var(--nav-height);
   opacity: 0.7;
   background-color: var(--blue);
   display: none;
   justify-content: center;
   align-items: center;
   z-index: 100;
+  border: none;
 }
 
 #loader-logo {
