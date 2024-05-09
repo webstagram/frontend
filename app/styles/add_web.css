@@ -5,6 +5,7 @@
   width: 100%;
   align-items: center;
   margin-top: 9em;
+  background-color: var();
 }
 
 #add-web-save-btn {
@@ -20,7 +21,7 @@
   align-items: center;
   gap: 1em;
   padding: 1em;
-  background-color: white;
+  background-color: var(--white);
   border-radius: 3em;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
 }
@@ -47,6 +48,7 @@
   background-color: var(--soft-gray);
   padding: 0.5em 1em;
   font-size: 1.2em;
+  color: var(--black);
 }
 
 #add-web-title-input:focus {
@@ -101,6 +103,7 @@
   padding: 0.5em 1em;
   margin: 0 1em;
   font-size: 1.2em;
+  color: var(--black);
 }
 
 .add-post-caption-input{
@@ -109,6 +112,7 @@
   border: none;
   background-color: var(--soft-gray);
   resize: none;
+  color: var(--black);
 }
 
 .add-post-images-container {
