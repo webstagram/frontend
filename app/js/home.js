@@ -46,7 +46,6 @@ export async function home() {
   }
 
   async function likeWeb(webId){
-    console.log("liking web");
     let authRequestObject = {
       "headers": {"Content-Type": "application/json"},
       "method": "POST",
@@ -58,7 +57,6 @@ export async function home() {
   }
 
   async function unlikeWeb(webId){
-    console.log("unliking web");
     let authRequestObject = {
       "headers": {"Content-Type": "application/json"},
       "method": "POST",
