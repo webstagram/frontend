@@ -1,3 +1,4 @@
+import { openAlert } from './alert.js';
 import config from './configManager.js';
 import {isTokenExpired, logout} from './JWTManager.js';
 const backendURL=config.BACKEND_URL;
@@ -9,7 +10,7 @@ const backendURL=config.BACKEND_URL;
   const token=localStorage.getItem('jwtToken');
     // Check if the token is expired
     if (await isTokenExpired()) {
-      console.error('Token is expired');
+      openAlert("Session expired. Please log in again.")
       logout();
     }
 

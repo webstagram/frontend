@@ -14,7 +14,7 @@ function decodeJWT(token = localStorage.getItem('jwtToken')) {
         const stringify = (base64UrlDecode(data));
         return JSON.parse(stringify);
     } catch (error) {
-        console.log(error)
+        console.error(error)
         return null;
     }
 
