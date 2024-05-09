@@ -16,7 +16,11 @@ export async function web() {
   let webId = urlParams.get('webid');
   openLoader();
   let data = await fetchWebPosts(webId);
-  let webTitle = data.webTitle;
+  let webTitle = data.webTitle.webName;
+  const userName = data.webTitle.userData.Name;
+  const userImage = data.webTitle.userData.ProfileImageUrl;
+  console.log(userName);
+  console.log(userImage);
   let webBackBtn = document.getElementById('web-back-btn');
   webBackBtn.innerHTML = `
   <img class="back-btn" src="https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/back.svg" alt="Back icon"/>
