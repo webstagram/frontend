@@ -46,7 +46,6 @@ export async function home() {
   }
 
   async function likeWeb(webId){
-    console.log("liking web");
     let authRequestObject = {
       "headers": {"Content-Type": "application/json"},
       "method": "POST",
@@ -58,7 +57,6 @@ export async function home() {
   }
 
   async function unlikeWeb(webId){
-    console.log("unliking web");
     let authRequestObject = {
       "headers": {"Content-Type": "application/json"},
       "method": "POST",
@@ -72,7 +70,7 @@ export async function home() {
   async function populateWebs(websData) {
     const container = document.getElementById('webs');
     container.innerHTML="";
-    websData.forEach(async (web) => {
+    for (let web of websData){
       const webContainer = document.createElement('section');
       webContainer.className = 'web-container';
       webContainer.id=web.WebId;
@@ -162,7 +160,7 @@ export async function home() {
       webContainer.appendChild(topicsDiv);
   
       container.appendChild(webContainer);
-    });
+    };
   }
   
 
