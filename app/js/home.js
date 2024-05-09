@@ -70,7 +70,7 @@ export async function home() {
   async function populateWebs(websData) {
     const container = document.getElementById('webs');
     container.innerHTML="";
-    for (let web of websData){
+    websData.forEach(async (web) => {
       const webContainer = document.createElement('section');
       webContainer.className = 'web-container';
       webContainer.id=web.WebId;
@@ -160,7 +160,7 @@ export async function home() {
       webContainer.appendChild(topicsDiv);
   
       container.appendChild(webContainer);
-    };
+    });
   }
   
 
