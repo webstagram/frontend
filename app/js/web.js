@@ -16,12 +16,13 @@ export async function web() {
   let webId = urlParams.get('webid');
   openLoader();
   let data = await fetchWebPosts(webId);
-  let webTitle = data.webTitle;
+  let title = data.webTitle;
   let webBackBtn = document.getElementById('web-back-btn');
-  webBackBtn.innerHTML = `
-  <img class="back-btn" src="https://webstagram-backend-photo-bucket.s3.eu-west-1.amazonaws.com/icons/back.svg" alt="Back icon"/>
-  ${webTitle}
-  `
+  const webTitle = document.createElement('h1');
+  webTitle.className = 'title';
+  webTitle.textContent = title;
+  webBackBtn.appendChild(webTitle);
+
   let webPosts = data.webPosts;
   // Start populating the post containers:
   // Will have to select the posts element  by id, then add a post container with post info each time.
@@ -38,10 +39,8 @@ export async function web() {
         postTopic.className = "post-topic";
         postTopic.textContent = post.Topic;
         postHeader.appendChild(postTopic);
-        let postDate = document.createElement("time");
-        postDate.className = "post-date";
-        postDate.setAttribute("datetime", post.TimeCreated);
-        postHeader.appendChild(postDate);
+
+
 
         let postCarouselContainer = document.createElement("section");
         postCarouselContainer.className = "post-carousel-container";
