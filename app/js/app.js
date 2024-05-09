@@ -6,6 +6,20 @@ import { add_web } from "./add_web.js";
 import { closePopup } from "./popup.js";
 import { routeButton } from "./PathManager.js";
 
+const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+}
+
+if (prefersDarkScheme.matches) {
+  toggleDarkMode();
+}
+
+prefersDarkScheme.addEventListener("change", () => {
+  toggleDarkMode();
+});
+
 let logoutBtn = document.getElementById("logout-btn");
 logoutBtn.addEventListener("click", (event) => {
       logout();
