@@ -14,7 +14,9 @@
   max-width: 20em;
   min-width: 15em;
 }
-
+.dark-mode #login-web {
+  filter: invert(100%);
+}
 #login-btn {
   background-color: var(--aqua);
   border: none;
@@ -45,4 +47,8 @@
   #login-btn img {
     margin-left: 0.5em;
     height:3rem;
+  }
+
+  .dark-mode #login-btn img {
+    filter: invert(100%);
   }
