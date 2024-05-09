@@ -80,7 +80,7 @@
 .web-titles {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   text-align: start;
   flex-wrap: wrap;
