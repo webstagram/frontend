@@ -69,6 +69,9 @@
   .web-container {
     font-size: 0.7em;
   }
+  .topic{
+    font-size: 1.4em;
+  }
 }
 
 .web-container:hover {
