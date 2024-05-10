@@ -1,7 +1,8 @@
 #search{
-  display: grid;
-  grid-template-columns: 29fr 1fr;
-  min-width: 70%;
+  display: flex;
+  justify-content: space-between;
+  min-width: calc(90% - 4em);
+  width: auto;
   min-height: 2.1em;
   border-radius: 2em;
   border: none;
@@ -17,8 +18,8 @@
   border: none;
   font-size: 1em;
   background-color: transparent;
-  overflow: ellipsis;
   color: var(--black);
+  width: 100%;
 }
 #search-bar:focus {
   outline: none;
