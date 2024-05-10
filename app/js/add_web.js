@@ -89,7 +89,8 @@ export function add_web() {
       remove_post_btn.className = 'circular-btn';
       remove_post_btn.type = 'circular-button';
       remove_post_btn.id = 'remove-post-button';
-      remove_post_btn.innerText = 'X';//'✗';
+      remove_post_btn.innerText = 'X';
+      remove_post_btn.title = 'Remove this post';
 
       post.appendChild(title_container);
       post.appendChild(images_container);
