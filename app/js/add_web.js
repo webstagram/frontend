@@ -89,8 +89,8 @@ export async function add_web() {
     const section = document.getElementById('add-web-title-container');
 
     section.appendChild(createLabel('tag users'));
-    section.appendChild(createInput('tag', 'email', true));
     section.appendChild(createDataList('tag', listOfUserName));
+    section.appendChild(createInput('tag', 'email', true));
     section.appendChild(createP('Use commas ( , ) to separate tag. Insert up to 3 tags.'));
   }
   
