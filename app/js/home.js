@@ -152,10 +152,15 @@ export async function home() {
 
       const topicsDiv = document.createElement('div');
       topicsDiv.className = 'topics';
+      const tagsDiv = document.createElement('div');
+      tagsDiv.className = 'tags';
   
       // Split the topics string into an array and create an element for each topic
       let webTopicsTemp = web.Topics.split(', ');
       let distinctWebTopics = [...new Set(webTopicsTemp)];
+
+      let webTagsTemp = web.Tags;
+      let distinctWebTags = [...new Set(webTagsTemp)];
 
       distinctWebTopics.forEach(topic => {
         const topicElement = document.createElement('h5');
@@ -168,6 +173,19 @@ export async function home() {
         })
         topicsDiv.appendChild(topicElement);
       });
+
+      distinctWebTags.forEach(tag => {
+        const tagElement = document.createElement('h5');
+        tagElement.className = 'tag';
+        tagElement.textContent = `@${tag}`;
+        tagElement.addEventListener('click', (event) => {
+          event.stopImmediatePropagation();
+          searchBar.value = tagElement.textContent;
+          updateWebDisplay();
+        })
+        tagsDiv.appendChild(tagElement);
+      });
+
       webTitlesDiv.appendChild(webTitle);
       webTitlesDiv.appendChild(username);
   
@@ -175,6 +193,9 @@ export async function home() {
       webContainer.appendChild(webTitlesDiv);
       webContainer.appendChild(likeContainer);
       webContainer.appendChild(topicsDiv);
+      if (tagsDiv.childElementCount > 0){
+        webContainer.appendChild(tagsDiv);
+      }
   
       container.appendChild(webContainer);
     });

@@ -60,7 +60,9 @@
   background-color: var(--white);
   display: grid;
   grid-template-columns: 7.5em 4fr 1fr;
-  grid-auto-flow: column;
+  /* grid-template-rows: 3fr 1fr 1fr; */
+  /* grid-auto-flow: row; */
+  /* grid-auto-rows: .5fr; */
   grid-gap: .5em;
   align-items: center;
   justify-content: center;
@@ -126,6 +128,8 @@
   grid-row-start: 2;
   font-size: 1.2em;
   font-weight: 200;
+  grid-column: span 3;
+  grid-row: span 1;
 }
 
 .topic {
@@ -137,6 +141,34 @@
   cursor: pointer;
 }
 .topic:hover{
+  background-color: var(--black);
+  color: var(--soft-gray);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  gap: 0.5em;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  font-size: 1.2em;
+  font-weight: 200;
+  grid-column: span 3;
+  grid-row: span 1;
+}
+
+.tag {
+  background-color: var(--soft-gray);
+  color: var(--hovername);
+  border-radius: 1.2rem;
+  padding: 0.1em 0.5em;
+  margin: 0;
+  text-align: center;
+  cursor: pointer;
+}
+.tag:hover{
   background-color: var(--black);
   color: var(--soft-gray);
 }
