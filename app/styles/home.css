@@ -56,6 +56,14 @@
   }
 }
 
+#no-results-msg {
+  font-size: 1.5em;
+  font-weight: 200;
+  line-height: 1.5;
+  text-align: center;
+  display: none;
+}
+
 .web-container {
   background-color: var(--white);
   display: grid;
