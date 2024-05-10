@@ -9,6 +9,8 @@
   --gray: #727272;
   --hovername: #0000ff;
   --black: #000000;
+  --cancel: rgb(224, 55, 55);
+  --cancelhover: rgb(132, 31, 31);
 
   --aqua-dark: #01a5a5;
   --aqua-selected-dark: #008383;
@@ -20,6 +22,8 @@
   --gray-dark: #aaaaaa;
   --hovername-dark: #3172B6;
   --black-dark: #AAAAAA;
+  --cancel-dark: rgb(224, 106, 106);
+  --cancelhover-dark: rgb(137, 55, 55);
 
   --nav-height: 6em;
   --main-width: 90vw;
@@ -39,6 +43,8 @@
   --gray: var(--gray-dark);
   --hovername: var(--hovername-dark);
   --black: var(--black-dark);
+  --cancel: var(--cancel-dark);
+  --cancelhover: var(--cancelhover-dark);
 }
 
 
