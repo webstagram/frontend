@@ -1,7 +1,7 @@
 #search{
   display: flex;
   justify-content: space-between;
-  min-width: calc(90% - 4em);
+  min-width: calc(90% - 8em);
   width: auto;
   min-height: 2.1em;
   border-radius: 2em;
@@ -181,4 +181,13 @@
 }
 .dark-mode .like-icon {
   filter: invert(100%);
+}
+
+#home-btns-section{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: end;
+  align-content: center;
+  gap: 1em;
 }
