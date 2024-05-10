@@ -73,11 +73,11 @@ export function add_web() {
       images_container.className = 'add-post-images-container';
       let images_label = document.createElement('label');
       images_label.className = 'add-post-images-label';
-      images_label.innerText = 'select photos';
+      images_label.innerText = 'select photos (JPEG/PNG ONLY)';
       let image_select = document.createElement('input');
       image_select.className = 'add-post-images';
       image_select.type = 'file';
-      image_select.accept = 'image/*';
+      image_select.accept = 'image/jpeg, image/png';
       image_select.name = 'selected-image';
       image_select.min = 1;
       image_select.max = 5;

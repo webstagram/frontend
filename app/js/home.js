@@ -25,7 +25,6 @@ export async function home() {
       style: webContainer.style
     };
   });
-  // const urlParams = new URLSearchParams(window.location.search);
   let searchParams = urlParams.get('search');
   if(search){
     searchBar.value = searchParams;
@@ -34,6 +33,7 @@ export async function home() {
   window.addEventListener('resize', changeSearchText);
   function changeSearchText(){
     var searchBar = document.getElementById('search-bar');
+    if(searchBar){
     var smallScreenPlaceholder = "Search your interests...";
     var largeScreenPlaceholder = "Search for people, topics or webs you are interested in...";
     
@@ -41,6 +41,7 @@ export async function home() {
         searchBar.setAttribute('placeholder', smallScreenPlaceholder);
     } else {
         searchBar.setAttribute('placeholder', largeScreenPlaceholder);
+    }
     }
   }
 
@@ -182,7 +183,7 @@ export async function home() {
 
   function updateWebDisplay() {
     let searchText = searchBar.value.toLowerCase().trim();
-
+    window.scrollTo(0, 0);
 
     Object.values(webs).forEach(web => {
       let { title, username, topics } = web;
