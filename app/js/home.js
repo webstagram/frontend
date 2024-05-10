@@ -123,8 +123,10 @@ export async function home() {
       likeIcon.className = 'like-icon';
       if (webLikeStatus > 0){
         likeIcon.src = 'icons/liked.svg';
+        likeIcon.title = 'Unlike this web';
       } else {
         likeIcon.src = 'icons/unliked.svg';
+        likeIcon.title = 'Like this web';
       }
       likeIcon.addEventListener('click', async (event) => {
         event.stopImmediatePropagation();
@@ -133,12 +135,14 @@ export async function home() {
           likeCount.textContent = webLikeCount - 1;
           webLikeCount -= 1;
           webLikeStatus = 0;
+          likeIcon.title = 'Like this web';
           await unlikeWeb(web.WebId);
         } else {
           likeIcon.src = 'icons/liked.svg';
           likeCount.textContent = webLikeCount + 1;
           webLikeCount += 1;
           webLikeStatus = 1;
+          likeIcon.title = 'Unlike this web';
           await likeWeb(web.WebId);
         }
       });

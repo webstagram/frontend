@@ -296,6 +296,12 @@ h1, h2, h3, h4, h5, h6 {
   animation: logo 2s infinite
 }
 
+@keyframes logo {
+  50% {
+    transform: rotate(360deg) scale(4);
+  }
+}
+
 .header {
   position: fixed;
   transform: translateY(0);
