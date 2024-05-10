@@ -4,6 +4,8 @@ import { fetchWithAuth } from "./authRequest.js";
 import { openLoader, closeLoader } from "./loader.js";
 
 export async function home() {
+  const noResultsMsg = document.getElementById('no-results-msg');
+
   const urlParams = new URLSearchParams(window.location.search);
   changeSearchText();
   let badWeb = urlParams.get('badWeb');
@@ -206,7 +208,7 @@ export async function home() {
   function updateWebDisplay() {
     let searchText = searchBar.value.toLowerCase().trim();
     window.scrollTo(0, 0);
-
+    let showNoResultsMsg = true;
     Object.values(webs).forEach(web => {
       let { title, username, topics, tags } = web;
 
@@ -220,10 +222,17 @@ export async function home() {
 
       if (titleString.includes(searchText) || usernameString.includes(searchText) || topicStringArray.some(topicString => topicString.includes(searchText)) || tagStringArray.some(tagString => tagString.includes(searchText))) {
         web.style.display = 'grid';
+        showNoResultsMsg = false;
       } else {
         web.style.display = 'none';
       }
     });
+
+    if (showNoResultsMsg) {
+      noResultsMsg.style.display = 'block';
+    } else {
+      noResultsMsg.style.display = 'none';
+    }
   }
   routeButton("add-web-btn", "/?path=create");
   let clearButton = document.getElementById("search-clear")
