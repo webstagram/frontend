@@ -22,6 +22,7 @@ export async function home() {
       title: webContainer.querySelector('.web-title'),
       username: webContainer.querySelector('.username'),
       topics: (webContainer.querySelector('.topics')),
+      tags: (webContainer.querySelector('.tags')),
       style: webContainer.style
     };
   });
@@ -207,13 +208,17 @@ export async function home() {
     window.scrollTo(0, 0);
 
     Object.values(webs).forEach(web => {
-      let { title, username, topics } = web;
+      let { title, username, topics, tags } = web;
 
       let titleString = title.innerText.toLowerCase().trim();
       let usernameString = username.innerText.toLowerCase().trim();
       let topicStringArray = Array.from(topics.querySelectorAll('.topic')).map(topic => topic.innerText.toLowerCase().trim());
+      let tagStringArray = [];
+      if (tags){
+        tagStringArray = Array.from(tags.querySelectorAll('.tag')).map(tag => tag.innerText.toLowerCase().trim());
+      }
 
-      if (titleString.includes(searchText) || usernameString.includes(searchText) || topicStringArray.some(topicString => topicString.includes(searchText))) {
+      if (titleString.includes(searchText) || usernameString.includes(searchText) || topicStringArray.some(topicString => topicString.includes(searchText)) || tagStringArray.some(tagString => tagString.includes(searchText))) {
         web.style.display = 'grid';
       } else {
         web.style.display = 'none';
