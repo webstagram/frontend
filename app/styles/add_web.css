@@ -143,11 +143,15 @@
 
 #remove-post-button { 
   align-self: center;
-  background-color: transparent;
-  color: var(--cancel);
+  background-color: var(--cancel);
+  color: var(--white);
   border: 0.075em solid var(--cancel);
   width: 1.5em;
   height: 1.5em;
+ }
+ #remove-post-button:hover { 
+  background-color: var(--cancelhover);
+  border: 0.075em solid var(--cancelhover);
  }
 
 .add-post-images {
