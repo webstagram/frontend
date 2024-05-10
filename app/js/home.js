@@ -33,6 +33,7 @@ export async function home() {
   window.addEventListener('resize', changeSearchText);
   function changeSearchText(){
     var searchBar = document.getElementById('search-bar');
+    if(searchBar){
     var smallScreenPlaceholder = "Search your interests...";
     var largeScreenPlaceholder = "Search for people, topics or webs you are interested in...";
     
@@ -40,6 +41,7 @@ export async function home() {
         searchBar.setAttribute('placeholder', smallScreenPlaceholder);
     } else {
         searchBar.setAttribute('placeholder', largeScreenPlaceholder);
+    }
     }
   }
 
