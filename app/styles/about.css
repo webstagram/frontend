@@ -20,9 +20,16 @@
   width: 7em;
   aspect-ratio: 1/1;
   object-fit: cover;
-  border: 0.2em solid var(--blue);
-  cursor: pointer;
+  cursor: unset;
 }
+
 .dark-mode .about-image {
   filter: invert(100%);
+}
+.about-subtitle{
+  font-size: 1.2em;
+  font-weight: 200;
+  margin: 0;
+  line-height: 2em;
+  width: fit-content;
 }
