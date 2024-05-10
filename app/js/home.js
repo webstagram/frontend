@@ -1,3 +1,4 @@
+import { decodeJWT } from "./JWTManager.js";
 import { routeWithoutRefresh, routeButton } from "./PathManager.js";
 import { openAlert } from "./alert.js";
 import { fetchWithAuth } from "./authRequest.js";
@@ -234,10 +235,22 @@ export async function home() {
       noResultsMsg.style.display = 'none';
     }
   }
+
+  
+  // routeButton("tagged-web-btn", `/?search=@${JWTJSON.userName}`);
+  const tagBtn = document.getElementById("tagged-web-btn");
+  tagBtn.addEventListener('click', (event) => {
+    const JWTJSON = decodeJWT();
+    searchBar.value=`@${JWTJSON.userName}`;
+    updateWebDisplay();
+  })
   routeButton("add-web-btn", "/?path=create");
   let clearButton = document.getElementById("search-clear")
   clearButton.addEventListener('click', (event) => {
     searchBar.value = "";
     updateWebDisplay();
   });
+
+  
+  
 }
