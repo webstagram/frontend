@@ -178,7 +178,7 @@ export async function home() {
 
   function updateWebDisplay() {
     let searchText = searchBar.value.toLowerCase().trim();
-
+    window.scrollTo(0, 0);
 
     Object.values(webs).forEach(web => {
       let { title, username, topics } = web;
