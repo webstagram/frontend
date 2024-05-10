@@ -25,7 +25,6 @@ export async function home() {
       style: webContainer.style
     };
   });
-  // const urlParams = new URLSearchParams(window.location.search);
   let searchParams = urlParams.get('search');
   if(search){
     searchBar.value = searchParams;
