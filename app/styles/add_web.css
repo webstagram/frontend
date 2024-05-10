@@ -13,7 +13,10 @@
     flex-direction: column;
   }
   .topic{
-    font-size: 1.4em;
+    font-size: 1em;
+  }
+  .tag {
+    font-size: 1em;
   }
 }
 
