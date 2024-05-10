@@ -1,3 +1,4 @@
+import { decodeJWT } from "./JWTManager.js";
 import { routeWithoutRefresh, routeButton } from "./PathManager.js";
 import { openAlert } from "./alert.js";
 import { fetchWithAuth } from "./authRequest.js";
@@ -22,6 +23,7 @@ export async function home() {
       title: webContainer.querySelector('.web-title'),
       username: webContainer.querySelector('.username'),
       topics: (webContainer.querySelector('.topics')),
+      tags: (webContainer.querySelector('.tags')),
       style: webContainer.style
     };
   });
@@ -152,10 +154,15 @@ export async function home() {
 
       const topicsDiv = document.createElement('div');
       topicsDiv.className = 'topics';
+      const tagsDiv = document.createElement('div');
+      tagsDiv.className = 'tags';
   
       // Split the topics string into an array and create an element for each topic
       let webTopicsTemp = web.Topics.split(', ');
       let distinctWebTopics = [...new Set(webTopicsTemp)];
+
+      let webTagsTemp = web.Tags;
+      let distinctWebTags = [...new Set(webTagsTemp)];
 
       distinctWebTopics.forEach(topic => {
         const topicElement = document.createElement('h5');
@@ -168,6 +175,19 @@ export async function home() {
         })
         topicsDiv.appendChild(topicElement);
       });
+
+      distinctWebTags.forEach(tag => {
+        const tagElement = document.createElement('h5');
+        tagElement.className = 'tag';
+        tagElement.textContent = `@${tag}`;
+        tagElement.addEventListener('click', (event) => {
+          event.stopImmediatePropagation();
+          searchBar.value = tagElement.textContent;
+          updateWebDisplay();
+        })
+        tagsDiv.appendChild(tagElement);
+      });
+
       webTitlesDiv.appendChild(webTitle);
       webTitlesDiv.appendChild(username);
   
@@ -175,6 +195,9 @@ export async function home() {
       webContainer.appendChild(webTitlesDiv);
       webContainer.appendChild(likeContainer);
       webContainer.appendChild(topicsDiv);
+      if (tagsDiv.childElementCount > 0){
+        webContainer.appendChild(tagsDiv);
+      }
   
       container.appendChild(webContainer);
     });
@@ -186,23 +209,39 @@ export async function home() {
     window.scrollTo(0, 0);
 
     Object.values(webs).forEach(web => {
-      let { title, username, topics } = web;
+      let { title, username, topics, tags } = web;
 
       let titleString = title.innerText.toLowerCase().trim();
       let usernameString = username.innerText.toLowerCase().trim();
       let topicStringArray = Array.from(topics.querySelectorAll('.topic')).map(topic => topic.innerText.toLowerCase().trim());
+      let tagStringArray = [];
+      if (tags){
+        tagStringArray = Array.from(tags.querySelectorAll('.tag')).map(tag => tag.innerText.toLowerCase().trim());
+      }
 
-      if (titleString.includes(searchText) || usernameString.includes(searchText) || topicStringArray.some(topicString => topicString.includes(searchText))) {
+      if (titleString.includes(searchText) || usernameString.includes(searchText) || topicStringArray.some(topicString => topicString.includes(searchText)) || tagStringArray.some(tagString => tagString.includes(searchText))) {
         web.style.display = 'grid';
       } else {
         web.style.display = 'none';
       }
     });
   }
+
+  
+  // routeButton("tagged-web-btn", `/?search=@${JWTJSON.userName}`);
+  const tagBtn = document.getElementById("tagged-web-btn");
+  tagBtn.addEventListener('click', (event) => {
+    const JWTJSON = decodeJWT();
+    searchBar.value=`@${JWTJSON.userName}`;
+    updateWebDisplay();
+  })
   routeButton("add-web-btn", "/?path=create");
   let clearButton = document.getElementById("search-clear")
   clearButton.addEventListener('click', (event) => {
     searchBar.value = "";
     updateWebDisplay();
   });
+
+  
+  
 }
