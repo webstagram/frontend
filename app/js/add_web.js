@@ -18,15 +18,6 @@ export function add_web() {
     return label;
   }
 
-  function createInput(name, type = 'text') {
-    if (!name) return undefined;
-    const input = document.createElement('input');
-    input.className = 'add-post-title-input';
-    input.name = name;
-    input.type = type;
-    return input;
-  }
-
   function createImg(src) {
     const img = document.createElement('img');
     img.width = 200;
@@ -71,7 +62,7 @@ export function add_web() {
       title_input.name = 'Topic';
       title_input.type = 'text';
       title_input.minLength = 1;
-      title_input.maxLength = 15;
+      title_input.maxLength = 10;
       title_container.appendChild(title_label);
       title_container.appendChild(title_input);
 
