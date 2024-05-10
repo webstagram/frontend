@@ -179,6 +179,9 @@
   cursor: pointer;
   padding: 0.5em;
 }
+.like-icon:hover{
+  transform: scale(1.1);
+}
 .dark-mode .like-icon {
   filter: invert(100%);
 }

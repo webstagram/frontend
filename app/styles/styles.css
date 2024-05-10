@@ -215,7 +215,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--white);
   justify-self: end;
   margin-left: auto;
-  width: 3.5em;
+  width: 2.5em;
   cursor: pointer;
 }
 
@@ -342,14 +342,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .dark-mode .back-btn {
   filter: invert(100%); 
-}
-
-.rotate {
-  transition: transform 0.3s ease;
-}
-
-.rotate:hover {
-  transform: rotate(180deg);
 }
 
 .circular-btn {
