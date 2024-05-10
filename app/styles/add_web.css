@@ -22,6 +22,10 @@
   margin-left: auto;
 }
 
+.dark-mode #upload-img {
+  filter: invert(100%);
+}
+
 #add-web-form {
   display: flex;
   width: clamp(10em, 100%, 120em);
