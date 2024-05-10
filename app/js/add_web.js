@@ -18,11 +18,11 @@ export async function add_web() {
     return label;
   }
 
-  function createInput(name, type = 'text', multiple = false) {
+  function createInput(id, name, type = 'text', multiple = false) {
     if (!name) return undefined;
     const input = document.createElement('input');
     input.className = 'add-web-title-input';
-    input.id = name;
+    input.id = id;
     input.name = name;
     input.type = type;
     input.multiple = multiple;
@@ -90,7 +90,7 @@ export async function add_web() {
 
     section.appendChild(createLabel('tag users'));
     section.appendChild(createDataList('tag', listOfUserName));
-    section.appendChild(createInput('tag', 'email', true));
+    section.appendChild(createInput('tagInput', 'tag', 'email', true));
     section.appendChild(createP('Use commas ( , ) to separate tag. Insert up to 3 tags.'));
   }
   
@@ -249,7 +249,7 @@ export async function add_web() {
       return openAlert('Please ensure all posts have an image');
     }
     const webTitle = document.getElementById("webTitle").value;
-    let tags = document.getElementById('tag').value.split(',');
+    let tags = document.getElementById('tagInput').value.split(',');
     
     if (isValid || formData.length === 0 || webTitle.length === 0){
       add_web_save_btn.disabled = false;
@@ -262,7 +262,11 @@ export async function add_web() {
       if (containsDuplicates) return openAlert('Please make sure all the tags are unique');
     }
 
-    tags.map((item) => item.replace('@', ''));
+
+    tags = tags.map((item) => item.replace('@', ''));
+    tags = tags.filter((item) => listOfUserName.includes(item));
+    console.log(tags);
+    return 'lol';
     openLoader();
 
     let sendMeToBackend = {};
