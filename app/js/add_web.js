@@ -91,7 +91,7 @@ export async function add_web() {
     section.appendChild(createLabel('tag users'));
     section.appendChild(createDataList('tag', listOfUserName));
     section.appendChild(createInput('tagInput', 'tag', 'email', true));
-    section.appendChild(createP('Use commas ( , ) to separate tag. Insert up to 3 tags.'));
+    section.appendChild(createP('Use commas ( , ) to separate tags. Insert up to 3 tags.'));
   }
   
   addDataList();
@@ -258,15 +258,16 @@ export async function add_web() {
 
     if (tags.length !== 0) {
       add_web_save_btn.disabled = false;
-      const containsDuplicates = tags.length !== new Set(tags);
-      if (containsDuplicates) return openAlert('Please make sure all the tags are unique');
+      debugger;
+      const tagSettemp = new Set(tags);
+      const containsDuplicates = (tags.length != tagSettemp.size);
+      if (containsDuplicates) return openAlert('Please make sure all the tags are unique.');
+      if (tags.length>3) return openAlert('Cannot tag more than 3 users.');
     }
 
 
     tags = tags.map((item) => item.replace('@', ''));
     tags = tags.filter((item) => listOfUserName.includes(item));
-    console.log(tags);
-    return 'lol';
     openLoader();
 
     let sendMeToBackend = {};
