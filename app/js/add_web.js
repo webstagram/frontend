@@ -4,7 +4,7 @@ import { fetchWithAuth } from "./authRequest.js";
 import { openAlert } from "./alert.js";
 import { closeLoader, openLoader } from "./loader.js";
 
-export function add_web() {
+export async function add_web() {
   let no_post_msg = document.getElementById('add-web-no-posts-msg');
   let add_post_btn = document.getElementById('add-web-add-post-btn');
   let posts_container = document.getElementById('posts-container');
@@ -18,11 +18,42 @@ export function add_web() {
     return label;
   }
 
+  function createInput(name, type = 'text', multiple = false) {
+    if (!name) return undefined;
+    const input = document.createElement('input');
+    input.className = 'add-web-title-input';
+    input.id = name;
+    input.name = name;
+    input.type = type;
+    input.multiple = multiple;
+    input.setAttribute('list', name);
+    return input;
+  }
+
+  function createDataList(name, options) {
+    const dataList = document.createElement('datalist');
+    dataList.id = name;
+    
+    options.forEach((item) => {
+      const option = document.createElement('option');
+      option.value = `@${item}`;
+      dataList.appendChild(option);
+    });
+
+    return dataList;
+  }
+
   function createImg(src) {
     const img = document.createElement('img');
     img.width = 200;
     img.src = src;
     return img;
+  }
+
+  function createP(text) {
+    const p = document.createElement('p');
+    p.innerHTML = text;
+    return p;
   }
 
   function createTextArea(name) {
@@ -38,6 +69,34 @@ export function add_web() {
     });
     return textArea;
   }
+
+  async function getAllUsers() {
+    openLoader();
+    const response = await fetchWithAuth('users/');
+    
+    if (response.status !== 200) return [];
+    
+    const data = await response.json();
+    
+    closeLoader();
+    return data;
+  }
+
+
+  const listOfUserName = await getAllUsers();
+  
+  function addDataList () {
+    const section = document.getElementById('add-web-title-container');
+
+    section.appendChild(createLabel('tag users'));
+    section.appendChild(createInput('tag', 'email', true));
+    section.appendChild(createDataList('tag', listOfUserName));
+    section.appendChild(createP('Use commas ( , ) to separate tag. Insert up to 3 tags.'));
+  }
+  
+  addDataList();
+
+
 
   add_post_btn.addEventListener('click', () => {
     let posts = posts_container.querySelectorAll('.add-post-container');
@@ -189,16 +248,27 @@ export function add_web() {
       add_web_save_btn.disabled = false;
       return openAlert('Please ensure all posts have an image');
     }
-    let webTitle = document.getElementById("webTitle").value;
+    const webTitle = document.getElementById("webTitle").value;
+    let tags = document.getElementById('tag').value.split(',');
+    
     if (isValid || formData.length === 0 || webTitle.length === 0){
       add_web_save_btn.disabled = false;
       return openAlert('Please create a post and fill out all the fields');
     } 
+
+    if (tags.length !== 0) {
+      add_web_save_btn.disabled = false;
+      const containsDuplicates = tags.length !== new Set(tags);
+      if (containsDuplicates) return openAlert('Please make sure all the tags are unique');
+    }
+
+    tags.map((item) => item.replace('@', ''));
     openLoader();
 
     let sendMeToBackend = {};
     sendMeToBackend.WebName = webTitle;
     sendMeToBackend.Posts = formData;
+    sendMeToBackend.Tags = tags;
     let authRequestObject = {
       "headers": {"Content-Type": "application/json"},
       "method": "POST",

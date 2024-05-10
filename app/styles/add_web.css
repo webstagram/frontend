@@ -17,6 +17,9 @@
   }
 }
 
+#add-web-no-posts-msg {
+  text-align: center;
+}
 
 #add-web-save-btn {
   margin-left: auto;
@@ -42,9 +45,10 @@
 
 #add-web-title-container {
   display: flex;
+  width: 100%;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  gap: 1em;
 }
 
 #add-web-title-label {
@@ -55,9 +59,9 @@
 }
 
 .add-web-title-input {
-  min-width: 30%;
   border-radius: 5em;
   min-height: 1.5em;
+  min-width: 80%;
   border: none;
   background-color: var(--soft-gray);
   padding: 0.5em 1em;
